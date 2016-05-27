@@ -1,0 +1,273 @@
+\documentclass[final,twocolumn,5p]{elsarticle}
+% \documentclass{sig-alternative}
+% \documentclass[conference]{IEEEtran}
+% \documentclass[smallextended]{svjour3}
+% \documentclass[preprint,12pt,3p,number]{elsarticle}
+\usepackage{multirow}
+% \usepackage{natbib}
+\usepackage{color}
+\usepackage{graphics} 
+% \usepackage{cite}
+\usepackage{rotating}
+\usepackage{eqparbox}
+\usepackage{graphics}
+\usepackage{colortbl} 
+%\usepackage{times}
+ \usepackage{mathptmx} \usepackage[scaled=.90]{helvet} \usepackage{courier}
+\usepackage{balance}
+\usepackage{picture}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage[export]{adjustbox}
+\renewcommand{\footnotesize}{\scriptsize}
+\definecolor{lightgray}{gray}{0.8}
+\definecolor{darkgray}{gray}{0.6}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+%%% graph
+\newcommand{\crule}[3][darkgray]{\textcolor{#1}{\rule{#2}{#3}}}
+%\newcommand{\rone}{\crule{1mm}{1.95mm}}
+%\newcommand{\rtwo}{\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}}
+%\newcommand{\rthree}{\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}}
+%\newcommand{\rfour}{\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}} 
+%\newcommand{\rfive}{\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}}
+\newcommand{\quart}[3]{\begin{picture}(100,6)%1
+{\color{black}\put(#3,3){\circle*{4}}\put(#1,3){\line(1,0){#2}}}\end{picture}}
+\definecolor{Gray}{gray}{0.95}
+\definecolor{LightGray}{gray}{0.975}
+% \newcommand{\rone}{}
+% \newcommand{\rtwo}{}
+% \newcommand{\rthree}{}
+% \newcommand{\rfour}{} 
+% \newcommand{\rfive}{}
+\newcommand{\wei}[1]{\textcolor{red}{Wei: #1}} 
+\newcommand{\Menzies}[1]{\textcolor{red}{Dr.Menzies: #1}} 
+
+%% timm tricks
+\newcommand{\bi}{\begin{itemize}[leftmargin=0.4cm]}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+\newcommand{\tion}[1]{\S\ref{sect:#1}}
+\newcommand{\fig}[1]{Figure~\ref{fig:#1}}
+\newcommand{\tab}[1]{Table~\ref{tab:#1}}
+\newcommand{\eq}[1]{Equation~\ref{eq:#1}}
+
+%% space saving measures
+
+\usepackage[shortlabels]{enumitem}  
+\usepackage{url}
+% \def\baselinestretch{1}
+
+
+% \setlist{nosep}
+%  \usepackage[font={small}]{caption, subfig}
+% \setlength{\abovecaptionskip}{1ex}
+%  \setlength{\belowcaptionskip}{1ex}
+
+%  \setlength{\floatsep}{1ex}
+%  \setlength{\textfloatsep}{1ex}
+%  \newcommand{\subparagraph}{}
+
+% \usepackage[compact,small]{titlesec}
+% \DeclareMathSizes{7}{7}{7}{7} 
+% \setlength{\columnsep}{7mm}
+
+\begin{document}
+\begin{frontmatter}
+\title{On the Impact on Inaccurate Early Life Cycle\\ Size Estimation on Software Effort Estimation}
+\author{George Mathew\corref{cor1}}
+\ead{george.meg91@gmail.com}
+\author{Tim Menzies}
+\ead{tim.menzies@gmail.com}
+\author{Jairus Hihn}
+\ead{ jairus.m.hihn@jpl.nasa.gov}
+\cortext[cor1]{Corresponding author: Tel:XXX(Wei)}
+\address{Department of Computer Science, North Carolina State University, Raleigh, NC, USA,\\
+Jet Propulsion Laboratory, Pasadena, CA}
+
+
+
+% % \numberofauthors{1}
+% \author{Wei Fu \and Tim Menzies \and Xipeng Shen}
+% \institute{North Carolina State University, Raleigh, NC, USA
+%       Wei Fu \email{w}}
+% % \email{fuwei.ee \and tim.menzies@gmail.com \and xshen5@ncsu.edu }
+
+% \thispagestyle{plain}
+% \pagestyle{plain}
+\begin{abstract}
+\textbf{Context:} For  large systems (e.g. large projects run by government or
+defence departments), it is common to lobby for the development funds prior to commencing the work.
+For such software systems, it is important to have an (approximately) accurate    early lifecycle effort estimate  since (1)~large sums of money are involved and (2)~once finds are allocated, it can be problematic
+to lobby for further funds. However, before the software is built, the size of the final system is not
+known. Boehm cautions that these estimates can wrong by up to a factor of 400\% in which case, errors in   early life cycle estimates of final size would be the dominate factor leading to inaccurate effort estimates. \\
+\textbf{Objective:} To check  the impact of   uncertainty in  effort estimates  due
+to inaccuracies in early life cycle size estimates. \\
+\textbf{Method:} (1)~Explore ``big software'' repositories to record  the distribution in the {\em error   ratio}
+  $E=S_0/S_1$ where $S_0$ is the early life cycle size estimate and $S_1$ is the actual final size of the software.   (2)~Conduct
+analytical and perturbation-based  analysis of the COCOMO effort model (COCOMO relies on size estimates).
+(3)~Report the size of the  effort estimate errors seen in the perturbations  due to  the $E$ distribution of real-world projects.\\
+\textbf{Results:} In the historical record, the range of $E$ is surprisingly small: three quarters of  projects show $E$ values
+less than 75\%. A perturbation analysis of the COCOMO model for error $E$ values ranging from
+zero to 75\% shows only a modest increase in the associated effort estimates generated by COCOMO (e,g, 39\% to 44\% in the  median magnitude of relative error). An analytical evaluation of the COCOMO equation shows why this is so: errors in the size estimate
+can be dwarfed by the product of all the other factors in COCOMO.\\
+\textbf{Conclusion:} (1)~Errors in project estimates taken from early lifecycle information about projects
+can unduly effect size estimates. (2)~The size of that effect, due to inaccurracies in ealry life cycle size estimates, is much less than commonly believed.
+(3)~Contrary to prior belief, inaccuracies in early life cycle estimates of final size is   {\em not} the dominate factor leading to inaccurate effort estimates.
+\end{abstract}
+\end{frontmatter}
+
+% % A category with the (minimum) three required fields
+% \vspace{1mm}
+% \noindent
+% {\bf Categories/Subject Descriptors:} 
+% D.2.8 [Software Engineering]: Product metrics;
+% I.2.6 [Artificial Intelligence]: Induction
+
+ 
+\vspace{1mm}
+\noindent
+{\bf Keywords:} defect prediction, CART, random forest,
+differential evolution,
+search-based software engineering.
+%  \maketitle 
+\pagenumbering{arabic} %XXX delete before submission
+
+\section{Introduction}
+
+\section{Background}
+A frequenrtly asked question about this work is why 
+Many different organizations develop software in many different ways. Some take an agile ``devops'' approach 
+where developers work in micro ``sprints'' (a day to a month of work) and then adjust their development goals using
+the 
+feedback learned during that spring. The developers in such organizations are free to adjust the deliverables, and
+what  functionality is delivered when, 
+
+  
+ 
+ 
+
+\section*{Acknowledgments}
+The work has partially funded by a National Science Foundation CISE CCF award \#1506586.
+ 
+\vspace*{0.5mm}
+ 
+ 
+% \bibliographystyle{plain}
+\bibliographystyle{elsarticle-num}
+% \balance
+\bibliography{tuningpredictor}  
+
+   
+
+
+
+%   %%%%parameters for F %%%%%%
+% \begin{table*}[!ht]
+ 
+% \resizebox{\textwidth}{!}{
+% % \renewcommand{\baselinestretch}{0.9}
+% \scriptsize
+% \centering
+%   \begin{tabular}{|c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |}
+%     \hline
+    
+%   \begin{tabular}[c]{@{}c@{}}Learner \\ Name\end{tabular}&Parameters  & Default &antV0&antV1&antV2&camelV0&camelV1&ivy&jeditV0&jeditV1&jeditV2&log4j&lucene&poiV0&poiV1&synapse&velocity&xercesV0&xercesV1\\ 
+%  \hline
+% \multirow{8}{*}{\begin{tabular}[c]{@{}c@{}}Where\\based\\ Learner\end{tabular}}
+% & threshold& 0.5& 0.04& 0.44& 0.44& 0.98& 0.65& 0.77& 1& 0.65& 0.98& 0.44& 0.44& 0.87& 0.04& 0.77& 0.24& 0.44& 0.77\\ \cline{2-20}
+% & infoPrune& 0.33& 0.51& 0.68& 0.88& 0.47& 0.07& 0.31& 0.48& 0.68& 0.57& 0.12& 0.68& 0.01& 0.51& 0.14& 0.54& 0.68& 0.14\\ \cline{2-20}
+% & min\_sample\_size& 4& 6& 4& 6& 1& 6& 8& 8& 4& 6& 7& 4& 9& 6& 2& 8& 4& 8\\ \cline{2-20}
+% & min\_Size& 0.5& 0.18& 0.4& 0.56& 0.51& 0.65& 0.59& 0.97& 0.4& 0.51& 0.8& 0.4& 0.77& 0.18& 0.62& 0.46& 0.4& 0.66\\ \cline{2-20}
+% & wriggle& 0.2& 0.25& 0.29& 0.76& 0.6& 0.63& 0.26& 1& 0.51& 0.17& 0.36& 0.51& 0.83& 0.25& 0.5& 0.52& 0.29& 0.26\\ \cline{2-20}
+% & depthMin& 2& 3& 3& 3& 1& 5& 3& 2& 3& 5& 5& 3& 4& 3& 3& 3& 3& 3\\ \cline{2-20}
+% & depthMax& 10& 16& 15& 15& 8& 19& 10& 7& 15& 5& 15& 15& 19& 16& 6& 19& 15& 10\\ \cline{2-20}
+% & wherePrune& False& False& True& True& True& True& True& True& False& False& True& True& True& False& True& False& False& True\\ \cline{2-20}
+% & treePrune& True& False& True& True& False& False& False& False& False& True& True& True& False& False& False& True& True& False\\ \cline{2-20}
+% \hline
+% \multirow{5}{*}{CART}
+% & threshold& 0.5& 0.34& 0.25& 0.01& 0.01& 0.73& 0.53& 0.92& 0.8& 0.74& 0.54& 0.03& 0.91& 0.01& 0.01& 0.55& 1& 0.01\\ \cline{2-20}
+% & max\_feature& None& 0.01& 0.01& 0.29& 0.01& 0.46& 0.75& 0.79& 0.74& 0.41& 0.81& 0.61& 0.72& 0.01& 0.01& 0.01& 0.25& 0.18\\ \cline{2-20}
+% & min\_samples\_split& 2& 18& 20& 12& 2& 15& 11& 2& 18& 13& 9& 17& 16& 10& 4& 8& 3& 15\\ \cline{2-20}
+% & min\_samples\_leaf& 1& 19& 16& 15& 17& 1& 1& 13& 10& 4& 3& 7& 5& 20& 7& 8& 1& 6\\ \cline{2-20}
+% & max\_depth& None& 12& 2& 15& 1& 41& 20& 44& 15& 13& 5& 23& 14& 1& 5& 17& 47& 13\\ \cline{2-20}
+% \hline
+% \multirow{6}{*}{\begin{tabular}[c]{@{}c@{}}Random \\ Forests\end{tabular}} 
+% & threshold& 0.5& 0.01& 0.35& 0.3& 0.01& 0.9& 0.97& 0.63& 1& 0.73& 0.68& 0.01& 1.0& 0.01& 0.07& 0.22& 1& 0.82\\ \cline{2-20}
+% & max\_feature& None& 0.63& 0.17& 0.01& 0.01& 0.88& 0.74& 0.76& 0.73& 0.01& 0.03& 0.39& 0.02& 0.01& 0.56& 0.36& 0.51& 0.89\\ \cline{2-20}
+% & max\_leaf\_nodes& None& 40& 33& 46& 22& 11& 16& 38& 34& 30& 31& 12& 49& 25& 47& 15& 39& 24\\ \cline{2-20}
+% & min\_samples\_split& 2& 10& 16& 20& 1& 1& 1& 1& 4& 20& 19& 11& 14& 2& 17& 19& 20& 19\\ \cline{2-20}
+% & min\_samples\_leaf& 1& 4& 15& 9& 13& 18& 11& 3& 16& 17& 6& 10& 7& 19& 13& 11& 2& 14\\ \cline{2-20}
+% & n\_estimators& 100& 120& 73& 75& 130& 97& 144& 125& 97& 80& 111& 96& 101& 50& 67& 74& 63& 66\\ \cline{2-20}
+% \hline  \end{tabular}
+% }
+%   \caption{Parameters tuned on different models over the objective of ``F''.}\label{tab:fselect}
+% \end{table*}
+ 
+  
+% \clearpage
+% \pagenumbering{roman}
+% \setcounter{page}{1} 
+% \section*{Reply to Reviews}
+
+% Thank your for your comments. The typos listed by reviewers
+% have been fixed and the remainder of the paper has been given
+% a careful proof read.
+
+% The reviewers raised certain issues which we respond  to as follows.
+
+% {\em I am concerned about the reproduction of work from elsewhere. Although the relevant paper and book are cited in section 2.3 ([27, 28]) the amount of material that is reproduced is surprisingly large. I am also unsure what "presenting some new results from Rahman et al. [28]" actually means. It would obviously be wrong to present other researchers' results as if newly discovered but I doubt that this is the intention. Indeed, on checking the other paper, there is no obvious overlap. This needs to be clarified.}
+
+% Apologies to the reviewer for our unclear text that suggests
+% that this paper inappropriately copied  content from
+% elsewhere. This is not the case since nearly all of this paper has not been submitted
+% or published to another venue. The exception to that is:
+% \bi
+% \item Section 2.3 and Table1 contains 1 page of tutorial material which we have adapted from other papers.
+% e.g. as the reviewer correctly points out,
+% the  'Easy to use' paragraph is taken nearly verbatim from [28], as are the 'widely-used', and 'useful' paragraphs.
+% \ei
+% Note that apart from Section 2.3,  10 of the 11 pages of this text are   completely new.
+
+% As to the reference to " presenting some new results from Rahman et al. [28]", that refers to one paragraph (120 words) end of section 2.3. 
+% Please note that we have removed the misleading text that raised that confusion
+% (start of 2.3).
+
+% {\em I think the way that the results are presented does not do justice to the findings in the abstract (that the improvements are large, and the tuning is simple). In particular, tables 8 and 9 are not very clear; why show the naive column?}
+
+% Thank for your that comment- we have simplified that presentation by separating the tuning \#evaluations from the runtimes-- see Table 8 and the new Table 9.
+
+% {\em I am distracted by the frequent use of footnotes. If the material is important and worthy of mention then it should be included in the main body of the paper. However, a reference to the relevant work may be sufficient and is sometimes preferable to using a footnote.}
+
+% Quite true- those footnotes are needlessly distracted.
+% They have now been incorporated into the text.
+
+
+
+% {\em  Eq 1 - what are d and T? - please use a where clause}
+
+
+
+% That where clause is now added after Equation 1. That clause says
+
+% \begin{quote} ... where  $d_i$ is the number of observed issues and $T$
+% is some threshold defined by an engineering judgement; we use $T=1$.\end{quote}
+
+
+\end{document}
+ 
+\subsection{Implications}
+
+time for an end to era of data mining in se? moving on to a new phase of learning-as-optimization
+
+1) learning is actually an optimization tasks (e.g. see fig2 of  learners climbing the roc curve hill in http://goo.gl/x2EaAm)
+
+2) our learners are all contorted to do some tasks X (e.g. minimize expected value of entropy), then we assess them on score Y (recall). which is nuts. maybe we should build the goal predicate into the learner (e.g http://menzies.us/pdf/10which.pdf) 
+
+3) given 1 + 2, maybe the whole paradigm of optimizing param selection is wrong. maybe what we need is a library of bees buzzing around making random choices (e.g. about descritziation) which other bees use, plus their own random choices (e.g. max depth of tree learned from discretized data) which is used by other bees, plus their own random choices (e.g. business users reading the models).  the funky thing here is that it can take some time before some of the bees (the discretizers) get feedback from the community of people using their decision (the tree learners). 
+
+
+
+
