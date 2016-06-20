@@ -77,7 +77,29 @@
 
 \usepackage{graphicx}
 \usepackage{multirow}
+\usepackage[svgnames]{xcolor}
+\usepackage[framed]{ntheorem}
+\usepackage{framed}
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+%\newtheorem{Lesson}{Lesson}
+\theoremclass{Lesson}
+\theoremstyle{break}
 
+% inner sep=10pt,
+\tikzstyle{thmbox} = [rectangle, rounded corners, draw=black,
+  fill=Gray!20,  drop shadow={fill=black, opacity=1}]
+\newcommand\thmbox[1]{%
+  \noindent\begin{tikzpicture}%
+  \node [thmbox] (box){%
+\begin{minipage}{.94\textwidth}%    
+      \vspace{-3mm}#1\vspace{-3mm}%
+    \end{minipage}%
+  };%
+  \end{tikzpicture}}
+
+\let\theoremframecommand\thmbox
+\newshadedtheorem{lesson}{Result}
 \begin{document}
 \begin{frontmatter}
 \title{ Impacts of Bad ESP (Early Size Predictions) on Software Effort Estimation}
@@ -179,97 +201,116 @@ When these methods are debated, it is usual to discuss problems with {\bf Early 
 specifically:
 \begin{quote}
  {\em Is it possible, early in the software lifecycle,
-    to accurately guess the size of the final system?}
+    to accurately estimates the size of the final system?}
   \end{quote}
-Such size estimates can be expressed in several
-forms including function points~\cite{Albrecht83} of  source lines of code (SLOC)~\cite{boehm81}.
-However they are expressed, early in the software development process,
-ESP can be inaccurate for many reasons:
-\bi
-\item How was reused code accounted for in the size estimate?
-\item  Was size measured from end-statement or end-of-line?
-\item How were lines of comments handled?
-\item Given systems built in multiple languages, how were sizes from different programs translated
-  into a single number?
-\item
-  Given any kind of iterative development, how will feedback learned during the development change
-  the goals of the project and the size of the delivered system?
-  \ei
-The  problem of noisy size measures seem very acute for parametric effort estimation
+Note that when such estimates are wrong, then any prediction made from that estimate
+will also be wrong. This problem is particularly acute for parametric effort estimation
 methods such as Boehm et al.'s COCOMO software effort estimation model.
 The core of COCOMO  is an estimate that is exponential on KSLOC (thousands of SLOC); i.e.
-\[
-\mathit{effort} \propto \mathit{KLOC}^n
-\]
-In 1981, Boehm~\cite{hoem1981} warned that ESP can be wrong by up to 400\%
-which means, in theory,  that bad ESP will result in exponentially large errors in the estimate.
+\begin{equation}\label{eq:one}
+\mathit{effort} \propto \mathit{KSLOC}^{\; n}
+\end{equation}
+In 1981, Boehm~\cite{boehm81} warned that ESP can be wrong by up to 400\%.
+Note that, if such erroneous values were used in \eq{one}, then due to the $ \mathit{KSLOC}^{\; n}$
+term, this would lead to  exponentially large errors in the estimate.
 
-This paper shows that, in practice, the problem of bad ESP is much less than previously feared.
-If we examine the recent historical record of ESP, then it can be shown that often the ESP
-error is often very small (usually, less 
-
-XXX while our analysis will use COCOMO, it could be applied to other effort estiamtion models
-as follows.
-
-This paper is about assessing the effects of a particular kind of
-error within parametric estimation models like COCOMO.
-We explore these since, as discussed in \tion{XXX}, these are the most
-common type of estimation models used by industrial practitioners.
-
-
-For problem with such parametric models is the  problem of noisy size measures.
-For example, 
-the core assumption of the COCOMO  estiamtion model~\cite{boehm81,boehm00b}
-is that development effort
-is exponential on KLOC (thousands of lines of code); i.e.
-\[
-\mathit{effort} \propto \mathit{KLOC}^n
-\]
-This means that, for COCOMO,  innaccuracies in the 
-KLOC size estimate will be magnified in a non-linear way. This is a particularly
-troubling problem for COCOMO since, as reported by Boehm in 1981~\cite{boehm81},
-such early life cycle estimates may be wrong by up to a factor of four.
-
-The goal of this article is to update Boehm's 1981 observations on issues
-with early life cycle effort estimation. Our results offer much optimism for
-parametric methods such as COCOMO that rely on size estimates:
-\be
+Since 1981, much has been learned about software
+engineering. Accordingly, it is time to revisit
+Boehm's pessimism about bad ESP.  We find that bad SE is far less problematic that suggested
+by Boehm.
+To show this, this paper explores three research questions
+using a simulation study, an analytical study, and a theoretical study.
+\bi
 \item
-  Using data from hundreds of software projects, we show that
-  early size estimates are often  very close to actual;
+{\bf RQ1 (the simulation study): What is the observed impact of bad ESP? }
+Given a model producing an estimate, we record the size of the error
+in the estimates
+after perturbing the size estimates by some factor $\Delta$.
+\ei
+\begin{lesson}
+We find that for the range of $\Delta$ seen in contemporary projects, this error
+is usually negligible. That is, 
+the
+problem of bad ESP is much less than previously
+feared.
+\end{lesson}
+Note that the key part of the {\bf RQ1} analysis is determining the
+range of $\Delta$ seen in contemporary projects.
+To obtain that range, we used data from 64 recent projects (14 from NASA, 50 
+from the United Science Department of Defense). 
+This introduces an external validity problem since our answers to {\bf RQ1} are
+only good for the values seen in these 64 projects. Therefore, to extend the external
+validity of our conclusions:
+\bi
 \item
-  Using a Monte Carlo simulation of COCOMO, we find the point where
-  errors in size estimates start unduly effecting COCOMO. That point
-  is usually far outside the ranges reported in point \#1; that is, early lifecycle estimates
-  are not  a major source of concern for COCOMO.
+{\bf RQ2 (the analytical study):   What is the range of possible effect of bad ESP ?}
+For this question, we studied the coeffecients within a parametric effort
+estimation model (COCOMO~\cite{boehm81,boehm00b})  to derive minimum and maximum
+effects of changes to the KSLOC coeffecient in \eq{one}.
+\ei
+\begin{lesson}
+Given tuning data  from 254 projects, we show that the
+  exponential term $n$ is very small: specifically,
+  \mbox{$1.06 \le n \le 1.3$}. That is, ESP errors have such a low coefficient that ESP errors
+  results in linear, rather than exponential, errors in the predictions.
+  \end{lesson}
+ The results for {\bf RQ2} is based on more projects than {\bf RQ1}, but it is still
+ a small sample from the space of all possible software projects. Accordingly, we conducted
+ one more study:
+  \bi
   \item
-  Using an analytical examination of the COCOMO equation, we conclude that
-  while sizing errors can lead to COCOMO errors, those errors are not relatively less
-  important than errors in other project descriptors.
-  \ee
-  Our explanation for point \#1 is that, in the
-  $21^{st}$ we have more software development
-  experience than in 1981.  Hence, it now possible
-  for practitioners to be more accurate about their
-  size estimates.
+  {\bf RQ3 (the theoretical study): Ignoring all tunings, what is the net
+    effect of errors with KSLOC estimation versus errors in other attributes?}
+ This theoretical study applies some algebraic manipulations to the COCOMO model
+ to derive an expression that comments on the relative effects of KSLOC errors
+ to all the other 22 attributes in the COCOMO model.
+ \ei
+ \begin{lesson}
+  Within the COCOMO model,
+  KSLOC errors are {\em not} the most influential attribute on effort estimates
+ since errors in KSLOC are easily
+ dwarfed  by the effects from the other 22 COCOMO attributes.
+ \end{lesson}
+ Our conclusion from the above is that,
+ for the COCOMO model, the results from {\bf RQ1,RQ1,RQ3}  show that there is little reason
+  to fear alarmingly large estimation errors due to ESP errors. This is an important contribution since
+  one of the standard critiques of COCOMO is its dependency on ESP.
 
-  Our explanation for point \#2 is the analytics
-  examination documented in point \#3;
-  i.e. parametric models like COCOMO make their
-  estimates using size estimates {\em as well as}
-  dozens of other variables.  Hence, errors in one
-  of those variables (i.e. the size estimate) may
-  not be fatal to their predictive accuracy.
-
-The rest of this paper is structured as follows.  
-
-
+  As to impact of bad ESP on other estimation frameworks, we leave that for future work.
+  That said, the methods of this paper could used be used to  certify that some effort
+  estimator  is not prone to bad ESP
+  errors.  The simulation study described above
+   could be applied to any other
+   effort estimation method. Also, for parametric estimation methods, it would also be possible to apply
+   the theoretical study and the analytical study  (caveat: but
+   note that the analytical study requires access to project data in order to understand the space of
+  usual model values).
+  
+  The rest of this paper is structured as follows.
+  
 \section{Background}
 
 \input{Tables/cocomoParams}
   
   \subsection{COCOMO Details}
-  
+  Our experiments are based on the COCOMO model.
+  One reason to study parametric models like COCOMO is that they are used and supported
+extensively in commercial practice:
+\bi
+\item
+In our work with the Chinese and the United States software industry,
+we saw an   almost exclusive
+use  of parametric estimation tools such as those offered by 
+Price Systems (pricesystems.com) and  Galorath (galorath.com).
+\item
+Professional societies, handbooks and
+certification programs are mostly developed around 
+parametric estimation methods and tools; e.g. see the 
+International Cost Estimation and Analysis Society; the
+NASA Cost Symposium;  the
+International Forum on COCOMO and Systems/Software
+Cost Modeling\footnote{See the websites \url{http://tiny.cc/iceaa}, \url{http://tiny.cc/nasa_cost}, \url{http://tiny.cc/csse}}.
+\ei
   COCOMO was developed in two states: an initial release in 1981~\cite{boehm81}
   followed by an extensive revision in  2000~\cite{boehm00b}.
   In between those releases,
@@ -300,25 +341,7 @@ five developers would finish
 the project in 20 months.
 
 
-If there is something considered a ``law of
-physics'' in the world of SE; it is that the bigger
-a system is, the more effort it requires.
-According, many effort estimation methods make special use of some size estimate.
 
-
-in this paper we will focus on system size,
-especially as most of the models used in industry
-require size as the primary input~\cite{Boehm2000a}. 
-
-This paper explores
- parametric software estimation since,
- in our work with the Chinese and the United States software industry, we have seen  almost  exclusive  use  of  such  parametric  estimation  tools such as those offered by Price Systems (pricesystems.com) andGalorath  (galorath.com).   
- 
- Unnlike other approaches (listed in the next section),
- these parametric models are extensively supported
- in industry.
- Professional  societies,  hand-books and certification programs are mostly developed around parametric estimation methods and tools; e.g.  see the International Cost Estimation and Analysis Society;  the NASA CostSymposium;  the International Forum on COCOMO and Systems/Software Cost Modeling\footnote{
-See the websites http://tiny.cc/iceaa, http://tiny.cc/nasa\_cost, and http://tiny.cc/csse.}
 
  \subsection{Alternatives to COCOMO}
 
@@ -353,17 +376,17 @@ that can make an expert offer poor expert-based estimates.
 Passos et al. offer specific examples for those
 biases: they show that many commercial software
 engineers generalize from their first few projects
-for all future projects~\cite{passos11}.  Jorgensen
+for all future projects~\cite{passos11}.  J{\o}rgensen
 \& Gruschke~\cite{jorgensen09} offer other results
 consistent with Passos et al.  when they document
 how commercial ``gurus'' rarely use lessons from
 past projects to improve their future
 expert-estimates.  More generally,
-Jorgensen~\cite{Jorgensen2004} reviews studies
+J{\o}rgensen~\cite{Jorgensen2004} reviews studies
 comparing model- and expert- based estimation and
 concludes that there there is no clear case that
 expert-methods are better.  Finally, in 2015,
-Jorgensen further argued~\cite{jorg15} that
+J{\o}rgensen further argued~\cite{jorg15} that
 model-based methods are useful for learning the {\em
   uncertainty} about particular estimates; e.g.  by
 running those models many times, each time applying
@@ -394,224 +417,21 @@ task adjustment tool) and COCOMO (which is an pre-project tool for checking if e
 to start a project).
 That said, COCOMO does rely on an early lifecycle size esimate which, according to Boehm~\cite{boehm81}, can be wrong
 by up to 400\%.
-
-
+Such size estimates can be expressed in several
+forms including function points~\cite{Albrecht83} of  source lines of code (SLOC)~\cite{boehm81}.
+But no matter how  these size measures are expressed, early in the software development process,
+ESP can be inaccurate for many reasons such as:
+\bi
+\item How was reused code accounted for in the size estimate?
+\item  Was size measured from end-statement or end-of-line?
+\item How were lines of comments handled?
+\item Given systems built in multiple languages, how were sizes from different programs translated
+  into a single number?
+\item
+  Given any kind of iterative development, how will feedback learned during the development change
+  the goals of the project and the size of the delivered system?
+  \ei
   
-
- The primary sizing metrics used in effort models
- are logical lines of code (LOC)~\cite{Boehm2000a}
- and function points (FP)~\cite{Albrecht1983}.  Part
- of the sizing problem comes down to the fact that
- primary sizing metrics have different advantages
- and disadvantages.  For example, LOC can be
- automated for counting and is good a posteriori,
- but is difficult to estimate early on.  The heart
- of the problem is that early on we do not know the
- characteristics of a system well enough. 
-
-\subsection{Problems with Size Estimates}
-
-
-
-In the case of  large government spending projects, one requirement is to develop
-some initial   estimate of the software development costs.
-That figure is used to guide lobbying efforts by  civil servants and politicians
-while they debate the merits of building system~X vs system~Y.
-
-It is important that this estimates  be approximately
-correct. When project costs overrun,  extra funds may not
-available and the project gets cancelled.   For example, in the case of the disastrous Shuttle Checkout Launch Control
-project, that project was initially estimated at  \$250 million dollars (for the software). That project was  cancelled
-after spending all  amount since it was realized the
-project needed double that amount to finish up~\cite{CLCS03}.
-
-For government and defence department
-work, a  standard effort estimation technique is {\em parametric estimation}~\cite{wol74,frei79,black77,herd77,watson77,boehm81}.
-This is  
- model-based method that assumes that the target model has a particular structure and that
- the details of that model can be filled in
- using local data.  
-In our work with the Chinese and the United States software industry,
-we have seen  an   almost exclusive
-use  of such  parametric estimation tools such as those offered by 
-Price Systems (pricesystems.com) and  Galorath (galorath.com).
-Also,
-professional societies, handbooks and
-certification programs are mostly developed around 
-parametric estimation methods and tools; e.g. see the 
-International Cost Estimation and Analysis Society; the
-NASA Cost Symposium;  the
-International Forum on COCOMO and Systems/Software
-Cost Modeling\footnote{See the websites \url{http://tiny.cc/iceaa}, \url{http://tiny.cc/nasa_cost}, \url{http://tiny.cc/csse}.}.
-
-One example of a parametric estimation method is  Boehm's
-COnstructive COst MOdel (COCOMO)
-model~\cite{boehm81} that
- assumes  that effort varies exponentially on size as seen in this parametric form:
-\begin{equation}\label{eq:coc1}
-\mathit{effort} \propto \mathit{a \times KLOC}^b
-\end{equation}
-To deploy this equation in an organization,
-local project data is used to tune the  $(a,b)$ parameter values, If local
-data is unavailable, new projects can reuse prior tunings,  with  minor
-tweaks~\cite{me04h}. 
-NASA routinely checks  software estimates 
-in  COCOMO~\cite{dabney07}.  In fact, the third author's full time job from 1989 to 2013 was to maintain
-the tuning parameters for NASA's COCOMO equations for softwre developed at the Jet Propulsion Laboratory.
-
-The Achilles heel of COCOMO is its dependence of an initial estimate of the programs size (the ```KLOC''
-attribute in \eq{coc1}.
-
-
-
-
-
-Parametric estimation is
-widely-used, especially across the aerospace
-industry and various U.S. government agencies. For example:
-\bi
-\item
-NASA routinely checks  software estimates 
-in  COCOMO~\cite{dabney07}.  
-\item
-In our work with the Chinese and the United States software industry,
-we saw an   almost exclusive
-use  of parametric estimation tools such as those offered by 
-Price Systems (pricesystems.com) and  Galorath (galorath.com).
-\item
-Professional societies, handbooks and
-certification programs are mostly developed around 
-parametric estimation methods and tools; e.g. see the 
-International Cost Estimation and Analysis Society; the
-NASA Cost Symposium;  the
-International Forum on COCOMO and Systems/Software
-Cost Modeling (see the websites \url{http://tiny.cc/iceaa}, \url{http://tiny.cc/nasa_cost}, \url{http://tiny.cc/csse}).
-\ei
-
-
-
-Two of the myths of effort estimation is that 
-(1)~no one uses model-based estimation like COCOMO;
-and (2)~estimates are always better done using expert-based guess-timation.
-
-These myths are misleading.
-As seen above,  model-based
-parametric methods are  widely used in industry and
-are strongly advocated by professional societies.
-Also, 
-while it is true that expert-based estimation is a common practice~\cite{boehm00a}, this is not to say that this should be recommended as the {\em best} or {\em only} way to make estimates:
-\bi 
-\item
-Jorgensen~\cite{Jorgensen2004} reviews studies 
-comparing  model- and expert- based estimation and concludes that there
-there is no clear case that expert-methods are better.
-\item
-In 2015, Jorgensen further argued~\cite{jorg15} that   model-based methods are useful for learning the  {\em uncertainty}
-about particular estimates; e.g.
-by running those models many times, 
-each time applying
-small mutations to the input data.
-\item 
-Valerdi~\cite{valerdi11} lists the
-cognitive biases that can make an expert offer poor expert-estimates.
-\item Passos et al. show that many
-commercial software engineers generalize from their
-first few projects for all future
-projects~\cite{passos11}.
-\item
-Jorgensen \& Gruschke~\cite{jorgensen09} document how
-  commercial  ``gurus'' rarely use lessons
-  from past projects to improve their future expert-estimates. 
- They offer examples where this
-  failure to revise prior beliefs   leads to poor
- expert-based estimates.
-  \ei 
-
-
-
-
-Before endorsing any size-based estimation method,
-it is important to understand the effects of inaccuracies 
-within the size estimates
-Test projects to be estimated may have inaccurate size  values if
-the development team incorrectly guesstimated the size of
-the code.
-Training data may have inaccurate size estimates
-for many reasons such as
-\bi
-\item How was reused code accounted
-for in the size estimate?
-\item  Was size measured from end-statement
-or end-of-line symbols?
-\item Or how were lines of comments handled?
-\ei
-Another factor that introduces noise into training and test
-data are systems built from multiple languages. 
-To make estimates from  those kind
-of systems, size data from  one language needs to be translated (in a possibly incorrect way) to size data in another language.
-
-In theory, the  problem of noisy size measures seem very acute for parametric effort estimation
-methods such as Boehm et al.'s COCOMO software effort estimation model.
-The core of COCOMO  is an estimate that is exponential on KLOC (thousands of lines of code); i.e.
-\[
-\mathit{effort} \propto \mathit{KLOC}^n
-\]
-This means that innaccuracies in the 
- KLOC size estimate will be magnified in a non-linear way.
- 
-
-\section{Background}
-\subsection{Use Of Parametric Models}
-
- 
- 
- \subsection{Criticism of Parametric Methods}
- 
- Apart from parametric models, there are many
- other ways to perform effort estimates such
- as the reasoning by analogy preferred by Shepperd et al.
- 
- Much research has concluded that the best estimations come from {\em combining} the predictions
-from {\em multiple oracles}~\cite{koc11a,chulani99,baker07,valerdi11}.  
-Note that it is much easier to apply this double-check strategy using expert+model-based methods 
-than by comparing the estimates from multiple expert teams.
-For example, all the model-based methods  studied in this paper can generate estimates
-in just a few seconds. In comparison, expert-based estimation is orders of magnitude slower-- as seen in  
-Valerdi's  
-COSYSMO expert-method.
-While a strong proponent of this approach, Valerdi concedes that 
-``(it is)  extremely time
-consuming when large sample sizes are needed''~\cite{valerdi11}.
-For example, he once
-recruited 40 experts to three expert sessions, each of which ran for three hours.
-Assuming a 7.5 hour day,
-then that study took $3*3*40 /7.5 = 48\; \mathit{days}$.
-
-COSYSMO is an elaborate expert-based method. An alternate, more lightweight expert-method is  ``planning poker''~\cite{molokk08} where
-participants offer anonymous
-``bids'' on the 
-completion time for a project. If  the bids are widely divergent, then the factors
-leading to that disagreement are elaborated and debated. This cycle of bid+discuss continues
-until a consensus has been reached.
-
-While planning poker is widely advocated in the agile community,
-there are surprisingly few studies assessing this method (one rare exception is~\cite{molokk08}).
-Also,   planning poker is used to assess effort
-for particular tasks in the scrum backlog-- which is a different and simpler task
-than the {\em initial} estimation of  large-scale
-projects. This is an important issue since, for larger
-projects, the initial budget allocation may require a significant amount of intra-organizational lobbying between groups with competing concerns. For such large-estimate-projects, it can
-be challenging to change the initial budget allocation. Hence, it is important to get
-the initial estimate as accurate as possible.
-
-
-A frequently asked question about this work is why 
-Many different organizations develop software in many different ways. Some take an agile ``devops'' approach 
-where developers work in micro ``sprints'' (a day to a month of work) and then adjust their development goals using
-the 
-feedback learned during that spring. The developers in such organizations are free to adjust the deliverables, and
-what  functionality is delivered when, 
-
  
 
 \section{Methods}
@@ -931,79 +751,3 @@ The work has partially funded by a National Science Foundation CISE CCF award \#
 
 \end{document}
  
-\subsection{Implications}
-
-time for an end to era of data mining in se? moving on to a new phase of learning-as-optimization
-
-1) learning is actually an optimization tasks (e.g. see fig2 of  learners climbing the roc curve hill in http://goo.gl/x2EaAm)
-
-2) our learners are all contorted to do some tasks X (e.g. minimize expected value of entropy), then we assess them on score Y (recall). which is nuts. maybe we should build the goal predicate into the learner (e.g http://menzies.us/pdf/10which.pdf) 
-
-3) given 1 + 2, maybe the whole paradigm of optimizing param selection is wrong. maybe what we need is a library of bees buzzing around making random choices (e.g. about descritziation) which other bees use, plus their own random choices (e.g. max depth of tree learned from discretized data) which is used by other bees, plus their own random choices (e.g. business users reading the models).  the funky thing here is that it can take some time before some of the bees (the discretizers) get feedback from the community of people using their decision (the tree learners). 
-
-
-
-
-
-  
-  that perturbs size estimates
-  according to the ranges found in (1), we report that the overall error resulting
-  from sizing errors is very small.
- 
-
-reports that such early lifecycle
-esimates
-
-For example, the COCOMO model predicts
-that effort is exponentially proporitional to size of the system
-
-
-Although the development
-of parametric effort models has made the estimation
-process repeatable, there are still concerns with
-their overall
-accuracy~\cite{Menzies2005,Molkken2003,Ferens1998,Kemerer1987}.
-
-
-
-
-A problem at the core of software effort estimation
-is the sizing problem.
-Many effort estimation techniques used lines of code~\cite{boehm81}, or number of
-function points~\cite{Hihn1991},
-as the basis of their predictions.
-However, early in the software process, it may be  difficult to estimate the size of the final system.
-
-Training data may have inaccurate size estimates
-for many reasons such as
-\bi
-\item How was reused code accounted
-for in the size estimate?
-\item  Was size measured from end-statement
-or end-of-line symbols?
-\item Or how were lines of comments handled?
-\ei
-Another factor that introduces noise into training and test
-data are systems built from multiple languages. 
-To make estimates from  those kind
-of systems, size data from  one language needs to be translated (in a possibly incorrect way) to size data in another language.
-
-In theory, the  problem of noisy size measures seem very acute for parametric effort estimation
-methods such as Boehm et al.'s COCOMO software effort estimation model.
-The core of COCOMO  is an estimate that is exponential on KLOC (thousands of lines of code); i.e.
-\[
-\mathit{effort} \propto \mathit{KLOC}^n
-\]
-This means that innaccuracies in the 
- KLOC size estimate will be magnified in a non-linear way.
-
- 
-
-The lack of adoption of methods suggested by SEE research in industrial environments is a serious issue.
-Without addressing the problems that hinder the knowledge transfer from SEE research to industry, the future of SEE is bound to be a mostly theoretical field rather than a practical one.
-
-There are various reasons from which the adoption problem stems, such as the difficulty of attaining accurate estimates, difficulty of collecting effort related data and the difficulty of adopting complex methods.
-It is possible to increase the items in this list.
-However, at the heart of the most widely accepted SEE methods lies the measurement of software size.
-For example, COCOMO uses LOC to measure software size and FP approach uses the number of basic logical transactions in a software system.
-Accurate measurement of both LOC and FP can be problematic in industrial settings~\cite{Kocaguneli2011, Gollapudi2004}.
