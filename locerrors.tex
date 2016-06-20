@@ -80,7 +80,7 @@
 
 \begin{document}
 \begin{frontmatter}
-\title{On the Impact on Inaccurate Early Life Cycle\\ Size Estimation on Software Effort Estimation}
+\title{On the Impact on Inaccurate Early Life Cycle\\ Size Estimation on Parametric Software Effort Estimation}
 \author{George Mathew\corref{cor1}}
 \ead{george.meg91@gmail.com}
 \author{Tim Menzies}
@@ -102,25 +102,32 @@ Jet Propulsion Laboratory, Pasadena, CA}
 % \thispagestyle{plain}
 % \pagestyle{plain}
 \begin{abstract}
-\textbf{Context:} For  large systems (e.g.  projects run by government or
-defence departments), it is common to lobby for the development funds prior to commencing the work.
-For such software systems, it is important to have an (approximately) accurate    early lifecycle effort estimate  since (1)~large sums of money are involved and (2)~once funds are allocated, it can be problematic
-to lobby for further funds. However, before the software is built, the size of the final system is not
-known. Boehm cautions that these estimates can wrong by up to a factor of 400\% in which case, errors in   early life cycle estimates of final size would be the dominate factor leading to inaccurate effort estimates. \\
-\textbf{Objective:} To check  the impact of   uncertainty in  effort estimates  due
-to inaccuracies in early life cycle size estimates. \\
-\textbf{Method:} (1)~Explore ``large software'' repositories to determine the space of actual software
+  \textbf{Context:}
+  %For  large systems (e.g.  projects run by government or
+%defence departments), it is common to lobby for the development funds prior to commencing the work.
+%For such software systems, it is important to have an (approximately) accurate    early lifecycle effort estimate % since (1)~large sums of money are involved and (2)~once funds are allocated, it can be problematic
+%to lobby for further funds. However, before the software is built, the size of the final system is not
+  %known.
+  Boehm cautions that early lifecycle estimates of software size
+  can wrong by up to a factor of 400\%. This is a
+  major concern for software effort estimation methods that use such size estimates as the basis
+  for their predictions.\\
+\textbf{Objective:} To check  the impact of  effort estimates  due
+to inaccuracies in early life cycle size estimates. Specifically, we seek to check
+if the COCOMO method needs to be rejected dues to issues associated with inaccurate
+early life cycle effort estimates.\\
+\textbf{Method:} (1)~Explore repositories to determine the space of actual software
 size estimation errors seen in practice.  (2)~Using the results of the first point, conduct
 analytical and perturbation-based  analysis of software
 effort models that reply on size estimates
 (in our case, the COCOMO effort model). \\
-\textbf{Results:} (1)~The range of size estimation errors is far smaller than   feared by Boehm
-(while a small minority
+\textbf{Results:} (1)~The range of size estimation errors is far smaller than   feared by Boehm:
+while a small minority
 of projects have estimate errors over 300\%, most
-projects have estiamte errors under  75\%). 
+projects have estiamte errors under  75\%. 
 (2)~When perturbing size values within those ranges,
 the effort models showed 
-only a modest increase in the associated effort estimates (e.g. 39\% to 44\% in the  median magnitude of relative error). An analytical evaluation of one effort
+only a modest increase in the associated effort estimates: e.g. 39\% to 44\% in the  median magnitude of relative error. An analytical evaluation of one effort
 model (COCOMO) shows why this might be so:   errors in the size estimate
 can be dwarfed by the product of all the other factors.\\
 \textbf{Conclusion:} (1)~Errors in project estimates taken from early lifecycle information about projects
@@ -139,13 +146,224 @@ can unduly effect size estimates. (2)~The size of that effect, due to inaccurrac
  
 \vspace{1mm}
 \noindent
-{\bf Keywords:} defect prediction, CART, random forest,
-differential evolution,
-search-based software engineering.
+{\bf Keywords:} effort estimation, size estimation, parametric models, COCOMO.
 %  \maketitle 
 \pagenumbering{arabic} %XXX delete before submission
 
 \section{Introduction}
+
+
+Even after decades of research and model
+development, SEE still remains as a tricky task
+under the best of circumstances.  There are
+extensive debates as to which methods are best,
+mostly focusing on model vs. analogy based methods.
+Shepperd et al. reports analogy-based estimation
+(ABE) methods as the high performing
+methods~\cite{Shepperd1997}; whereas within DOD and
+NASA, parametric effort models like
+COCOMO~\cite{Boehm1981} are extensively used and
+have been shown to be high performing methods under
+the right conditions~\cite{Lum2002}.
+
+Hihn report that amongst the SE professionals,
+parametric models are the dominantly used
+methods~\cite{Hihn1991}.
+For problem with such parametric models is the  problem of noisy size measures.
+For example, 
+the core assumption of the COCOMO  estiamtion model~\cite{boehm81,boehm00b}
+is that development effort
+is exponential on KLOC (thousands of lines of code); i.e.
+\[
+\mathit{effort} \propto \mathit{KLOC}^n
+\]
+This means that, for COCOMO,  innaccuracies in the 
+KLOC size estimate will be magnified in a non-linear way. This is a particularly
+troubling problem for COCOMO since, as reported by Boehm in 1981~\cite{boehm81},
+such early life cycle estimates may be wrong by up to a factor of four.
+
+The goal of this article is to update Boehm's 1981 observations on issues
+with early life cycle effort estimation. Our results offer much optimism for
+parametric methods such as COCOMO that rely on size estimates:
+\be
+\item
+  Using data from hundreds of software projects, we show that
+  early size estimates are often  very close to actual;
+\item
+  Using a Monte Carlo simulation of COCOMO, we find the point where
+  errors in size estimates start unduly effecting COCOMO. That point
+  is usually far outside the ranges reported in point \#1; that is, early lifecycle estimates
+  are not  a major source of concern for COCOMO.
+  \item
+  Using an analytical examination of the COCOMO equation, we conclude that
+  while sizing errors can lead to COCOMO errors, those errors are not relatively less
+  important than errors in other project descriptors.
+  \ee
+  Our explanation for point \#1 is that, in the
+  $21^{st}$ we have more software development
+  experience than in 1981.  Hence, it now possible
+  for practitioners to be more accurate about their
+  size estimates.
+
+  Our explanation for point \#2 is the analytics
+  examination documented in point \#3;
+  i.e. parametric models like COCOMO make their
+  estimates using size estimates {\em as well as}
+  dozens of other variables.  Hence, errors in one
+  of those variables (i.e. the size estimate) may
+  not be fatal to their predictive accuracy.
+
+The rest of this paper is structured as follows.  
+
+
+\section{Background}
+
+\input{Tables/cocomoParams}
+  
+  \subsection{COCOMO Details}
+  
+  COCOMO was developed in two states: an initial release in 1981~\cite{boehm81}
+  followed by an extensive revision in  2000~\cite{boehm00b}.
+  In between those releases,
+  Boehm created a consortium for
+industrial users of COCOMO.
+This consortium
+collected information on 161 projects from commercial,
+aerospace, government, and non-profit organizations.
+Using that new data, in 2000, Boehm and his colleagues developed
+a set of   {\em tunings} for COCOMO-II that
+mapped the project descriptors (very low, low, etc)
+into the specific attributes used in the COCOMO model (see \fig{cparems}).
+Those tunings, mappings, and attributes became the COCOMO-II model
+released 
+\begin{equation}\label{eq:cocII}
+\mathit{effort}=a\prod_i EM_i *\mathit{KLOC}^{b+0.01\sum_j SF_j}
+\end{equation}
+Here, {\em EM,SF} are  effort multipliers and scale
+factors and
+ $a,b$ are the {\em local calibration} parameters (with default values of 2.94 and 0.91).
+ In COCOMO-II, effort multipliers change effort by a linear amount
+ while scale factors change effort by an exponential amount.
+COCOMO-II reports {\em effort}
+as ``development months'' where one month
+is 152 hours of work  (and includes development and management hours).
+For example, if {\em effort}=100, then according to COCOMO,
+five developers would finish
+the project in 20 months.
+
+
+If there is something considered a ``law of
+physics'' in the world of SE; it is that the bigger
+a system is, the more effort it requires.
+According, many effort estimation methods make special use of some size estimate.
+
+
+in this paper we will focus on system size,
+especially as most of the models used in industry
+require size as the primary input~\cite{Boehm2000a}. 
+
+This paper explores
+ parametric software estimation since,
+ in our work with the Chinese and the United States software industry, we have seen  almost  exclusive  use  of  such  parametric  estimation  tools such as those offered by Price Systems (pricesystems.com) andGalorath  (galorath.com).   
+ 
+ Unnlike other approaches (listed in the next section),
+ these parametric models are extensively supported
+ in industry.
+ Professional  societies,  hand-books and certification programs are mostly developed around parametric estimation methods and tools; e.g.  see the International Cost Estimation and Analysis Society;  the NASA CostSymposium;  the International Forum on COCOMO and Systems/Software Cost Modeling\footnote{
+See the websites http://tiny.cc/iceaa, http://tiny.cc/nasa\_cost, and http://tiny.cc/csse.}
+
+ \subsection{Alternatives to COCOMO}
+
+ 
+COCOMO was initially designed in the age of
+waterfall development where projects developed from
+requirements to delivery with very little
+operational feedback.  Hence, a frequently asked
+question about this work is the relevancy of that
+$20_{th}$ century software management tool to
+current practices.  At issue here is the core
+question addressed by this paper.  While there is
+nothing inherently ``waterfall'' within the COCOMO
+equations, COCOMO does assume that a size estimate
+is available before the work starts.  Hence, it is
+important to understand when changes to the size of
+the software results in inaccurate COCOMO estimates.
+
+Another complaint against the COCOMO equations is
+that such ``model-based'' methods are less
+acceptable to humans than ``expert-based methods''
+were estimated are generated via committees of
+experts. The advantage of such expert-based methods
+is that if some new project has some important
+feature that is not included in the COCOMO
+equations, then human expertise can be used to
+incorporate that feature into the estimate.
+However,
+such expert-based approaches have their limitations.
+Valerdi~\cite{valerdi11} lists the cognitive biases
+that can make an expert offer poor expert-based estimates.
+Passos et al. offer specific examples for those
+biases: they show that many commercial software
+engineers generalize from their first few projects
+for all future projects~\cite{passos11}.  Jorgensen
+\& Gruschke~\cite{jorgensen09} offer other results
+consistent with Passos et al.  when they document
+how commercial ``gurus'' rarely use lessons from
+past projects to improve their future
+expert-estimates.  More generally,
+Jorgensen~\cite{Jorgensen2004} reviews studies
+comparing model- and expert- based estimation and
+concludes that there there is no clear case that
+expert-methods are better.  Finally, in 2015,
+Jorgensen further argued~\cite{jorg15} that
+model-based methods are useful for learning the {\em
+  uncertainty} about particular estimates; e.g.  by
+running those models many times, each time applying
+small mutations to the input data.
+
+ One expert-based estimation method preferred by advocates of
+ agile/devops is ``planning poker''~\cite{molokk08}
+ where participants offer anonymous ``bids'' on the
+ completion time for a project. If the bids are
+ widely divergent, then the factors leading to that
+ disagreement are elaborated and debated. This cycle
+ of bid+discuss continues until a consensus has been
+ reached.  Despite having numerous advocates,
+ there are very few comparative studies of planning
+ poker vs parametric methods. The only direct
+ comparison we can find is the 2015 Garg and Gupta
+ study that reports planning poker's estimates can be
+ twice as bad as those generated via parametric
+ methods~\cite{garg15}. One reason for the lack of
+ comparisons is that COCOMO and planning poker
+ usually address different problems: \bi
+\item COCOMO is often used to negotiating resources prior to starting a project;
+\item Planning power is often used to adjust current activity within the resource allocation of a project.
+  \ei
+  \subsection{Problems with Size Estimates}
+Combining the last two points, we note that there no real dispute between planning poker (that is an intra-project
+task adjustment tool) and COCOMO (which is an pre-project tool for checking if enough resources are available
+to start a project).
+That said, COCOMO does rely on an early lifecycle size esimate which, according to Boehm~\cite{boehm81}, can be wrong
+by up to 400\%.
+
+
+  
+
+ The primary sizing metrics used in effort models
+ are logical lines of code (LOC)~\cite{Boehm2000a}
+ and function points (FP)~\cite{Albrecht1983}.  Part
+ of the sizing problem comes down to the fact that
+ primary sizing metrics have different advantages
+ and disadvantages.  For example, LOC can be
+ automated for counting and is good a posteriori,
+ but is difficult to estimate early on.  The heart
+ of the problem is that early on we do not know the
+ characteristics of a system well enough. 
+
+\subsection{Problems with Size Estimates}
+
+
 
 In the case of  large government spending projects, one requirement is to develop
 some initial   estimate of the software development costs.
@@ -297,15 +515,7 @@ This means that innaccuracies in the
 \section{Background}
 \subsection{Use Of Parametric Models}
 
- This paper explores
- parametric software estimation since,
- in our work with the Chinese and the United States software industry, we have seen  almost  exclusive  use  of  such  parametric  estimation  tools such as those offered by Price Systems (pricesystems.com) andGalorath  (galorath.com).   
  
- Unnlike other approaches (listed in the next section),
- these parametric models are extensively supported
- in industry.
- Professional  societies,  hand-books and certification programs are mostly developed around parametric estimation methods and tools; e.g.  see the International Cost Estimation and Analysis Society;  the NASA CostSymposium;  the International Forum on COCOMO and Systems/Software Cost Modeling\footnote{
-See the websites http://tiny.cc/iceaa, http://tiny.cc/nasa_cost, and http://tiny.cc/csse.}
  
  \subsection{Criticism of Parametric Methods}
  
@@ -354,57 +564,82 @@ the
 feedback learned during that spring. The developers in such organizations are free to adjust the deliverables, and
 what  functionality is delivered when, 
 
-\input{Tables/cocomoParams}
-  
-  \section{COCOMO Details}
-  
-  
-  Following the release of an initial version of COCOMO in 1981~\cite{boehm81}, Boehm created a consortium for
-industrial organizations using COCOMO .
-The consortium
-collected information on 161 projects from commercial,
-aerospace, government, and non-profit organizations.
-Based on an analysis of those 161 projects, Boehm
- added  new attributes called {\em scale factors}
-that had an {\em exponential impact}
-on effort (e.g. one such attribute was process maturity).
-
-Using that new data, Boehm and his colleagues developed
-a set of   {\em tunings} for COCOMO that
-mapped the project descriptors (very low, low, etc)
-into the specific attributes used in the COCOMO model (see \fig{cparems}).
-Those tunings, mappings, and attributes became the COCOMO-II model
-released in 2000~\cite{boehm00b}:
-\begin{equation}\label{eq:cocII}
-\mathit{effort}=a\prod_i EM_i *\mathit{KLOC}^{b+0.01\sum_j SF_j}
-\end{equation}
-Here, {\em EM,SF} are  effort multipliers and scale
-factors and
- $a,b$ are the {\em local calibration} parameters (with default values of 2.94 and 0.91).
- In COCOMO-II, effort multipliers change effort by a linear amount
- while scale factors change effort by an exponential amount.
-COCOMO-II reports {\em effort}
-as ``development months'' where one month
-is 152 hours of work  (and includes development and management hours).
-For example, if {\em effort}=100, then according to COCOMO,
-five developers would finish
-the project in 20 months.
-
-Note that, from \eq{cocII},
-the minimum  
-effort  is bounded by the  {\em sum} of the minimum scale factors
-and the {\em product} of the minimum effort multipliers.
-Similar expressions hold for the  maximum effort estimate. Hence,
-for a given KLOC, the range of values is given by:
-\[
-0.18*\mathit{KLOC}^{0.97}  \le \mathit{effort} \le 154*\mathit{KLOC}^{1.23}\]
-Dividing the minimum and maximum values results in an  expression showing
-how    effort can vary for any given KLOC.: 
-\begin{equation}\label{eq:ration}
-154/0.18 *\mathit{KLOC}^{1.23 - 0.97} = 856*\mathit{KLOC}^{0.25}
-\end{equation}
  
- 
+
+\section{Methods}
+These section explores three research questions:
+\bi
+\item[{\bf RQ1:}] In practice, what are the actual sizes of errors in early life cycle size estimation?
+\item[{\bf RQ2:}] Using simulation studies, what are the impacts on estimates of errors of those actual sizes?
+  \item[{\bf RQ3:}] In theory, what are the actual sizes of errors in early life cycle size estimation?
+    \ei
+
+    To find the actual sizes of size estimate errors needed for {\bf RQ1}, we explore the proceedings
+    of NASA and US Defense Department 
+
+    \begin{figure}
+      \scriptsize
+      \begin{minipage}{.5\linewidth}
+      \begin{tabular}{r|rr|}
+   project & pre-analysis&pre-coding\\\hline
+a&-44\%&-44\%\\
+b&-13\%&-4\%\\
+c&-6\%&-6\%\\
+d&-4\%&-4\%\\
+e&5\%&5\%\\
+e&7\%&\\
+f&10\%&10\%\\
+g&54\%&54\%\\
+h&64\%&64\%\\
+i&69\%&69\%\\
+j&78\%&78\%\\
+k&95\%&52\%\\
+l&206\%&10\%\\
+m&236\%&236\%
+      \end{tabular}\end{minipage} \begin{minipage}{.33\linewidth}
+        \includegraphics[width=1.8in]{nasadata.png}
+        \end{minipage}
+      \caption{Errors in estimates of final system size (measured in terms of LOC)
+        seen before analysis and coding in 14 NASA projects. Values in the left-hand-size table
+        are shown graphically at right.
+        All percentages here are percents on the final code size. For example, in the last
+        line, Project M's final size was 236\% larger than predicted at the pre-analysis stage.
+        Positive values denote initial under-estimates while negative values denote over-estimates
+        (e.g. the size of the first four projects were initially over-estimated). Note
+        that none of the values shown here come close to Boehm's ``incorrect by 400\%'' figure;
+        in fact- of the 28 estimates shown here, $\frac{24}{28}\approx 86$\%
+        only four are more than 80\% incorrect.}
+        \label{fig:loc}
+    \end{figure}
+
+    50 Programs
+    Mission types:
+    \bi
+  \item 31 Command and Control;
+    \item 6 Office Automation, Software Tools, Signal Processing;
+    \item 5 Database, Diagnostic, Mission Plans, Simulation, Utilities;
+    \item 5 Testing;
+    \item 3 Operating System;
+      \ei
+      
+      Development processes:
+      \bi
+    \item 15 Waterfall;
+    \item 12 Incremental;
+    \item 8 Spiral;
+    \item 15 Undefined
+      \ei
+
+      {\scriptsize
+      \begin{tabular}{r|r|r|r|r}
+      Complexity & N &  Product Line  & Environment & State of the Art\\\hline
+Simple& 2& Existing& Existing &Current\\
+Routine& 10& New& Existing& Current\\
+Moderate& 14& New& New& Current\\
+Difficult& 24& New& New& New\\
+\end{tabular}}
+
+        
  \section{Methods}
  To check the effects of noise, we repeated the reduction
 experiments of the last section while also injecting
@@ -520,7 +755,24 @@ COCOMO2                                              & 1             & 32 $\pm$ 
     \label{fig:mre_datasets}
 \end{figure}
 
- 
+
+\section{Why Such Small Changes to COCOMO?}
+
+  
+Note that, from \eq{cocII},
+the minimum  
+effort  is bounded by the  {\em sum} of the minimum scale factors
+and the {\em product} of the minimum effort multipliers.
+Similar expressions hold for the  maximum effort estimate. Hence,
+for a given KLOC, the range of values is given by:
+\[
+0.18*\mathit{KLOC}^{0.97}  \le \mathit{effort} \le 154*\mathit{KLOC}^{1.23}\]
+Dividing the minimum and maximum values results in an  expression showing
+how    effort can vary for any given KLOC.: 
+\begin{equation}\label{eq:ration}
+154/0.18 *\mathit{KLOC}^{1.23 - 0.97} = 856*\mathit{KLOC}^{0.25}
+\end{equation}
+
 
 \section*{Acknowledgments}
 The work has partially funded by a National Science Foundation CISE CCF award \#1506586.
@@ -644,3 +896,66 @@ time for an end to era of data mining in se? moving on to a new phase of learnin
 
 
 
+
+  
+  that perturbs size estimates
+  according to the ranges found in (1), we report that the overall error resulting
+  from sizing errors is very small.
+ 
+
+reports that such early lifecycle
+esimates
+
+For example, the COCOMO model predicts
+that effort is exponentially proporitional to size of the system
+
+
+Although the development
+of parametric effort models has made the estimation
+process repeatable, there are still concerns with
+their overall
+accuracy~\cite{Menzies2005,Molkken2003,Ferens1998,Kemerer1987}.
+
+
+
+
+A problem at the core of software effort estimation
+is the sizing problem.
+Many effort estimation techniques used lines of code~\cite{boehm81}, or number of
+function points~\cite{Hihn1991},
+as the basis of their predictions.
+However, early in the software process, it may be  difficult to estimate the size of the final system.
+
+Training data may have inaccurate size estimates
+for many reasons such as
+\bi
+\item How was reused code accounted
+for in the size estimate?
+\item  Was size measured from end-statement
+or end-of-line symbols?
+\item Or how were lines of comments handled?
+\ei
+Another factor that introduces noise into training and test
+data are systems built from multiple languages. 
+To make estimates from  those kind
+of systems, size data from  one language needs to be translated (in a possibly incorrect way) to size data in another language.
+
+In theory, the  problem of noisy size measures seem very acute for parametric effort estimation
+methods such as Boehm et al.'s COCOMO software effort estimation model.
+The core of COCOMO  is an estimate that is exponential on KLOC (thousands of lines of code); i.e.
+\[
+\mathit{effort} \propto \mathit{KLOC}^n
+\]
+This means that innaccuracies in the 
+ KLOC size estimate will be magnified in a non-linear way.
+
+ 
+
+The lack of adoption of methods suggested by SEE research in industrial environments is a serious issue.
+Without addressing the problems that hinder the knowledge transfer from SEE research to industry, the future of SEE is bound to be a mostly theoretical field rather than a practical one.
+
+There are various reasons from which the adoption problem stems, such as the difficulty of attaining accurate estimates, difficulty of collecting effort related data and the difficulty of adopting complex methods.
+It is possible to increase the items in this list.
+However, at the heart of the most widely accepted SEE methods lies the measurement of software size.
+For example, COCOMO uses LOC to measure software size and FP approach uses the number of basic logical transactions in a software system.
+Accurate measurement of both LOC and FP can be problematic in industrial settings~\cite{Kocaguneli2011, Gollapudi2004}.
