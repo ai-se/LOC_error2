@@ -80,7 +80,7 @@
 
 \begin{document}
 \begin{frontmatter}
-\title{ Impacts of Bad ESP (Early Size Predictions) and Software Effort Estimation}
+\title{ Impacts of Bad ESP (Early Size Predictions) on Software Effort Estimation}
 \author{George Mathew\corref{cor1}}
 \ead{george.meg91@gmail.com}
 \author{Tim Menzies}
@@ -128,9 +128,9 @@ effort models
 only a modest increase in effort estimates error: e.g. 39\% to 44\% in the  median magnitude of relative error. (c)~An analytical evaluation of one effort
 model (COCOMO) explains why this might be so:   errors in ESP
 are dwarfed by the product of all the other factors.\\
-\textbf{Conclusion:} (1)~Bad ESP can lead to poor project effort estimates. (2)~However,
+\textbf{Conclusion:} (a)~Bad ESP can lead to poor project effort estimates. (b)~However,
 the size of that effect is much less than commonly believed.
-(3)~Contrary to prior belief, bad ESP {\em not} the dominate factor leading to inaccurate effort estimates.
+(c)~Contrary to prior belief, bad ESP {\em not} the dominate factor leading to inaccurate effort estimates.
 \end{abstract}
 \end{frontmatter}
 
@@ -175,10 +175,11 @@ comparing these methods, or how to usefully combine
 them, and how to reduce errors when they are used,
 see~\cite{koc11b,Minku2013,garg15,me13a,koc11b}.
 
-When these methods are debated, it is usual to discuss:
+When these methods are debated, it is usual to discuss problems with {\bf Early Sizing Prediction} (ESP),
+specifically:
 \begin{quote}
-  {\bf The Early Sizing Prediction (ESP):} {\em It is possible, early in the software lifecycle,
-    to guess with any degree of accuracy the size of the final system?}
+ {\em Is it possible, early in the software lifecycle,
+    to accurately guess the size of the final system?}
   \end{quote}
 Such size estimates can be expressed in several
 forms including function points~\cite{Albrecht83} of  source lines of code (SLOC)~\cite{boehm81}.
