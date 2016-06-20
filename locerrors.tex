@@ -80,7 +80,7 @@
 
 \begin{document}
 \begin{frontmatter}
-\title{On the Impact on Inaccurate Early Life Cycle\\ Size Estimation on Parametric Software Effort Estimation}
+\title{ Impacts of Bad ESP (Early Size Predictions) and Software Effort Estimation}
 \author{George Mathew\corref{cor1}}
 \ead{george.meg91@gmail.com}
 \author{Tim Menzies}
@@ -110,29 +110,27 @@ Jet Propulsion Laboratory, Pasadena, CA}
   %known.
   Boehm cautions that early lifecycle estimates of software size
   can wrong by up to a factor of 400\%. This is a
-  major concern for software effort estimation methods that use such size estimates as the basis
+  major concern for software effort estimation methods that use such ESP
+  (\underline{e}arly lifecycle \underline{s}ize \underline{p}redictions)
   for their predictions.\\
-\textbf{Objective:} To check  the impact of  effort estimates  due
-to inaccuracies in early life cycle size estimates. Specifically, we seek to check
-if the COCOMO method needs to be rejected dues to issues associated with inaccurate
-early life cycle effort estimates.\\
-\textbf{Method:} (1)~Explore repositories to determine the space of actual software
-size estimation errors seen in practice.  (2)~Using the results of the first point, conduct
+  \textbf{Objective:} To understand the impact of  bad ESP on software effort
+  estimation. .\\
+\textbf{Method:} Explore repositories to determine the space of actual software
+size estimation errors seen in practice.  Using the results of the first point, conduct
 analytical and perturbation-based  analysis of software
-effort models that reply on size estimates
-(in our case, the COCOMO effort model). \\
-\textbf{Results:} (1)~The range of size estimation errors is far smaller than   feared by Boehm:
-while a small minority
-of projects have estimate errors over 300\%, most
-projects have estiamte errors under  75\%. 
-(2)~When perturbing size values within those ranges,
-the effort models showed 
-only a modest increase in the associated effort estimates: e.g. 39\% to 44\% in the  median magnitude of relative error. An analytical evaluation of one effort
-model (COCOMO) shows why this might be so:   errors in the size estimate
-can be dwarfed by the product of all the other factors.\\
-\textbf{Conclusion:} (1)~Errors in project estimates taken from early lifecycle information about projects
-can unduly effect size estimates. (2)~The size of that effect, due to inaccurracies in early life cycle size estimates, is much less than commonly believed.
-(3)~Contrary to prior belief, inaccuracies in early life cycle estimates of final size is   {\em not} the dominate factor leading to inaccurate effort estimates.
+effort models that reply on ESP. \\
+\textbf{Results:} (a)~ESP errors are far smaller than   feared by Boehm:
+while some
+projects have estimate errors over 300\%, most
+projects have estiamte errors under  80\%. 
+(b)~When perturbing size values within those ranges,
+effort models 
+only a modest increase in effort estimates error: e.g. 39\% to 44\% in the  median magnitude of relative error. (c)~An analytical evaluation of one effort
+model (COCOMO) explains why this might be so:   errors in ESP
+are dwarfed by the product of all the other factors.\\
+\textbf{Conclusion:} (1)~Bad ESP can lead to poor project effort estimates. (2)~However,
+the size of that effect is much less than commonly believed.
+(3)~Contrary to prior belief, bad ESP {\em not} the dominate factor leading to inaccurate effort estimates.
 \end{abstract}
 \end{frontmatter}
 
@@ -151,24 +149,73 @@ can unduly effect size estimates. (2)~The size of that effect, due to inaccurrac
 \pagenumbering{arabic} %XXX delete before submission
 
 \section{Introduction}
-
+Poor software effort estimation can crippled a project.
+In
+the worst case, over-running projects are canceled and
+the entire development effort is wasted. For example,
+NASA canceled its incomplete Check-out Launch Control
+System project after the initial \$200M estimate was
+exceeded by another \$200M~\cite{clcs03}.
 
 Even after decades of research and model
-development, SEE still remains as a tricky task
-under the best of circumstances.  There are
-extensive debates as to which methods are best,
-mostly focusing on model vs. analogy based methods.
-Shepperd et al. reports analogy-based estimation
-(ABE) methods as the high performing
-methods~\cite{Shepperd1997}; whereas within DOD and
-NASA, parametric effort models like
-COCOMO~\cite{Boehm1981} are extensively used and
-have been shown to be high performing methods under
-the right conditions~\cite{Lum2002}.
+development, there extensive debates as to which
+methods are best.  For example, Shepperd et
+al. prefer analogy-based estimation (ABE)
+methods~\cite{Shepperd1997}.  Meanwhile, within the
+United States Department of Defence and NASA,
+parametric effort models like
+COCOMO~\cite{Boehm1981} are used extensively and
+have found to be quite effective~\cite{Lum2002}.
+Also, advocates of agile and devops methods prefer
+the planning poker method (discussed in \tion{xxx}).
+Finally Jorgensen et al.~\cite{jorgensen09} prefer
+expert-based approaches where estimates are derived
+by committees of human experts.  For studies
+comparing these methods, or how to usefully combine
+them, and how to reduce errors when they are used,
+see~\cite{koc11b,Minku2013,garg15,me13a,koc11b}.
 
-Hihn report that amongst the SE professionals,
-parametric models are the dominantly used
-methods~\cite{Hihn1991}.
+When these methods are debated, it is usual to discuss:
+\begin{quote}
+  {\bf The Early Sizing Prediction (ESP):} {\em It is possible, early in the software lifecycle,
+    to guess with any degree of accuracy the size of the final system?}
+  \end{quote}
+Such size estimates can be expressed in several
+forms including function points~\cite{Albrecht83} of  source lines of code (SLOC)~\cite{boehm81}.
+However they are expressed, early in the software development process,
+there are many reasons why ESP may lead to inaccurate estimates:
+\bi
+\item How was reused code accounted for in the size estimate?
+\item  Was size measured from end-statement or end-of-line?
+\item How were lines of comments handled?
+\item Given systems built in multiple languages, how were sizes from different programs translated
+  into a single number?
+\item
+  Given any kind of iterative development, how will feedback learned during the development change
+  the goals of the project and the size of the delivered system?
+  \ei
+The  problem of noisy size measures seem very acute for parametric effort estimation
+methods such as Boehm et al.'s COCOMO software effort estimation model.
+The core of COCOMO  is an estimate that is exponential on KSLOC (thousands of SLOC); i.e.
+\[
+\mathit{effort} \propto \mathit{KLOC}^n
+\]
+In 1981, Boehm~\cite{hoem1981} warned that ESP can be wrong by up to 400\%
+which means, in theory,  that bad ESP will result in exponentially large errors in the estimate.
+
+This paper shows that, in practice, the problem of bad ESP is much less than previously feared.
+If we examine the recent historical record of ESP, then it can be shown that often the ESP
+error is often very small (usually, less 
+
+XXX while our analysis will use COCOMO, it could be applied to other effort estiamtion models
+as follows.
+
+This paper is about assessing the effects of a particular kind of
+error within parametric estimation models like COCOMO.
+We explore these since, as discussed in \tion{XXX}, these are the most
+common type of estimation models used by industrial practitioners.
+
+
 For problem with such parametric models is the  problem of noisy size measures.
 For example, 
 the core assumption of the COCOMO  estiamtion model~\cite{boehm81,boehm00b}
