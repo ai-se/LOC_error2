@@ -288,29 +288,32 @@ Given tuning data  from 254 projects, we show that the
   
   The rest of this paper is structured as follows.
   
-\section{Background}
+  \section{Background}
+  
 
 \input{Tables/cocomoParams}
-  
-  \subsection{COCOMO Details}
-  Our experiments are based on the COCOMO model.
-  One reason to study parametric models like COCOMO is that they are used and supported
-extensively in commercial practice:
-\bi
-\item
+
+\subsection{Selection of Model}
+
+For the purposes of this work, we need to explore the effects of ESP errors on some model
+of effort estimation. For that work we choose to use the COCOMO model~\cite{boehm81,boehm00b}.
+There are two reasons for that selection. Firstly, as shown in \eq{one}, COCOMO is particularly
+susceptible to bad ESP. Secondly, it is widely used in industry and government circles
 In our work with the Chinese and the United States software industry,
 we saw an   almost exclusive
 use  of parametric estimation tools such as those offered by 
 Price Systems (pricesystems.com) and  Galorath (galorath.com).
-\item
-Professional societies, handbooks and
+Also,
+professional societies, handbooks and
 certification programs are mostly developed around 
 parametric estimation methods and tools; e.g. see the 
 International Cost Estimation and Analysis Society; the
 NASA Cost Symposium;  the
 International Forum on COCOMO and Systems/Software
 Cost Modeling\footnote{See the websites \url{http://tiny.cc/iceaa}, \url{http://tiny.cc/nasa_cost}, \url{http://tiny.cc/csse}}.
-\ei
+
+  \subsection{COCOMO Details}
+
   COCOMO was developed in two states: an initial release in 1981~\cite{boehm81}
   followed by an extensive revision in  2000~\cite{boehm00b}.
   In between those releases,
@@ -407,10 +410,10 @@ small mutations to the input data.
  twice as bad as those generated via parametric
  methods~\cite{garg15}. One reason for the lack of
  comparisons is that COCOMO and planning poker
- usually address different problems: \bi
+ usually address different problems: \be
 \item COCOMO is often used to negotiating resources prior to starting a project;
 \item Planning power is often used to adjust current activity within the resource allocation of a project.
-  \ei
+  \ee
   \subsection{Problems with Size Estimates}
 Combining the last two points, we note that there no real dispute between planning poker (that is an intra-project
 task adjustment tool) and COCOMO (which is an pre-project tool for checking if enough resources are available
@@ -418,9 +421,10 @@ to start a project).
 That said, COCOMO does rely on an early lifecycle size esimate which, according to Boehm~\cite{boehm81}, can be wrong
 by up to 400\%.
 Such size estimates can be expressed in several
-forms including function points~\cite{Albrecht83} of  source lines of code (SLOC)~\cite{boehm81}.
+forms including function points~\cite{Albrecht83} or  source lines of code (SLOC)~\cite{boehm81}.
 But no matter how  these size measures are expressed, early in the software development process,
-ESP can be inaccurate for many reasons such as:
+ESP can be inaccurate. For example, here is a list of issues that needs to be resolved before making that
+size estimate:
 \bi
 \item How was reused code accounted for in the size estimate?
 \item  Was size measured from end-statement or end-of-line?
@@ -428,24 +432,76 @@ ESP can be inaccurate for many reasons such as:
 \item Given systems built in multiple languages, how were sizes from different programs translated
   into a single number?
 \item
-  Given any kind of iterative development, how will feedback learned during the development change
+  Given some kind of iterative development, how to guess early in the lifecycle
+  how much subsequent  feedback will change
   the goals of the project and the size of the delivered system?
   \ei
-  
- 
+  Having documented the issues that {\em might} confuse ESP, the following results suggest
+that, in practice, bad ESP is not a major problem.
 
-\section{Methods}
-These section explores three research questions:
+\section{Three Studies about Bad ESP}
+This documents the simulation, analytical, and theoretical studies that address the three
+research questions listed in the introduction.
+\subsection{RQ1: What is the Observed Impact of Bad ESP?}
+The first part of this study looked into the historical record for information about $\Delta$, the
+size of the errors seen in real-world ESPs.
+The second part used that information to guide a simulation where, many times, estimates
+were generated after perturbing size estimates within COCOMO but some random amount across
+the range of known $\Delta$ values.
+
+Two sources were used to learn the range of
+$\Delta$s. Source1 covers fifty projects documented
+by Jones \& Hardin~\cite{jones07a} from the United
+States Department of Defence:
 \bi
-\item[{\bf RQ1:}] In practice, what are the actual sizes of errors in early life cycle size estimation?
-\item[{\bf RQ2:}] Using simulation studies, what are the impacts on estimates of errors of those actual sizes?
-  \item[{\bf RQ3:}] In theory, what are the actual sizes of errors in early life cycle size estimation?
-    \ei
+\item
+  While the majority of
+these were military-specific applications (command
+and control functions), 17 of these are applications
+types that could be seen in non-military domains
+(see \fig{jones}).
+\item
+  Further, only a minority of
+these ($\frac{15}{50}=30\%$) were waterfall
+projects where requirements were mostly frozen prior
+to coding: for the remaining 35 of the Jones \& Hardin projects, there was ample opportunity
+for scope creep that could lead to inaccuracies in early lifecycle estimates.
+\ei
+\begin{figure}
+  \scriptsize
+  \begin{center}
+      \begin{tabular}{|p{0.77in}|r|r|r|p{0.77in}|}\hline
+      Complexity & N &  Product Line  & Environment & State of the Art\\\hline
+Simple& 2& Existing& Existing &Current\\
+Routine& 10& New& Existing& Current\\
+Moderate& 14& New& New& Current\\
+Difficult& 24& New& New& New\\\hline
+   \end{tabular}
 
-    To find the actual sizes of size estimate errors needed for {\bf RQ1}, we explore the proceedings
-    of NASA and US Defense Department 
+      \vspace{4mm}
+      
+  \begin{tabular}{|rl|rl|}\hline
+        &Application types & &Development processes\\\hline
+     31 &Command and Control & 15 &Waterfall\\
+    6 &Office Automation, Software Tools, Signals & 12 &Incremental\\
+    5 &DFs, Diagnostic, Mission Plans, Sims, Utils; &  8 &Spiral;\\
+   5 &Testing; & 15 &Undefined\\
+   3 &\multicolumn{3}{l|}{Operating System} \\\hline
+  \end{tabular}
+  \end{center}
+  \caption{50 projects from~\cite{jones07a}.}\label{fig:jones}
+  \end{figure}  
+Source2 covers 14 projects  from NASA. These projects cover the software used in the deep space
+missions of the Jet Propulsion Laboratory. Due to the highly innovative nature of this kind of
+software, this final size of this software could easily be incorrected estimated early in its lifecycle.
 
-    \begin{figure}
+\fig{ea} shows the 
+\begin{figure}
+\includegraphics[width=3in]{data.pdf}
+\caption{Estimated and actual source lines of code from 50 projects~\cite{jones07a}.}\label{fig:ea}
+\end{figure}
+
+ \begin{figure}
       \scriptsize
       \begin{minipage}{.5\linewidth}
       \begin{tabular}{r|rr|}
@@ -480,32 +536,26 @@ m&236\%&236\%
         \label{fig:loc}
     \end{figure}
 
-    50 Programs
-    Mission types:
-    \bi
-  \item 31 Command and Control;
-    \item 6 Office Automation, Software Tools, Signal Processing;
-    \item 5 Database, Diagnostic, Mission Plans, Simulation, Utilities;
-    \item 5 Testing;
-    \item 3 Operating System;
-      \ei
-      
-      Development processes:
-      \bi
-    \item 15 Waterfall;
-    \item 12 Incremental;
-    \item 8 Spiral;
-    \item 15 Undefined
-      \ei
 
-      {\scriptsize
-      \begin{tabular}{r|r|r|r|r}
-      Complexity & N &  Product Line  & Environment & State of the Art\\\hline
-Simple& 2& Existing& Existing &Current\\
-Routine& 10& New& Existing& Current\\
-Moderate& 14& New& New& Current\\
-Difficult& 24& New& New& New\\
-\end{tabular}}
+ 
+\begin{figure}
+\includegraphics[width=3in]{all.pdf}
+\caption{All errors seen in our two sources. 50th and 90th percentile on those errors are 91\% and 170\%.}\label{fig:allerr}
+\end{figure}
+
+These section explores three research questions:
+\bi
+\item[{\bf RQ1:}] In practice, what are the actual sizes of errors in early life cycle size estimation?
+\item[{\bf RQ2:}] Using simulation studies, what are the impacts on estimates of errors of those actual sizes?
+  \item[{\bf RQ3:}] In theory, what are the actual sizes of errors in early life cycle size estimation?
+    \ei
+
+    To find the actual sizes of size estimate errors needed for {\bf RQ1}, we explore the proceedings
+    of NASA and US Defense Department 
+
+   
+    
+     
 
         
  \section{Methods}

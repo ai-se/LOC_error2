@@ -1,0 +1,77 @@
+
+\subsection{Implications}
+
+time for an end to era of data mining in se? moving on to a new phase of learning-as-optimization
+
+1) learning is actually an optimization tasks (e.g. see fig2 of  learners climbing the roc curve hill in http://goo.gl/x2EaAm)
+
+2) our learners are all contorted to do some tasks X (e.g. minimize expected value of entropy), then we assess them on score Y (recall). which is nuts. maybe we should build the goal predicate into the learner (e.g http://menzies.us/pdf/10which.pdf) 
+
+3) given 1 + 2, maybe the whole paradigm of optimizing param selection is wrong. maybe what we need is a library of bees buzzing around making random choices (e.g. about descritziation) which other bees use, plus their own random choices (e.g. max depth of tree learned from discretized data) which is used by other bees, plus their own random choices (e.g. business users reading the models).  the funky thing here is that it can take some time before some of the bees (the discretizers) get feedback from the community of people using their decision (the tree learners). 
+
+
+
+
+
+  
+  that perturbs size estimates
+  according to the ranges found in (1), we report that the overall error resulting
+  from sizing errors is very small.
+ 
+
+reports that such early lifecycle
+esimates
+
+For example, the COCOMO model predicts
+that effort is exponentially proporitional to size of the system
+
+
+Although the development
+of parametric effort models has made the estimation
+process repeatable, there are still concerns with
+their overall
+accuracy~\cite{Menzies2005,Molkken2003,Ferens1998,Kemerer1987}.
+
+
+
+
+A problem at the core of software effort estimation
+is the sizing problem.
+Many effort estimation techniques used lines of code~\cite{boehm81}, or number of
+function points~\cite{Hihn1991},
+as the basis of their predictions.
+However, early in the software process, it may be  difficult to estimate the size of the final system.
+
+Training data may have inaccurate size estimates
+for many reasons such as
+\bi
+\item How was reused code accounted
+for in the size estimate?
+\item  Was size measured from end-statement
+or end-of-line symbols?
+\item Or how were lines of comments handled?
+\ei
+Another factor that introduces noise into training and test
+data are systems built from multiple languages. 
+To make estimates from  those kind
+of systems, size data from  one language needs to be translated (in a possibly incorrect way) to size data in another language.
+
+In theory, the  problem of noisy size measures seem very acute for parametric effort estimation
+methods such as Boehm et al.'s COCOMO software effort estimation model.
+The core of COCOMO  is an estimate that is exponential on KLOC (thousands of lines of code); i.e.
+\[
+\mathit{effort} \propto \mathit{KLOC}^n
+\]
+This means that innaccuracies in the 
+ KLOC size estimate will be magnified in a non-linear way.
+
+ 
+
+The lack of adoption of methods suggested by SEE research in industrial environments is a serious issue.
+Without addressing the problems that hinder the knowledge transfer from SEE research to industry, the future of SEE is bound to be a mostly theoretical field rather than a practical one.
+
+There are various reasons from which the adoption problem stems, such as the difficulty of attaining accurate estimates, difficulty of collecting effort related data and the difficulty of adopting complex methods.
+It is possible to increase the items in this list.
+However, at the heart of the most widely accepted SEE methods lies the measurement of software size.
+For example, COCOMO uses LOC to measure software size and FP approach uses the number of basic logical transactions in a software system.
+Accurate measurement of both LOC and FP can be problematic in industrial settings~\cite{Kocaguneli2011, Gollapudi2004}.
