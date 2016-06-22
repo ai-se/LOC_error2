@@ -410,22 +410,23 @@ small mutations to the input data.
  twice as bad as those generated via parametric
  methods~\cite{garg15}. One reason for the lack of
  comparisons is that COCOMO and planning poker
- usually address different problems: \be
+ usually address different problems: \bi
 \item COCOMO is often used to negotiating resources prior to starting a project;
 \item Planning power is often used to adjust current activity within the resource allocation of a project.
-  \ee
-  \subsection{Problems with Size Estimates}
-Combining the last two points, we note that there no real dispute between planning poker (that is an intra-project
+  \ei
+  Combining these  points, we note that there no real dispute between planning poker (that is an intra-project
 task adjustment tool) and COCOMO (which is an pre-project tool for checking if enough resources are available
 to start a project).
 That said, COCOMO does rely on an early lifecycle size esimate which, according to Boehm~\cite{boehm81}, can be wrong
 by up to 400\%.
-Such size estimates can be expressed in several
+  \subsection{Problems with Size Estimates}
+
+Size estimates can be expressed in several
 forms including function points~\cite{Albrecht83} or  source lines of code (SLOC)~\cite{boehm81}.
-But no matter how  these size measures are expressed, early in the software development process,
+No matter how  these size measures are expressed, early in the software development process,
 ESP can be inaccurate. For example, here is a list of issues that needs to be resolved before making that
 size estimate:
-\bi
+\be
 \item How was reused code accounted for in the size estimate?
 \item  Was size measured from end-statement or end-of-line?
 \item How were lines of comments handled?
@@ -435,38 +436,42 @@ size estimate:
   Given some kind of iterative development, how to guess early in the lifecycle
   how much subsequent  feedback will change
   the goals of the project and the size of the delivered system?
-  \ei
-  Having documented the issues that {\em might} confuse ESP, the following results suggest
-that, in practice, bad ESP is not a major problem.
+  \ee
+  The rest of this paper argues that while these five points are {\em potential} problems, in actual fact,
+  the net result of these issues is relatively  small (relative compared to the typical errors seen with
+  COCOMO estimation-- a point noted in \tion{xxx}).
 
 \section{Three Studies about Bad ESP}
 This documents the simulation, analytical, and theoretical studies that address the three
 research questions listed in the introduction.
 \subsection{RQ1: What is the Observed Impact of Bad ESP?}
-The first part of this study looked into the historical record for information about $\Delta$, the
-size of the errors seen in real-world ESPs.
-The second part used that information to guide a simulation where, many times, estimates
-were generated after perturbing size estimates within COCOMO but some random amount across
-the range of known $\Delta$ values.
+This research question is explored via  a simulation study that
+perturbates  size estimates within COCOMO by some random amount $\Delta$.
 
-Two sources were used to learn the range of
-$\Delta$s. Source1 covers fifty projects documented
+In order to find valid sizes for $\Delta$, we look to the historical record. 
+Two sources were used to learn the typical ranges. Source~\#1 covers fifty projects documented
 by Jones \& Hardin~\cite{jones07a} from the United
-States Department of Defence:
-\bi
-\item
+States Department of Defense.
   While the majority of
 these were military-specific applications (command
 and control functions), 17 of these are applications
 types that could be seen in non-military domains
 (see \fig{jones}).
-\item
   Further, only a minority of
 these ($\frac{15}{50}=30\%$) were waterfall
 projects where requirements were mostly frozen prior
 to coding: for the remaining 35 of the Jones \& Hardin projects, there was ample opportunity
 for scope creep that could lead to inaccuracies in early lifecycle estimates.
-\ei
+\fig{ae} shows the relationship between early lifecycle estimates of SLOC vs final size for the 50
+projects of Source~\#1. The diagonal line on that plot shows where the estimate equals the actual.
+The key observation from this Source~\#1 data is:
+\bi
+\item The estimates and actuals are very similar and much less than the 400\% error feared by Boehm in 1981.
+  \ei 
+
+
+
+
 \begin{figure}
   \scriptsize
   \begin{center}
@@ -491,9 +496,17 @@ Difficult& 24& New& New& New\\\hline
   \end{center}
   \caption{50 projects from~\cite{jones07a}.}\label{fig:jones}
   \end{figure}  
-Source2 covers 14 projects  from NASA. These projects cover the software used in the deep space
+Source~\#2 covers 14 projects  from NASA. These projects cover the software used in the deep space
 missions of the Jet Propulsion Laboratory. Due to the highly innovative nature of this kind of
 software, this final size of this software could easily be incorrected estimated early in its lifecycle.
+Many of the details of those NASA systems is proprietary information so, in this article, we cannot describe
+the NASA systems at the same level of detail as the Jones \& Hardin sample. What we can show are the ratios
+of final/initial SLOC values seen in that code (see \fig{nasaloc}.
+ Note
+        that none of the values shown here come close to Boehm's ``incorrect by 400\%'' figure;
+        in fact- of the 28 estimates shown here, $\frac{24}{28}\approx 86$\%
+        only four are more than 80\% incorrect.
+
 
 \fig{ea} shows the 
 \begin{figure}
@@ -529,11 +542,8 @@ m&236\%&236\%
         All percentages here are percents on the final code size. For example, in the last
         line, Project M's final size was 236\% larger than predicted at the pre-analysis stage.
         Positive values denote initial under-estimates while negative values denote over-estimates
-        (e.g. the size of the first four projects were initially over-estimated). Note
-        that none of the values shown here come close to Boehm's ``incorrect by 400\%'' figure;
-        in fact- of the 28 estimates shown here, $\frac{24}{28}\approx 86$\%
-        only four are more than 80\% incorrect.}
-        \label{fig:loc}
+        (e.g. the size of the first four projects were initially over-estimated).}
+        \label{fig:nasaloc}
     \end{figure}
 
 
@@ -543,44 +553,17 @@ m&236\%&236\%
 \caption{All errors seen in our two sources. 50th and 90th percentile on those errors are 91\% and 170\%.}\label{fig:allerr}
 \end{figure}
 
-These section explores three research questions:
+\fig{allerr} sorts all the {\em final/initial} ratios from our two sources. The horizontal lines in those figures show
+the 50th and 90th value in that sort:
 \bi
-\item[{\bf RQ1:}] In practice, what are the actual sizes of errors in early life cycle size estimation?
-\item[{\bf RQ2:}] Using simulation studies, what are the impacts on estimates of errors of those actual sizes?
-  \item[{\bf RQ3:}] In theory, what are the actual sizes of errors in early life cycle size estimation?
-    \ei
+\item The median 50th percentile error is 91\%;
+ \item The outlier 90th percentile error is 170\%.
+   \ei
+   Based on \fig{allerr}, we say that if perturb SLOC estimates by plus or minus 200\% then that more than covers the typical
+   values seen in the historical record.
 
-    To find the actual sizes of size estimate errors needed for {\bf RQ1}, we explore the proceedings
-    of NASA and US Defense Department 
-
+   \input{george1}
    
-    
-     
-
-        
- \section{Methods}
- To check the effects of noise, we repeated the reduction
-experiments of the last section while also injecting
-noise into the KLOC values.
-That is, as above, 
-(1)~the ranges were reduced to three;
-(2)~half the columns were reduced;
-(3)~we trained on only eight randomly selected projects; and 
-(4)~prior to train and test, all KLOC values were adjusted
-to
-\[\mathit{KLOC} = \mathit{KLOC}*((1- n) + (2*n*r))\]
-where $n \in \{0.25,0.5\}$ is the level of noise we are exploring and $r$ is a random number
-$0 \le r \le 1$.
-
-In \fig{noise}, any result
-marked with {\em n/2} or {\em n/4} shows what happens
-when the KLOCs were varied by 50\% or 25\% respectively.
-In only one case (COC81) were the noisy results statistically
-different from using data without noise. That is,
-the parametric estimation method being recommended here is
-not unduly effected by noise where the KLOC values
-vary up to 50\% of their original value.
-
  \section{Results}
  
  
@@ -691,6 +674,10 @@ how    effort can vary for any given KLOC.:
 154/0.18 *\mathit{KLOC}^{1.23 - 0.97} = 856*\mathit{KLOC}^{0.25}
 \end{equation}
 
+\section{Conclusion}
+
+size of errors in effort moldes may not be fulyy ppreciated. Sure, bad lines of code estiamtes lead to erronesous predictions.
+However, many factors, and not kust lines of code issues, cotnribute to those errors.
 
 \section*{Acknowledgments}
 The work has partially funded by a National Science Foundation CISE CCF award \#1506586.
@@ -797,6 +784,7 @@ The work has partially funded by a National Science Foundation CISE CCF award \#
 
 % \begin{quote} ... where  $d_i$ is the number of observed issues and $T$
 % is some threshold defined by an engineering judgement; we use $T=1$.\end{quote}
+
 
 
 \end{document}
