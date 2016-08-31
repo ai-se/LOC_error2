@@ -1,4 +1,4 @@
-\subsection{RQ2: What is the range of possible effects of bad ESP ?}\label{sect:rq2}
+\subsection{RQ3: What is the range of possible effects of bad ESP ?}\label{sect:rq3}
  This analytical study  of this section  examines the coefficients of the terms in the COCOMO equation
  to see what effect changes in KSLOC have on COCOMO's effort prediction.
  This study is motivated as follows:
@@ -28,19 +28,19 @@ COCOMO were based on an analysis of
 those  projects   were of size 20 to 2000 KSLOC (thousands of lines of code) and took between 100 to 10000 person months to build.
 Recall from \eq{one} that that work concluded that, in COCOMO
 \begin{equation}\label{eq:zero}
-\mathit{effort} \propto \mathit{KSLOC}^}\;x}
+\mathit{effort} \propto \mathit{KSLOC}^{\;x}
 \end{equation}
 where 
 \begin{equation}\label{eq:sum1}
 x={b + 0.01 \sum_i SF_i}
 \end{equation}
 Boehm's   $SF_i$ coeffecients
-are presented in a table inside the front cover of the COCOMO-II text~\cite{beohm00a}.
+are presented in a table inside the front cover of the COCOMO-II text~\cite{boehm00a}(see \fig{coc2}).
 When
   projects have ``very low'', ``low'', ``nominal'', ``high'', ``very high'' values in the COCOMO , then from that table it can be see that:
 \begin{equation}\label{eq:sf1}
 \begin{array}{r|l}
-  &\sum_i SF_i \\\hline
+  &0.01 \sum_i  SF_i \\\hline
 \mathit{very\; low} & 0.32\\
 \mathit{  low} &   0.25\\
 \mathit{nominal} &  0.192\\
@@ -81,7 +81,7 @@ Combining \eq{sum1}, \eq{sf1}, \eq{sf2} we see that the coeffiecent on the
 KSLOC term in \eq{zero} is 
 \begin{equation}\label{eq:sf3} 
 \begin{array}{r|l}
-                  &  x= b + \sum_i SF_i \\\hline
+                  &  x= b + 0.01 \sum_i SF_i \\\hline
 \mathit{very\; low} &  1.22 \le x \le 1.71\\
 \mathit{  low} &  1.16 \le x \le 1.65 \\
 \mathit{nominal}& 1.10 \le x \le 1.58    \\
@@ -108,12 +108,11 @@ by errors in LOC.
 while ``Upper bound is most pessimistic.
 For example, in `upper bound'' for ``very low'', $\mathit{effort} = \mathit{KLOC}^{1.71}$ (where 1.71 is the top-right figure of \eq{sf3}. }\label{fig:lowerupper}
 \end{figure}
+ 
 
-This is an analytical study that explores the COCOMO model plus some tuning data from 254 projects.
 
-
-\subsection{RQ3: What is the net effect of errors with KSLOC on estimation
-versus error in other attributes?}\label{sect:rq3}
+\subsection{RQ4: What is the net effect of errors with KSLOC on estimation
+versus error in other attributes?}\label{sect:rq4}
 
 
 Note that, from \eq{cocII},
@@ -124,6 +123,10 @@ Similar expressions hold for the  maximum effort estimate. Hence,
 for a given KLOC, the range of values is given by:
 \[
 0.057*\mathit{KSLOC}^{0.97}  \le \mathit{effort} \le 115.6*\mathit{KSLOC}^{1.71}\]
+(The exponents in the this expression come from \eq{sf3}. The linear terms come
+from the product of the min/max effort multipliers from the 
+the COCOMO-II text~\cite{boehm00b}).
+
 Dividing the minimum and maximum values results in an  expression showing
 how    effort can vary for any given KLOC due to variations in the effort multipliers
 and scale factors: 
@@ -131,7 +134,7 @@ and scale factors:
 115.6/0.057 *\mathit{KSLOC}^{1.71 - 0.97} = 2028*\mathit{KSLOC}^{0.74}
 \end{equation}
 Note the very large linear term (2028) coming from the effort multipliers and the
-small exponential term (0.74) coming from the scale factors. The lesson of \eq{ration}
+small exponential term (0.74) coming from the scale factors that acts on the KSCOC estimate. The lesson of \eq{ration}
 is that errors in KSLOC can have less of an impact on effort predictions than
-errors in COCOMO's effort multipliers. Hence, as seen in \tion{eq1}, it is possible
+errors in COCOMO's effort multipliers. Hence, as seen in \tion{rq1}, it is possible
 that errors in KSLOC will not be a major cause of estimatione errors.

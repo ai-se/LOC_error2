@@ -1,11 +1,12 @@
-\documentclass[final,twocolumn,5p]{elsarticle}
+\documentclass[final,twocolumn,5pt]{elsarticle}
+%\documentclass[final,twocolumn]{elsarticle}
 % \documentclass{sig-alternative}
 % \documentclass[conference]{IEEEtran}
 % \documentclass[smallextended]{svjour3}
 % \documentclass[preprint,12pt,3p,number]{elsarticle}
 \usepackage{multirow}
 % \usepackage{natbib}
-\usepackage{color}
+\usepackage{color} 
 \usepackage{graphics} 
 % \usepackage{cite}
 \usepackage{rotating}
@@ -20,6 +21,33 @@
 \usepackage{algorithmicx}
 \usepackage{algpseudocode}
 \usepackage[export]{adjustbox}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{mdframed}
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\fontsize{2.4mm}{0.8em}\selectfont,
+    breaklines=true,
+    prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+    frame=tlrb,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    %backgroundcolor=\color{Gray},
+    keywordstyle=\bfseries,
+    emph={COCONUT,GUESSES,ASSESS,COCOMO2,PEEKING2,SAMPLE,WHERE,RIG}, emphstyle=\bfseries\color{Blue},
+    stringstyle=\color{green!50!black},
+    commentstyle=\color{red}\itshape,
+    %numbers=none,
+    captionpos=t,
+    numberstyle=\bfseries\color{red},
+    escapeinside={\%*}{*)}
+}
+\usepackage{rotating}
+\definecolor{Gray}{rgb}{0.88,1,1}
+\definecolor{Gray}{gray}{0.85}
+\definecolor{Blue}{RGB}{0,29,193}
+
 \renewcommand{\footnotesize}{\scriptsize}
 \definecolor{lightgray}{gray}{0.8}
 \definecolor{darkgray}{gray}{0.6}
@@ -41,8 +69,9 @@
 % \newcommand{\rthree}{}
 % \newcommand{\rfour}{} 
 % \newcommand{\rfive}{}
-\newcommand{\wei}[1]{\textcolor{red}{Wei: #1}} 
+\newcommand{\George}[1]{\textcolor{red}{George: #1}} 
 \newcommand{\Menzies}[1]{\textcolor{red}{Dr.Menzies: #1}} 
+\newcommand{\etal}{et al.}
 
 %% timm tricks
 \newcommand{\bi}{\begin{itemize}[leftmargin=0.4cm]}
@@ -109,7 +138,7 @@
 \ead{tim.menzies@gmail.com}
 \author{Jairus Hihn}
 \ead{ jairus.m.hihn@jpl.nasa.gov}
-\cortext[cor1]{Corresponding author: Tel:XXX(Wei)}
+\cortext[cor1]{Corresponding author: Tel:1-614-535-8678(George)}
 \address{Department of Computer Science, North Carolina State University, Raleigh, NC, USA,\\
 Jet Propulsion Laboratory, Pasadena, CA}
 
@@ -168,7 +197,7 @@ the size of that effect is much less than commonly believed.
 \noindent
 {\bf Keywords:} effort estimation, size estimation, parametric models, COCOMO.
 %  \maketitle 
-\pagenumbering{arabic} %XXX delete before submission
+%\pagenumbering{arabic} %XXX delete before submission
 
 \section{Introduction}
 Poor software effort estimation can crippled a project.
@@ -183,21 +212,21 @@ Even after decades of research and model
 development, there extensive debates as to which
 methods are best.  For example, Shepperd et
 al. prefer analogy-based estimation (ABE)
-methods~\cite{Shepperd1997}.  Meanwhile, within the
+methods~\cite{shepperd1997estimating}.  Meanwhile, within the
 United States Department of Defence and NASA,
 parametric effort models like
-COCOMO~\cite{Boehm1981} are used extensively and
-have found to be quite effective~\cite{Lum2002}.
+COCOMO~\cite{boehm81} are used extensively and
+have found to be quite effective~\cite{lum02}.
 Also, advocates of agile and devops methods prefer
-the planning poker method (discussed in \tion{xxx}).
+the planning poker method (discussed in \tion{altCoc}).
 Finally Jorgensen et al.~\cite{jorgensen09} prefer
 expert-based approaches where estimates are derived
 by committees of human experts.  For studies
 comparing these methods, or how to usefully combine
 them, and how to reduce errors when they are used,
-see~\cite{koc11b,Minku2013,garg15,me13a,koc11b}.
+see~\cite{koc11b,Minku2013,garg15,me13a}.
 
-When these methods are debated, it is usual to discuss problems with {\bf Early Sizing Prediction} (ESP),
+When these methods are debated, it is usual to discuss problems with {\bf Early Size Prediction} (ESP),
 specifically:
 \begin{quote}
  {\em Is it possible, early in the software lifecycle,
@@ -206,23 +235,46 @@ specifically:
 Note that when such estimates are wrong, then any prediction made from that estimate
 will also be wrong. This problem is particularly acute for parametric effort estimation
 methods such as Boehm et al.'s COCOMO software effort estimation model.
-The core of COCOMO  is an estimate that is exponential on KSLOC (thousands of SLOC); i.e.
+The core of COCOMO  is an estimate that is exponential on KSLOC (thousands of source lines of code); i.e.
 \begin{equation}\label{eq:one}
 \mathit{effort} \propto \mathit{KSLOC}^{\; n}
 \end{equation}
+XXXtim: later i use $k^x$. better unify x and n
+
+XXXtim: change all the LOC, SLOC, KLOC to KSLOC
+
 In 1981, Boehm~\cite{boehm81} warned that ESP can be wrong by up to 400\%.
 Note that, if such erroneous values were used in \eq{one}, then due to the $ \mathit{KSLOC}^{\; n}$
 term, this would lead to  exponentially large errors in the estimate.
 
 Since 1981, much has been learned about software
-engineering. Accordingly, it is time to revisit
-Boehm's pessimism about bad ESP.  We find that bad SE is far less problematic that suggested
-by Boehm.
-To show this, this paper explores three research questions
-using a simulation study, an analytical study, and a theoretical study.
+engineering.  Software effort models made estimates based on a large number of parameters, only one 
+of which is KSLOC. 
+Hence, the impact of the size estimate error may be relatively less than all other factors
+that might confound an estimate. Those effort estimates are only ever approximately correct (usually $\pm 50\%$, e.g. see recent reports at   ICSE'16~\cite{Sarro16})
+Given that, it is possible that the contribution to the estimation
+errors due to  KSLOC  is relatively less important than other factors.
+
+\begin{figure}[!b]
+\begin{center}
+\includegraphics[width=3in]{Figs/datasets1.png}
+\end{center}
+\caption{Projects in this study. COC81 is a subset of COCOMO-II.  Note that NASA'93 and
+COC'05 and Nasa'10 have no
+overlap with the data used to define the version of COCOMO
+used in this paper.}
+\label{fig:dataused}
+\end{figure} 
+
+Accordingly, it is time to revisit
+Boehm's pessimism about bad ESP.  We find that bad SE is far less problematic that previously feared.
+To show this, this paper explores four research questions
+using two simulation studies 
+%using 3 public\footnote{\url{http://openscience.us/effort}} and 1 private dataset(See \fig{dataused}), 
+an analytical study, and a theoretical study:
 \bi
 \item
-{\bf RQ1 (the simulation study): What is the observed impact of bad ESP? }
+{\bf RQ1 (simulation study 1): What is the observed impact of bad ESP? }
 Given a model producing an estimate, we record the size of the error
 in the estimates
 after perturbing the size estimates by some factor $\Delta$.
@@ -238,28 +290,38 @@ Note that the key part of the {\bf RQ1} analysis is determining the
 range of $\Delta$ seen in contemporary projects.
 To obtain that range, we used data from 64 recent projects (14 from NASA, 50 
 from the United Science Department of Defense). 
-This introduces an external validity problem since our answers to {\bf RQ1} are
-only good for the values seen in these 64 projects. Therefore, to extend the external
-validity of our conclusions:
+% This introduces an external validity problem since our answers to {\bf RQ1} are
+% only good for the values seen in these 64 projects. Therefore, to extend the external
+% validity of our conclusions.
+
 \bi
 \item
-{\bf RQ2 (the analytical study):   What is the range of possible effect of bad ESP ?}
+{\bf RQ2 (simulation study 2): Is there a tolerance limit for  ESP? }
+For a given model we try identifying if there exists a limit on tolerable perturbation after which the errorin estimation stops being acceptable
+\ei
+\begin{lesson}
+Based on our experiments on COCOMO-II~\cite{boehm00b}, a tolerance level of 40\% on size is observed. Thus, there is point of tolerance beyond which estimation error increases significantly. 
+\end{lesson}
+This experiment was conducted by perturbing size on a total of 265 projects from 4 datasets (3 public\footnote{\url{http://openscience.us/effort}} and 1 private. See \fig{dataused}).Both {\bf RQ1} and {\bf RQ2} introduce a problem of external validity since it is verified only on selected 64 projects and COCOMO-II model respectively(although it has been observed that if a project can be expressed in terms of the COCOMO-II attributes, then the COCOMO-II method yields the lowest error in estimating software effort~\cite{menzies16}) . Therefore, to extend the external validity of our conclusions :
+
+\bi
+\item
+{\bf RQ3 (the analytical study):   What is the range of possible effect of bad ESP ?}
 For this question, we studied the coeffecients within a parametric effort
 estimation model (COCOMO~\cite{boehm81,boehm00b})  to derive minimum and maximum
 effects of changes to the KSLOC coeffecient in \eq{one}.
 \ei
 \begin{lesson}
 Given tuning data  from 254 projects, we show that the
-  exponential term $n$ is very small: specifically,
-  \mbox{$1.06 \le n \le 1.3$}. That is, ESP errors have such a low coefficient that ESP errors
+  exponential term $n$ is usually  small. That is, ESP errors have such a low coefficient that ESP errors
   results in linear, rather than exponential, errors in the predictions.
   \end{lesson}
- The results for {\bf RQ2} is based on more projects than {\bf RQ1}, but it is still
+ The results for {\bf RQ3} is based on more projects than {\bf RQ1} and {\bf RQ2}, but it is still
  a small sample from the space of all possible software projects. Accordingly, we conducted
  one more study:
   \bi
   \item
-  {\bf RQ3 (the theoretical study): Ignoring all tunings, what is the net
+  {\bf RQ4 (the theoretical study): Ignoring all tunings, what is the net
     effect of errors with KSLOC estimation versus errors in other attributes?}
  This theoretical study applies some algebraic manipulations to the COCOMO model
  to derive an expression that comments on the relative effects of KSLOC errors
@@ -272,13 +334,39 @@ Given tuning data  from 254 projects, we show that the
  dwarfed  by the effects from the other 22 COCOMO attributes.
  \end{lesson}
  Our conclusion from the above is that,
- for the COCOMO model, the results from {\bf RQ1,RQ1,RQ3}  show that there is little reason
+ for the COCOMO model, the results from {\bf RQ1, RQ2, RQ3, RQ4}  show that there is little reason
   to fear alarmingly large estimation errors due to ESP errors. This is an important contribution since
   one of the standard critiques of COCOMO is its dependency on ESP.
 
   
   
-  The rest of this paper is structured as follows.
+  The rest of this paper is structured as follows. XXXX.
+  
+  Timm xxx to be clear the goal here is not to propose a better method or defend COCOMO against alternate methods. rather, it is to say that an issue at the heart of all estimation (guessing the properties of something before that something is built) is not the great problem
+  that the literature says that it is.  This has practical and theoretical
+  and methodological implications:
+  \bi
+  \item {\em Practical implications:} Dozens of the projects studied in this paper come from very speculative systems (NASA flight systems) or incremental systems where it is most likely that ESP will be inaccurate. Yet this paper shows that the net effect
+  of to inaccuracies is very small.
+  Accordingly, we say that
+  the results of this paper shown 
+  that software engineers can make more use of effort estimation even when exploring incremental or highly experimental methods. 
+  \item {\em Theoretical implications:} This paper offers a methodology for testing the impact
+  of size inaccuracies on effort estimation models. In terms of 
+  future publications that cite this work, we anticipate that that 
+  methdology will be the most widely used part of this paper.
+  \item {\em Methodological implications:}
+   Numerous
+  recent publications caution that merely because some  belief that are widely held by
+  supposed  experts, they can still be misleading~\cite{jorgensen09,passos11,prem16,betten14,yang13,me12d,ray2014lang}.  
+   All the evidence required to make the analysis of
+  this paper has been available since since 2007-- yet in all that
+  time no one has thought to use it to test of
+  SE truisms  (specifically, that  ESP can be very problematic).
+  We hope that this paper inspires other researchers to revisit
+  old truisms in this field (which may not be outdated).
+  \ei
+  
   
   \section{Background}
   
@@ -287,10 +375,23 @@ Given tuning data  from 254 projects, we show that the
 
 \subsection{Selection of Model}
 
+Effort estimation is on of the most integral phases of software project planning required to develop new softwares. This led to large discussions between effort and other cost drivers~\cite{boehm81, boehm2000software}. Numerous discussions further argue that size of the project is considered the most predictable feature that quantifies the effort involved in a developing a project and has the largest correlation with it. For example Walkerden and Jeffery in their empirical study concluded that estimating effort by performing linear size adjustment to an analogue is more accurate than estimates based on regression model~\cite{Walkerden1999}. Kirsopp \etal in 2003 later observed that, even for case based projects, linear size scaling adaptation results in statistically significant improvements in predicting effort~\cite{kirsopp2003empirical}. Finally, in an analysis conducted by Jorgensen \etal they observe that, several industrial software development and maintenance projects indicates that the effort estimates provided by software professionals,
+i.e., expert estimates, to some extent are based on adjustments to size by regressing towards the mean(RTM) and indicates a rather large variance in how well the need for RTM-adjustments is understood among software developers~\cite{jorgensen2003software}. Thus, an error in estimating the size of the project can lead to drastic change in predicting the effort of the project.
+
+% Based on numerous studies, size of the project is considered the most predictable feature that quantifies the effort involved in a developing a project and has the largest correlation with it.~\cite{Walkerden1999, kirsopp2003empirical, jorgensen2003software}. Thus, an error in estimating the size of the project can lead to drastic change in predicting the effort of the project. For example, Tronto \etal \cite{de2007comparison} recommended the use of multi-layered Artificial Neural Networks for estimating Software effort. It is well known that the weights of the neural network can change drastically on the smallest change in the independent variables. In other studies by Huang \etal~\cite{huang2006optimization} Genetic Algorithm based Analogy based methods also depend on the size of the project and an error in the estimation of size can lead to false optimization of software effort. Checking project similarities also heavily depend on size of the project and in clustering based methods like C-means~\cite{azzeh2008software} a change in the size estimate can change cluster associated with the project.
+
 For the purposes of this work, we need to explore the effects of ESP errors on some model
 of effort estimation. For that work we choose to use the COCOMO model~\cite{boehm81,boehm00b}.
-There are two reasons for that selection. Firstly, as shown in \eq{one}, COCOMO seems particularly
-susceptible to bad ESP. Secondly, it is widely used in industry and government circles
+There are multiple reasons for that selection. Firstly, as shown in \eq{one}, COCOMO seems particularly
+susceptible to bad ESP. Secondly, as observed by Boehm \etal ~\cite{boehm1995cost}, defining a line of code is difficult due to conceptual differences involved in accounting for executable
+statements and data declarations in different languages. 
+% Thirdly, Srinivas and Fisher \cite{srinivasan1995machine} machine learning methods   . Fourthly, Tronto \etal \cite{de2007comparison} recommended the use of multi-layered Artificial Neural Networks for estimating Software effort. It is well known that the weights of the neural network can change drastically on the smallest change in the independent variables.
+Thirdly, during the period of 1985-1995 techniques like comparison-oriented
+methods involving paired size comparisons, ranking
+methods, and degree-of-difference comparisons
+were developed to correct the discrepancies in size estimates. They were helpful, but their performance
+was spotty and expert-dependent~\cite{boehm2008achievements, rehesaar96}.
+Finally, it is widely used in industry and government circles.
 In our work with the Chinese and the United States software industry,
 we saw an   almost exclusive
 use  of parametric estimation tools such as those offered by 
@@ -338,7 +439,9 @@ the project in 20 months.
 
 
 
+
  \subsection{Alternatives to COCOMO}
+ \label{sect:altCoc}
 
  
 COCOMO was initially designed in the age of
@@ -440,6 +543,12 @@ research questions listed in the introduction.
 This research question is explored via  a simulation study that
 perturbates  size estimates within COCOMO by some random amount $\Delta$.
 
+
+\begin{figure}
+\includegraphics[width=3in]{data.pdf}
+\caption{Estimated and actual source lines of code from 50 projects~\cite{jones07a}.}\label{fig:ea}
+\end{figure}
+
 In order to find valid sizes for $\Delta$, we look to the historical record. 
 Two sources were used to learn the typical ranges. Source~\#1 covers fifty projects documented
 by Jones \& Hardin~\cite{jones07a} from the United
@@ -454,7 +563,7 @@ these ($\frac{15}{50}=30\%$) were waterfall
 projects where requirements were mostly frozen prior
 to coding: for the remaining 35 of the Jones \& Hardin projects, there was ample opportunity
 for scope creep that could lead to inaccuracies in early lifecycle estimates.
-\fig{ae} shows the relationship between early lifecycle estimates of SLOC vs final size for the 50
+\fig{ea} shows the relationship between early lifecycle estimates of SLOC vs final size for the 50
 projects of Source~\#1. The diagonal line on that plot shows where the estimate equals the actual.
 The key observation from this Source~\#1 data is:
 \bi
@@ -499,11 +608,6 @@ of final/initial SLOC values seen in that code (see \fig{nasaloc}).
         in fact- of the 28 estimates shown here, $\frac{24}{28}\approx 86$\%
         only four are more than 80\% incorrect.
 
- 
-\begin{figure}
-\includegraphics[width=3in]{data.pdf}
-\caption{Estimated and actual source lines of code from 50 projects~\cite{jones07a}.}\label{fig:ea}
-\end{figure}
 
  \begin{figure}
       \scriptsize
@@ -550,7 +654,7 @@ the 50th and 90th value in that sort:
 \item The median 50th percentile error is 91\%;
  \item The outlier 90th percentile error is 170\%.
    \ei
-   Based on \fig{allerr}, we say that if perturb SLOC estimates by plus or minus 200\% then that more than covers the typical
+   Thus, based on \fig{allerr}, we can say that if perturb SLOC estimates by plus or minus 200\% then that more than covers the typical
    values seen in the historical record.
 
    \input{george1}
@@ -561,6 +665,8 @@ the 50th and 90th value in that sort:
   
 
 \section{Validity}
+
+XXXtimm. move to just after the intro.
 
 \subsection{Sampling Bias}
 The analysis process described above was designed specifically to
@@ -597,7 +703,9 @@ As to external validity of our conclusions for  other effort estimation methods,
   
 \section{Conclusion}
 Prior work raised alarms about problems with generating early life cycle estimates of software
-development effort. Boehm~\cite{boehm81} cautioned that such early estimates can be wrong by a factor of up to  400\%.
+development size. Boehm~\cite{boehm81} cautioned that those errors can lead to early life cycle
+estimates that are  wrong by a factor of up to  400\%.
+% \todo{References}
 
 While that may have been true in 1981, in 2016 we have found much evidence that we can be far more optimistic about
 our ability to generate reasonably accurate early lifecycle estimates:
@@ -606,10 +714,10 @@ our ability to generate reasonably accurate early lifecycle estimates:
 ESP errors seen in practice are much smaller than previously feared. Nowhere in
 this study did we find errors of order of ``plus or minus 400\%'', as feared
 by Boehm in 1981. In fact, look at \fig{allerr}, the median ESP error we found in
-this study are around -10\% (i.e. we typicallt over-estiamte the size of our software, by a small amount).
+this study are around -9\% (i.e. we typically under-estimate the size of our software, by a small amount).
 \item
 When we perturb LOC values within effort predictors, we find that within the ranges
-of \fig{allerr}, the net effect of those perturbations is very small. We documented that result above via simuation studies (in \tion{rq1}) and an analytical study of the SKLOC coeffecients with an effort estimator (in \tion{rq2}).
+of \fig{allerr}, the net effect of those perturbations is very small. We documented that result above via simulation studies (in \tion{rq1}) and an analytical study of the SLOC coeffecients with an effort estimator (in \tion{rq2}).
 \item
 Effort estimators
 use size measures, and many other values, to produce their predictions.  When we
@@ -621,7 +729,7 @@ The last point is particularly significant. While there are many reasons why ESP
 as shown above, the net impact of those errors is relatively small. The results of \tion{rq3}
 show that it is important to consider all the attributes used by  effort model, not just LOC.  
 Future work should focus on how to better collect more accurate information about (e.g.)
-the attributes are shown in \fig{cparem}.  
+the attributes are shown in \fig{cparems}.  
 
 \section*{Acknowledgments}
 The work has partially funded by a National Science Foundation CISE CCF award \#1506586.
@@ -632,7 +740,7 @@ The work has partially funded by a National Science Foundation CISE CCF award \#
 % \bibliographystyle{plain}
 \bibliographystyle{elsarticle-num}
 % \balance
-\bibliography{refs}  
+\bibliography{refs_min}  
 
    
 

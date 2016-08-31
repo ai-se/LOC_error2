@@ -1,112 +1,130 @@
+\subsection{RQ2: Is there a tolerance limit for ESP?}\label{sect:rq2}
 
-   To conduct that perturbation study, we 
-   
+\begin{figure}[!t]
+\begin{lstlisting}
+_  = None;  Coc2tunings = [[
+#              vlow  low   nom   high  vhigh  xhigh   
+# scale factors:
+'Flex',        5.07, 4.05, 3.04, 2.03, 1.01,     _],[
+'Pmat',        7.80, 6.24, 4.68, 3.12, 1.56,     _],[
+'Prec',        6.20, 4.96, 3.72, 2.48, 1.24,     _],[
+'Resl',        7.07, 5.65, 4.24, 2.83, 1.41,     _],[
+'Team',        5.48, 4.38, 3.29, 2.19, 1.01,     _],[
+# effort multipliers:        
+'acap',        1.42, 1.19, 1.00, 0.85, 0.71,    _],[
+'aexp',        1.22, 1.10, 1.00, 0.88, 0.81,    _],[
+'cplx',        0.73, 0.87, 1.00, 1.17, 1.34, 1.74],[
+'data',           _, 0.90, 1.00, 1.14, 1.28,    _],[
+'docu',        0.81, 0.91, 1.00, 1.11, 1.23,    _],[
+'ltex',        1.20, 1.09, 1.00, 0.91, 0.84,    _],[
+'pcap',        1.34, 1.15, 1.00, 0.88, 0.76,    _],[ 
+'pcon',        1.29, 1.12, 1.00, 0.90, 0.81,    _],[
+'plex',        1.19, 1.09, 1.00, 0.91, 0.85,    _],[ 
+'pvol',           _, 0.87, 1.00, 1.15, 1.30,    _],[
+'rely',        0.82, 0.92, 1.00, 1.10, 1.26,    _],[
+'ruse',           _, 0.95, 1.00, 1.07, 1.15, 1.24],[
+'sced',        1.43, 1.14, 1.00, 1.00, 1.00,    _],[ 
+'site',        1.22, 1.09, 1.00, 0.93, 0.86, 0.80],[ 
+'stor',           _,    _, 1.00, 1.05, 1.17, 1.46],[
+'time',           _,    _, 1.00, 1.11, 1.29, 1.63],[
+'tool',        1.17, 1.09, 1.00, 0.90, 0.78,    _]]
 
-   # george. please copy over our notes on the data sets, the perturbation study and the scott-knot method.
-   # ensure your comments do the setup (with the data) . cpvers the stats methods, then discusses and explains all the results. note you need to end with the ``Results1'' bubble from p1.
-
-     
-\[\mathit{KLOC} = \mathit{KLOC}*((1- n) + (2*n*r))\]
-where $n \in \{0.25,0.5\}$ is the level of noise we are exploring and $r$ is a random number
-$0 \le r \le 1$. In \fig{noise}, any result
-marked with {\em n/2} or {\em n/4} shows what happens
-when the KLOCs were varied by 50\% or 25\% respectively.
-In only one case (COC81) were the noisy results statistically
-different from using data without noise. That is,
-the parametric estimation method being recommended here is
-not unduly effected by noise where the KLOC values
-vary up to 50\% of their original value.
-
-
-
-
- 
- 
- 
-\begin{table}[!htpb]
-\centering
-\caption{NASA10}
-\scriptsize
-\label{tab:nasa10}
-\begin{tabular}{|r|c|c|c|c|}
-\hline
-\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Name}}} & \multicolumn{2}{c|}{\textbf{Mean}}     & \multicolumn{2}{c|}{\textbf{Variance}} \\ \cline{2-5} 
-\multicolumn{1}{|c|}{}                               & \textbf{Rank} & \textbf{Med $\pm$ IQR} & \textbf{Rank} & \textbf{Med $\pm$ IQR} \\ \hline
-COCOMO2                                              & 1             & 43 $\pm$ 35            & 1             & 0 $\pm$ 0              \\
-0.2:COCOMO2                                          & 1             & 38 $\pm$ 32            & 1             & 1 $\pm$ 1              \\ \cline{4-5}
-0.4:COCOMO2                                          & 1             & 45 $\pm$ 40            & 2             & 2 $\pm$ 2              \\ \cline{2-3}
-0.6:COCOMO2                                          & 2             & 49 $\pm$ 30            & 2             & 4 $\pm$ 2              \\ \cline{4-5}
-0.8:COCOMO2                                          & 2             & 49 $\pm$ 36            & 3             & 6 $\pm$ 3              \\
-1.0:COCOMO2                                          & 2             & 50 $\pm$ 34            & 3             & 8 $\pm$ 7    \\ \hline         
-\end{tabular}
-\end{table}
-
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
-\begin{table}[!htpb]
-\centering
-\caption{COC05}
-\scriptsize
-\label{tab:coc05}
-\begin{tabular}{|r|c|c|c|c|}
-\hline
-\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Name}}} & \multicolumn{2}{c|}{\textbf{Mean}}     & \multicolumn{2}{c|}{\textbf{Variance}} \\ \cline{2-5} 
-\multicolumn{1}{|c|}{}                               & \textbf{Rank} & \textbf{Med $\pm$ IQR} & \textbf{Rank} & \textbf{Med $\pm$ IQR} \\ \hline
-COCOMO2                                              & 1             & 46 $\pm$ 134           & 1             & 0 $\pm$ 0              \\ \cline{4-5}
-0.2:COCOMO2                                          & 1             & 46 $\pm$ 132           & 2             & 2 $\pm$ 9              \\ \cline{4-5}
-0.4:COCOMO2                                          & 1             & 48 $\pm$ 131           & 3             & 5 $\pm$ 36             \\
-0.6:COCOMO2                                          & 1             & 50 $\pm$ 120           & 3             & 8 $\pm$ 80             \\ \cline{4-5}
-0.8:COCOMO2                                          & 1             & 63 $\pm$ 100           & 4             & 12 $\pm$ 130           \\
-1.0:COCOMO2                                          & 1             & 65 $\pm$ 113           & 4             & 18 $\pm$ 162 \\ \hline
-\end{tabular}
-\end{table}
+def COCOMO2(project,  a = 2.94, b = 0.91, # defaults
+                      tunes= Coc2tunings):# defaults 
+  sfs ems, kloc  = 0,1,22          
+  scaleFactors, effortMultipliers = 5, 17
+  for i in range(scaleFactors):
+    sfs += tunes[i][project[i]]
+  for i in range(effortMultipliers):
+    j = i + scaleFactors
+    ems *= tunes[j][project[j]] 
+  return a * ems * project[kloc] ** (b + 0.01*sfs) 
+\end{lstlisting}
+\caption{COCOMO-II: effort estimates from a {\em project}.
+Here, {\em project} has up to 24 attributes  (5 scale
+factors plus 17 effort multipliers plus KLOC plus. in the training data, the actual effort).
+Each attribute except KLOC and effort is scored
+using the scale very low = 1, low=2, etc.
+For an explanation of the attributes shown in
+green, see \fig{cparems}.}\label{fig:coc2}
+\end{figure}
 
 
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
-\begin{table}[!htpb]
-\centering
-\caption{NASA93}
-\scriptsize
-\label{tab:nasa93}
-\begin{tabular}{|r|c|c|c|c|}
-\hline
-\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Name}}} & \multicolumn{2}{c|}{\textbf{Mean}}     & \multicolumn{2}{c|}{\textbf{Variance}} \\ \cline{2-5} 
-\multicolumn{1}{|c|}{}                               & \textbf{Rank} & \textbf{Med $\pm$ IQR} & \textbf{Rank} & \textbf{Med $\pm$ IQR} \\ \hline
-COCOMO2                                              & 1             & 39 $\pm$ 39            & 1             & 0 $\pm$ 0              \\
-0.2:COCOMO2                                          & 1             & 39 $\pm$ 36            & 1             & 1 $\pm$ 1              \\ \cline{4-5}
-0.4:COCOMO2                                          & 1             & 40 $\pm$ 33            & 2             & 2 $\pm$ 1              \\ \cline{4-5}
-0.6:COCOMO2                                          & 1             & 42 $\pm$ 26            & 3             & 3 $\pm$ 3              \\ \cline{2-5}
-0.8:COCOMO2                                          & 2             & 44 $\pm$ 23            & 4             & 6 $\pm$ 3              \\
-1.0:COCOMO2                                          & 2             & 51 $\pm$ 18            & 4             & 8 $\pm$ 3          \\ \hline   
-\end{tabular}
-\end{table}
 
+To conduct the perturbation study for identifying a point of tolerance,  we use  COCOMO since its internal details have been fully published~\cite{boehm00b}. Also, we can access a full implementation of the  2000 COCOMO model. Further, we have access to four interesting  COCOMO data sets. With one exception, our learning experiments do not use the data that generated   standard COCOMO. That exception is the  COC81 data-- which  lets us  compare new methods against the  labor intensive methods used to make standard COCOMO-- see \fig{dataused}.
 
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
-\begin{table}[!htpb]
-\centering
-\caption{COC81}
-\scriptsize
-\label{tab:coc81}
-\begin{tabular}{|r|c|c|c|c|}
-\hline
-\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Name}}} & \multicolumn{2}{c|}{\textbf{Mean}}     & \multicolumn{2}{c|}{\textbf{Variance}} \\ \cline{2-5} 
-\multicolumn{1}{|c|}{}                               & \textbf{Rank} & \textbf{Med $\pm$ IQR} & \textbf{Rank} & \textbf{Med $\pm$ IQR} \\ \hline
-COCOMO2                                              & 1             & 32 $\pm$ 33            & 1             & 0 $\pm$ 0              \\
-0.2:COCOMO2                                          & 1             & 32 $\pm$ 32            & 1             & 1 $\pm$ 1              \\ \cline{4-5}
-0.4:COCOMO2                                          & 1             & 36 $\pm$ 28            & 2             & 2 $\pm$ 3              \\ \cline{2-5}
-0.6:COCOMO2                                          & 2             & 43 $\pm$ 15            & 3             & 4 $\pm$ 3              \\ \cline{2-3}
-0.8:COCOMO2                                          & 3             & 49 $\pm$ 23            & 3             & 6 $\pm$ 5              \\ \cline{4-5}
-1.0:COCOMO2                                          & 3             & 50 $\pm$ 19            & 4             & 9 $\pm$ 5      \\ \hline       
-\end{tabular}
-\end{table}
+The primary method used in our study is the COCOMO2 which is described using simple python code in \fig{coc2}. The impact of noise in \textit{KLOC} is studied by varying $\mathit{KLOC}$ as follows
 
- 
+\begin{equation}
+    \label{eq:kloc}
+    \mathit{KLOC} = \mathit{KLOC}*((1- n) + (2*n*r))
+\end{equation}
+
+where $n \in [0.2, 0.4, 0.6, 0.8, 1.0]$ is the level of noise we are exploring and $r$ is a random number
+$0 \le r \le 1$. In the results, any result
+prefixed with {\em 0.2} to {\em 1.0} shows what happens
+when the KLOCs were varied by 20\% to 100\% respectively.
+
+\begin{figure*}[!ht]
+    \centering
+    \begin{minipage}[c]{\linewidth}
+    \begin{mdframed}
+    Scott-Knott procedure recommended by Mittas \& Angelis in their 2013 IEEE TSE paper~\cite{mittas13}.  This method sorts a list of $l$ treatments with $ls$ measurements by their median score. It then splits $l$ into sub-lists $m,n$ in order to maximize the expected value of differences  in the observed performances before and after divisions. E.g. for lists $l,m,n$ of size $ls,ms,ns$ where $l=m\cup n$:
+     \[E(\Delta)=\frac{ms}{ls}abs(m.\mu - l.\mu)^2 + \frac{ns}{ls}abs(n.\mu - l.\mu)^2\]
+
+    Scott-Knott then applies some statistical hypothesis test $H$ to check if $m,n$ are significantly different. If so, Scott-Knott then recurses on each division.Scott-Knott is better than an all-pairs hypothesis test of all methods; e.g. six treatments can be compared \mbox{$(6^2-6)/2=15$} ways.  A 95\% confidence test run for each comparison has  a very low total confidence: \mbox{$0.95^{15} = 46$}\%. To avoid an all-pairs comparison, Scott-Knott only calls on hypothesis tests {\em after} it has found splits that maximize the performance differences.
+
+    For this study, our hypothesis test $H$ was a conjunction of the A12 effect size test(endorsed by Arcuri \etal in ICSE '11 \cite{arcuri11}) of  and non-parametric bootstrap sampling \cite{efron93}; i.e. our Scott-Knott divided the data if {\em both}
+    bootstrapping and an effect size test agreed that the division was statistically significant (99\% confidence) and not a ``small'' effect ($A12 \ge 0.6$). 
+    For a justification of the use of non-parametric
+    bootstrapping, see Efron \&
+    Tibshirani~\cite[p220-223]{efron93}.
+    For a justification of the use of effect size tests
+    see Shepperd \& MacDonell~\cite{shepperd12a}; Kampenes~\cite{kampenes07}; and
+    Kocaguneli et al.~\cite{kocharm13}. These researchers
+    warn that even if an
+    hypothesis test declares two populations to be
+    ``significantly'' different, then that result is
+    misleading if the ``effect size'' is very small.
+    Hence, to assess 
+    the performance differences 
+    we first must rule out small effects.
+    Vargha and Delaney's
+    non-parametric 
+    A12 effect size test 
+    explores
+    two lists $M$ and $N$ of size $m$ and $n$:
+    \[A12 = \left(\sum_{x\in M, y \in N} 
+    \begin{cases} 
+    1   & \mathit{if}\; x > y\\
+    0.5 & \mathit{if}\; x == y
+    \end{cases}\right) / (mn)
+    \]
+    This expression computes the probability that numbers in one sample are bigger than in another.
+    This test was recently 
+    endorsed by Arcuri and Briand
+    at ICSE'11~\cite{arcuri11}.
+    \end{mdframed}
+    \caption{Scott-Knott Test}
+    \end{minipage}
+    \label{fig:sk}
+\end{figure*}
+
+\input{Tables/sk}
+
 \begin{figure}
     \centering
-    \includegraphics[scale=0.5]{Figs/mre.png}
-    \caption{MRE for effor while varying LOC in different datasets.}
-    \label{fig:mre_datasets}
+    \includegraphics[scale=0.45]{Figs/sa.png}
+    \caption{Standarized Accuracy for effort while varying LOC in different datasets.}
+    \label{fig:sa_datasets}
 \end{figure}
+
+% \begin{equation}\label{eq:mre}
+% \mbox{$ \mathit{MRE}=\frac{abs(\mathit{actual} - \mathit{predicted})}{\mathit{actual}}$}
+% \end{equation}
+
+\begin{equation}\label{eq:sa}
+\mbox{$ \mathit{SA}=\frac{abs(\mathit{actual} - \mathit{predicted})}{\mathit{\sum_{i=1}^{1000}|\pmb{choice}(all) - predicted|}/1000}$}
+\end{equation}
+
+Each of the four tables(\fig{nasa10}, \fig{coc05}, \fig{nasa93} \& \fig{coc81}) represent Standardized Accuracy(SA) values seen in leave-one-out-studies, repeated twenty times for the dataset highlighted in table\'s title. i.e. For every project in a dataset, the value of $r$ from \eq{kloc} is changed 20 times and KLOC is estimated and then substituted in \eq{one}. SA is calculated as shown in \eq{sa} where $actual$ is the true value of effort, $predicted$ is the estimated value, $all$(array) is all the effort values in the dataset and $\pmb{choice}$ randomly picks one value from an array.  The first column in each table denotes the name of the method. COCOMO2 represents estimating effort using COCOMO-II as shown in \fig{coc2}. $x$\%:COCOMO2 represents COCOMO-II where KLOC is perturbed with an error of $x$\% using \eq{kloc}. Column 3 highlights the median and IQR for the median of the SA while column 5 highlights the median and IQR of the IQR of SA.  {\em Better} methods appear {\em higher} in the tables.In these tables, median and IQR are the 50th and the  (75-25)th percentiles. Horizontal lines divide the ``ranks'' found by our Scott-Knott+bootstrapping+effect size tests (shown in column ``Rank''). In these tables we can observe that upto 40\% error in $KLOC$ is tolerable and error greater than that significantly changes the estimate. This observation is further backed by \fig{sa_datasets} which graphically show how the SA changes as we increase the error for the 4 datasets. Thus, there is point of tolerance beyond which estimation error increases significantly.
