@@ -631,14 +631,13 @@ to start a project).
 
 
 
-\section{Methods}
-This section describes the data sets and experimental methods used in this study.
+\section{Research Questions}
+This section explores our research questions.
+\section{ RQ1: How big are real world ESP errors?}
 
-This documents the simulation, analytical, and theoretical studies that address the three
-research questions listed in the introduction.
-\subsection{RQ1: What is the Observed Impact of Bad ESP?}\label{sect:rq1}
-This research question is explored via  a simulation study that
-perturbates  size estimates within COCOMO by some random amount $\Delta$.
+
+
+
 
 
 \begin{figure}
@@ -646,7 +645,7 @@ perturbates  size estimates within COCOMO by some random amount $\Delta$.
 \caption{Estimated and actual source lines of code from 50 projects~\cite{jones07a}.}\label{fig:ea}
 \end{figure}
 
-In order to find valid sizes for $\Delta$, we look to the historical record. 
+In order to find real-world ESP errors,  we look to the historical record. 
 Two sources were used to learn the typical ranges. Source~\#1 covers fifty projects documented
 by Jones \& Hardin~\cite{jones07a} from the United
 States Department of Defense.
@@ -654,12 +653,18 @@ States Department of Defense.
 these were military-specific applications (command
 and control functions), 17 of these are applications
 types that could be seen in non-military domains
-(see \fig{jones}).
-  Further, only a minority of
-these ($\frac{15}{50}=30\%$) were waterfall
+(see \fig{jones}):
+\bi
+\item
+ Only a minority of
+these ($\frac{15}{50}=30\%$) projects were waterfall
 projects where requirements were mostly frozen prior
-to coding: for the remaining 35 of the Jones \& Hardin projects, there was ample opportunity
-for scope creep that could lead to inaccuracies in early lifecycle estimates.
+to coding;
+\item
+  For the remaining 35 of the Jones \& Hardin projects, there was ample opportunity
+  for scope creep that could lead to inaccuracies in early lifecycle estimates.
+  \ei
+  
 \fig{ea} shows the relationship between early lifecycle estimates of KLOC vs final size for the 50
 projects of Source~\#1. The diagonal line on that plot shows where the estimate equals the actual.
 The key observation from this Source~\#1 data is:
@@ -673,7 +678,7 @@ The key observation from this Source~\#1 data is:
 \begin{figure}
   \scriptsize
   \begin{center}
-      \begin{tabular}{|p{0.77in}|r|r|r|p{0.77in}|}\hline
+      \begin{tabular}{|p{0.5in}|r|r|r|p{0.5in}|}\hline
       Complexity & N &  Product Line  & Environment & State of the Art\\\hline
 Simple& 2& Existing& Existing &Current\\
 Routine& 10& New& Existing& Current\\
