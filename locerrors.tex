@@ -161,34 +161,37 @@ Jet Propulsion Laboratory, Pasadena, CA}
 \begin{abstract}
   \textbf{Context:}
   %For  large systems (e.g.  projects run by government or
-%defence departments), it is common to lobby for the development funds prior to commencing the work.
-%For such software systems, it is important to have an (approximately) accurate    early lifecycle effort estimate % since (1)~large sums of money are involved and (2)~once funds are allocated, it can be problematic
+%defense departments), it is common to lobby for the development funds prior to commencing the work.
+%For such software systems, it is important to have an (approximately) accurate    early life cycle effort estimate % since (1)~large sums of money are involved and (2)~once funds are allocated, it can be problematic
 %to lobby for further funds. However, before the software is built, the size of the final system is not
   %known.
-  Early Size Prediction (ESP) is the process of generating a size estimate, early in the project lifecycle. When ESP is used for software effort estimation,   ESP errors can lead to
-  effort estimation errors.  \\
-  \textbf{Objective:} To understand the impact of  bad ESP on software effort
-  estimation. \\
-  \textbf{Method:} Document how inaccurate are early
-  size estimates. Using those documented error sizes, determine the implications of
-  those inaccuracies via an Monte Carlo pertubration analysis of effort models
+  Early size predictions (ESP) can lead to errors in effort predictions for software projects.
+  This problem is particular acute in parametric effort models that give extra weight to
+  size factors (for example, the COCOMO model assumes that effort is exponentially proportional
+  to project size).\\
+  \textbf{Objective:} Are effort estimates crippled by bad ESP?
+   \\
+  \textbf{Method:} Document  inaccuracies in early
+  size estimates. Using those error sizes to determine the implications of
+  those inaccuracies via an Monte Carlo perturbation analysis of effort models
   and an analysis of the equations used in those effort
   models.\\
 \textbf{Results:} 
-Many 
-projects have errors in ESP of up to $\pm$~100\%. Yet
-a Monte Carlo perturbation analysis shows that those errors add very
+While many 
+projects have errors in ESP of up to $\pm$~100\%,
+those errors add very
 little to the overall effort estimate error. Specifically,
-we found no stasitically signifincand difference in
+we find no statistically significant difference in
 the estimation errors seen after
 increasing ESP errors from 0 to $\pm$~100\%.
-An analysis of parametric models of effort estimation explains why this is so:
+An analysis of effort estimation models explains why this is so:
 the net additional impact  of ESP error is relatively  small compared to the other sources of error associated within
 estimation models.\\
-\textbf{Conclusion:} It is true that ESP errors can degrade
-project effort estimates. However,
-the size of that effect is much less than commonly feared.
-Contrary to prior belief, ESP errors {\em are not} the dominate factor leading to inaccurate effort estimates.
+\textbf{Conclusion:} ESP errors effect effort estimates by a relatively
+minor amount. As soon as a
+model  uses a size
+estimate {\em and other factors} to predict project effort,
+then ESP errors  are not crippling to the process of estimation.
 \end{abstract}
 \end{frontmatter}
 
@@ -202,30 +205,27 @@ Contrary to prior belief, ESP errors {\em are not} the dominate factor leading t
  
 \vspace{1mm}
 \noindent
-{\bf Keywords:} effort estimation, size estimation, parametric models, COCOMO.
+{\bf Keywords:} software effort, parametric models, COCOMO.
 %  \maketitle 
 %\pagenumbering{arabic} %XXX delete before submission
 
 \section{Introduction}
+
 Poor software effort estimation can crippled a project.
 In
 the worst case, over-running projects are canceled and
-the entire development effort is wasted. For example,
-NASA canceled its incomplete Check-out Launch Control
-System project after the initial \$200M estimate was
-exceeded by another \$200M~\cite{clcs03}.
-
+the entire development effort is wasted.
 One challenge with generating software effort estimates
 is  {\em Early Size Prediction}. ESP is the process of generating a size
-estimate, early in the project lifecycle. For large projects, or projects
-with extensive governemtn or rebularoy oversight, such estimates are  essential for:
+estimate, early in the project life cycle. For large projects, or projects
+with extensive government or regulatory oversight, such estimates are needed for:
 \bi
-\item Early in the lifecycle: when justifying different design decisions; 
-\item Later in the lifecycle: when debating with management which projects proposals to fund (and which to reject);
-\item After the project is delivered (on time, late, or not delivered at all):
-      when auditing the development process with a review board.
+\item When cost-justifying different design decisions; 
+\item When debating which projects get funded or not;
+\item After the project is delivered late, or not at all), and the management's
+  initial decisions are being audited.
 \ei
-Effort estimation models use a variety of project factgors, including the early size prediction
+Effort estimation models use a variety of project factors, including the early size prediction
 to predict development effort.
 Size estimates can be expressed in several
 forms including function points~\cite{Albrecht83} or  thousands of lines of
@@ -234,9 +234,9 @@ Incorrect size estimates can have a large impact on effort estimates.
 Boehm~\cite{boehm81} proposes a parametric model of effort estimation that
   assumes size was proportional exponentially to effort; i.e.
   \begin{equation}\label{eq:one}
-    \mathit{effort} = \mathit{A*KLOC}^B
+    \mathit{effort} = \mathit{X*KLOC}^Y
     \end{equation}
-  where $A,B$ contain numerous ``context variables'' such as analyst experience.
+  where $X,Y$ contain numerous ``context variables'' such as analyst experience.
   \eq{one} is the basis for the COCOMO model~\cite{boehm81,boehm00b}  (described in detail later in this paper).
   In this equation, ESP errors in KLOC can lead to exponentially large errors
   in the  effort estimate.
@@ -244,17 +244,18 @@ Boehm~\cite{boehm81} proposes a parametric model of effort estimation that
   early in the software development process.
   For example, here is a list of issues that needs to be resolved in order
   to make a highly accurate size estimate:
-\be
+  \be
 \item How was reused code counted in the size estimate?
 \item  Was size measured from end-statement or end--line?
 \item How were lines of comments handled?
 \item How to estimated the size of systems written in multiple languages?
 \item
-  How to guess early in the lifecycle
+  How to guess early in the life cycle
   how much subsequent  feedback will change
   the goals of the project and the size of the delivered system?
   \ee
-  This paper argues that while these five points are {\em potential} problems, the actual
+  This paper argues that while these five
+  points are {\em potential} problems, the actual
   net effect is relatively minor.
 What we will show is that software effort models make estimates based on a large number of parameters, only one 
 of which is KLOC. 
@@ -273,11 +274,11 @@ Using data from dozens of projects, we find that:
 {\bf RQ2: What is the impact of real-world ESP errors?}
 
 A Monte Carlo perturbation analysis was used
-to undersatnd the impact of the ESP errors found in {\bf RQ1}.
-For the 265 real-world data sets shown in \fig{dataused}, 100 times, the size estiamte of some project was perturbed by
+to understand the impact of the ESP errors found in {\bf RQ1}.
+For the 265 real-world data sets shown in \fig{dataused}, 100 times, the size estimate of some project was perturbed by
 0 to $\pm$~100\%. The development effort
-for project, with the perturbed size, was then calcuated.
-Those  estimate where  compared to the actual effort (in the non-perturned data).
+for project, with the perturbed size, was then calculated.
+Those  estimate where  compared to the actual effort (in the non-perturbed data).
 Given the exponential form of \eq{one}, it was expected that this would
 lead to an exponentially larger effort estimation error. Surprisingly,
 in our 265 projects.
@@ -302,7 +303,7 @@ used in this paper.}
 \end{lesson0}
 
 This surprising: in many real-world projects, large ESP errors
-lead to  smal estimation errors.
+lead to  small estimation errors.
 To explain this effect, we turned to our next research question.
 
 {\bf RQ3:
@@ -322,13 +323,13 @@ study, it was observed:
 
 We show via an analytical study 
 that this result can be explained with respect to internal structure
-of the parametric model used in {\bf RQ3}. Using some algrebric manipulations of
-oyr effort estimation model,
+of the parametric model used in {\bf RQ3}. Using some algebraic manipulations of
+our effort estimation model,
 we can derive expressions from
  the (a)~the minimum and (b)~the
 maximum possible effort estimate from this model.
 By dividing these two expression, it is possible to create an fraction showing
-the relative effect of chaning size estimates, or any other estimates, within this model.
+the relative effect of changing size estimates, or any other estimates, within this model.
 In that fraction:
 
 \begin{lesson0}
@@ -353,7 +354,7 @@ is not a major problem. This has several implications:
 
 \bi
 \item {\em Practical implications \#1:} This paper removes
-  one of the practical objections to the use of effort estimation models.
+  a major objection to the use of effort estimation models.
 \item {\em Practical implications \#2:} Dozens of the projects studied in this paper come from very speculative systems (NASA flight systems) or incremental
   systems where it is most likely that ESP will be inaccurate. Yet this paper shows that the net effect
   of to inaccuracies is very small.
@@ -363,13 +364,13 @@ is not a major problem. This has several implications:
   \item {\em Theoretical implications:} This paper offers a methodology for testing the impact
   of size inaccuracies on effort estimation models. In terms of 
   future publications that cite this work, we anticipate that that 
-  methdology will be the most widely used part of this paper.
+  methodology will be the most widely used part of this paper.
   \item {\em Methodological implications:}
    Numerous
   recent publications caution that merely because some  belief that are widely held by
   supposed  experts, they can still be misleading~\cite{jorgensen09,Menzies2016,Menzies2016b,passos11,prem16,betten14,yang13,me12d,ray2014lang}.  
    All the evidence required to make the analysis of
-  this paper has been available since since 2007-- yet in all that
+  this paper has been available since  2010-- yet in all that
   time no one has thought to use it to test the
   SE truism that  ESP can be very problematic.
   We hope that this paper inspires other researchers to revisit
@@ -393,7 +394,7 @@ Gates~\cite{goll04}:
 A similar
 complaint is made by Dijkstra~\cite{dij88} who says\begin{quote}
 {\em ``This (referring to
-  measuring productivity through LOC) is a very costly measuring unit because it
+  measuring productivity through KLOC) is a very costly measuring unit because it
   encourages the writing of insipid code, but today I am less interested in how
   foolish a unit it is from even a pure business point of view.''}
   \end{quote}
@@ -401,15 +402,15 @@ On the other hand, several studies report that size estimates have a place in
 effort estimation:
 \bi
 \item
-Walkerden and Jeffery comment that estimating effort by performing linear size
+Walkerden and Jeffery comment that estimating effort via linear size
 adjustment to an analogue is more accurate than estimates based on regression
 model~\cite{Walkerden1999}.
 \item
-  Kirsopp \etal agree with Walkerden and Jeffery: in a follow-up paperm
+  Kirsopp \etal agree with Walkerden and Jeffery: in a follow-up paper
 they noted that  linear size scaling adaptation results in statistically
 significant improvements in predicting
 effort~\cite{kirsopp2003empirical}.
-\item  J{\o}rgensen  \etal observe several industrial software development and
+\item  J{\o}rgensen  et al. observe several industrial software development and
 maintenance projects. They note that  that the effort estimates provided by software
 professionals (i.e. expert estimates) are to some extent are based on adjustments
 to size by regressing towards the mean(RTM).~\cite{jorgensen2003software}. Which is to say
@@ -419,7 +420,7 @@ project.
 \ei
 This paper offers a  middle ground between those how claim size estimates are irrelevant and those
 who say they are fundamental to the estimation process.
- Like Walkerden, Jeffery, Kirsopp, and J{\o}rgensen  \etal, we say that size estimates matter somewhat (see the {\bf RQ2} results).
+ Like Walkerden, Jeffery, Kirsopp, and J{\o}rgensen  et al., we say that size estimates matter somewhat (see the {\bf RQ2} results).
  However, as suggested by Gates and Dijkstra, size estimates are   not vitally important to effort estimation
  since effort error comes from two factors:
  \bi
@@ -436,7 +437,7 @@ who say they are fundamental to the estimation process.
    For example, Shepperd et
  al. prefer non-parametric analogy-based estimation (ABE)
  methods~\cite{shepperd1997estimating}.  Meanwhile, within the
- United States Department of Defence and NASA,
+ United States Department of Defense and NASA,
  parametric effort models like
  COCOMO~\cite{boehm81} are used extensively and
  have found to be quite effective~\cite{lum02}.
@@ -463,28 +464,26 @@ As to the effects of bad ESP on  non-parametric models, it is
  defined over all $F$ factors that typically includes one size estimate\footnote{Evidence:
    in the 13  effort data sets of the PROMISE repository http://openscience.us/repo/effort, only one data set has more than a single
    size attribute.}. ABE does not give extra special weight to the size factor.
- On the contrary, ABE often mutes the impact of the size factor:
- \bi
- \item
+ On the contrary, ABE often mutes the impact of the size factor.
 The range of values in a size factor may be much larger than all the other factors; e.g. programmer
  capability may be scored on a six point integer scale while the estimates may
  range from zero to millions of lines of code. When faced with scales of very
  different sizes, standard practice~\cite{koc11b,aha1991instance} is to
  normalize all the numerics min to max, zero to one using
  \mbox{$(x-\mathit{min})/(\mathit{max} - \mathit{min})$}.
-\item
-  Previously with
- Kocaguneli \etal~\cite{Kocaguneli2012z}, we have studied the effect of ignoring this normalization
- step within 90 varieties of effort estimation. That study found 13 ``superior''
+
+  Note that such normalization is recommended practice. 
+ Kocaguneli et al.~\cite{Kocaguneli2012z}, studied the effects of  normalization
+ within 90 varieties of effort estimation. That study found 13 ``superior''
  methods and 77 ``inferior'' ones. Of the eight varieties that never normalized,
  seven were found in the ``inferior'' set.
-\item
-  Once the size factor is muted via normalization,
+
+ The point here is that once the size factor is muted via normalization,
   then ABE estimates are effected by bad ESP by a factor of
-   $1/F$ effect. Typically values for $F$ are 5 to 24
+   $1/F$. Typically values for $F$ are 5 to 24
   with medians of around ten. That is, when compared to the other $1-1/F$ factors,  bad ESP has relatively
   little impact on the ABE effort estimate.
-  \ei
+ 
 A similar argument can be made for other non-parametric methods such as ensemble
 methods~\cite{Kocaguneli2012z} or random forests~\cite{breiman2001random} of
 CART regression trees~\cite{breiman1984classification}. When those models contain
@@ -506,7 +505,7 @@ parametric estimation methods and tools; e.g. see the
 International Cost Estimation and Analysis Society; the
 NASA Cost Symposium;  the
 International Forum on COCOMO and Systems/Software
-Cost Modeling\footnote{See the websites \url{http://tiny.cc/iceaa}, \url{http://tiny.cc/nasa_cost}, \url{http://tiny.cc/csse}}.
+Cost Modeling\footnote{See the web sites \url{http://tiny.cc/iceaa}, \url{http://tiny.cc/nasa_cost}, \url{http://tiny.cc/csse}}.
 
  This paper uses the COCOMO model as a representative of the parametric models since it is open source.
  As to other parametric effort models,
@@ -515,7 +514,7 @@ Cost Modeling\footnote{See the websites \url{http://tiny.cc/iceaa}, \url{http://
  use such as  SEER-SEM~\cite{boehm00b} and Price-S (now called True S).
 
 
- \begin{figure}[!b]
+ \begin{figure}[!t]
 \begin{lstlisting}
 _  = None;  Coc2tunings = [[
 #              vlow  low   nom   high  vhigh  xhigh   
@@ -585,20 +584,17 @@ released
 \begin{equation}\label{eq:cocII}
 \mathit{effort}=a\prod_i EM_i *\mathit{KLOC}^{b+0.01\sum_j SF_j}
 \end{equation}
-Here, {\em EM,SF} are  effort multipliers and scale
-factors and
- $a,b$ are the {\em local calibration} parameters (with default values of 2.94 and 0.91).
- In COCOMO-II, effort multipliers change effort by a linear amount
- while scale factors change effort by an exponential amount.
-COCOMO-II reports {\em effort}
-as ``development months'' where one month
-is 152 hours of work  (and includes development and management hours).
-For example, if {\em effort}=100, then according to COCOMO,
-five developers would finish
-the project in 20 months.
+Here, {\em EM,SF} are effort multipliers and scale factors and $a,b$ are the
+{\em local calibration} parameters (with default values of 2.94 and 0.91).  In
+COCOMO-II, effort multipliers change effort by a linear amount while scale
+factors change effort by an exponential amount.  COCOMO-II reports {\em effort}
+as ``development months'' where one month is 152 hours of work (and includes
+development and management hours).  For example, if {\em effort}=100, then
+according to COCOMO, five developers would finish the project in 20 months.
 
 For a complete implementation of the COCOMO-II effort model, see \fig{coc2}.
-
+Note that \eq{cocII} defines the internal details of $X,Y$ terms in \eq{one}:
+\mbox{$X=a\prod_i EM_i$} and \mbox{$Y=b+0.01\sum_j SF_j$}.
 
 
 
@@ -704,7 +700,7 @@ these ($\frac{15}{50}=30\%$) projects were waterfall
 projects where requirements were mostly frozen prior
 to coding;
   For the remaining 35 of the Jones \& Hardin projects, there was ample opportunity
-  for scope creep that could lead to inaccuracies in early lifecycle estimates.
+  for scope creep that could lead to inaccuracies in early life cycle estimates.
 
 
   
@@ -737,6 +733,32 @@ Difficult& 24& New& New& New\\\hline
 \includegraphics[width=3in]{data.pdf}
 \caption{Estimated and actual source lines of code from 50 projects~\cite{jones07a}.}\label{fig:ea}
 \end{figure}
+
+
+\fig{ea} shows the relationship between early life cycle estimates of KLOC vs final size for the 50
+projects of Source~\#1. The diagonal line on that plot shows where the estimate equals the actual.
+The dashed lines show the range within which the estimate is $\pm$~100\% of the actual.
+The key observations from this Source~\#1 data are:
+\bi
+\item The estimates and actuals are often very similar.
+  \item All the estimates fall within $\pm$~100\% of the actual.
+    \ei
+    
+  In order to check the external validity of these observations from Source \#1,
+  we turn to the 14 NASA projects of Source~\#2. These projects cover the software used in the deep space missions of the
+  Jet Propulsion Laboratory. Due to the highly innovative nature of this kind of
+  software, this final size of this software could easily be incorrected
+  estimated early in its life cycle.  Many of the details of those NASA systems
+  is proprietary information so, in this article, we cannot describe the NASA
+  systems at the same level of detail as Source~\#1. What  can be shown, in \fig{nasaloc},
+  are the  ratios of actual/estimated KLOC values, where the estimates were generated
+  prior to analysis and prior to coding. Usually, these two estimates were similar, but there
+  are exceptions (e.g. the development effort estimate for project M was significantly
+  adjusted after analysis).
+
+
+
+
  \begin{figure}
       \scriptsize
       \begin{minipage}{.4\linewidth}
@@ -760,7 +782,7 @@ n&236\%&236\%
       \end{tabular}\end{minipage} \begin{minipage}{.33\linewidth}
         \includegraphics[width=1.8in]{nasadata.png}
         \end{minipage}
-      \caption{Errors in estimates of final system size (measured in terms of LOC)
+      \caption{Errors in estimates of final system size (measured in terms of KLOC)
         seen before analysis and coding in 14 NASA projects. Values in the left-hand-size table
         are shown graphically at right.
         All percentages here are percents on the final code size. For example, in the last
@@ -817,26 +839,6 @@ Space Station.
 Our other data sets are  NASA10 and COC05.
 }\label{fig:types}
 \end{figure}  
-\fig{ea} shows the relationship between early lifecycle estimates of KLOC vs final size for the 50
-projects of Source~\#1. The diagonal line on that plot shows where the estimate equals the actual.
-The dashed lines show the range within which the estimate is $\pm$~100\% of the actual.
-The key observations from this Source~\#1 data are:
-\bi
-\item The estimates and actuals are often very similar.
-  \item All the estimates fall within $\pm$~100\% of the actual.
-    \ei
-    
-  In order to check the external validity of these observations from Source \#1,
-  we turn to the 14 NASA projects of Source~\#2. These projects cover the software used in the deep space missions of the
-  Jet Propulsion Laboratory. Due to the highly innovative nature of this kind of
-  software, this final size of this software could easily be incorrected
-  estimated early in its lifecycle.  Many of the details of those NASA systems
-  is proprietary information so, in this article, we cannot describe the NASA
-  systems at the same level of detail as Source~\#1. What  can be shown, in \fig{nasaloc},
-  are the  ratios of actual/estimated KLOC values, where the estimates were generated
-  prior to analysis and prior to coding. Usually, these two estimates were similar, but there
-  are exceptions (e.g. the development effort estimate for project M was significantly
-  adjusted after analysis).
 
   The key observation from  this Source~\#2 data is that:
   \bi
@@ -868,7 +870,7 @@ The key observations from this Source~\#1 data are:
 \subsection{RQ2: What is the impact of real-world ESP errors?}\label{sect:rq2}
 
 This section reports the effort errors seen when
-the size estimate in  real world project data are perturbated by
+the size estimate in  real world project data are perturbed by
 up to
 $\pm$~100\%. 
 
@@ -885,10 +887,8 @@ studied by varying $\mathit{KLOC}$ as follows:
     \label{eq:kloc}
     \mathit{KLOC} = \mathit{KLOC}*((1- n) + (2*n*r))
 \end{equation}
-where $n \in [0.2, 0.4, 0.6, 0.8, 1.0]$ is the level of noise we are exploring and $r$ is a random number
-$0 \le r \le 1$. In the results, any result
-prefixed with {\em 0.2} to {\em 1.0} shows what happens
-when the KLOCs were varied by 20\% to 100\% respectively.
+where $n \in [0.2, 0.4, 0.6, 0.8, 1.0]$ is noise level we are exploring and $r$ is a random number
+$0 \le r \le 1$. 
 
 \input{Tables/sk}
 
@@ -908,7 +908,8 @@ some obvious baseline. Their preferred measure is the SA {\em standardized error
 \mbox{$ \mathit{SA}=\frac{abs(\mathit{actual} - \mathit{predicted})}{\mathit{\sum_{i=1}^{1000}|\pmb{choice}(all) - predicted|}/1000}$}
 \end{equation}
 
-\fig{nasa10}, \fig{coc05}, \fig{nasa93} \& \fig{coc81} show the SA results
+\fig{nasa10}, \fig{coc05}, \fig{nasa93} \& \fig{coc81}
+show the SA results
 seen when all examples were passed to COCOMO-II. Since \eq{kloc} uses a random
 number generator, we repeated that process 100 times. For all 100 repeated passes
 through the data, SA was calculated with:
@@ -928,7 +929,7 @@ through the data, SA was calculated with:
       \bi
     \item
       The first column in each
-table denotes the name of the method using the following nomeculrate.
+table denotes the name of the method using the following nomenclature.
 ``$x$\%:COCOMO2'' represents COCOMO-II where KLOC
 is perturbed with an error of $n$\% using \eq{kloc}.
 \item Column 2 shows the ``rank'' of each result. In those figures,
@@ -946,10 +947,10 @@ is perturbed with an error of $n$\% using \eq{kloc}.
   As might be expected, in these results,
   as ESP error increases, so to did the SA estimation error:
   \bi
-\item For NASS10, from 43 to 68\%;
+\item For NASA10, from 43 to 68\%;
 \item For COC05, from 13 to 26\%;
 \item For NASA93, from 14 to 27\%;
-\item For COCO81, from 3 to 8\%.
+\item For COC81, from 3 to 8\%.
   \ei
   That said, the size of the increase is surprisingly small. Even with errors up to 100\%:
   \bi
@@ -967,7 +968,7 @@ is perturbed with an error of $n$\% using \eq{kloc}.
 
     Scott-Knott then applies some statistical hypothesis test $H$ to check if $m,n$ are significantly different. If so, Scott-Knott then recurses on each division.Scott-Knott is better than an all-pairs hypothesis test of all methods; e.g. six treatments can be compared \mbox{$(6^2-6)/2=15$} ways.  A 95\% confidence test run for each comparison has  a very low total confidence: \mbox{$0.95^{15} = 46$}\%. To avoid an all-pairs comparison, Scott-Knott only calls on hypothesis tests {\em after} it has found splits that maximize the performance differences.
 
-    For this study, our hypothesis test $H$ was a conjunction of the A12 effect size test(endorsed by Arcuri \etal in ICSE '11 \cite{arcuri11}) of  and non-parametric bootstrap sampling \cite{efron93}; i.e. our Scott-Knott divided the data if {\em both}
+    For this study, our hypothesis test $H$ was a conjunction of the A12 effect size test(endorsed by Arcuri et al. in ICSE '11 \cite{arcuri11}) of  and non-parametric bootstrap sampling \cite{efron93}; i.e. our Scott-Knott divided the data if {\em both}
     bootstrapping and an effect size test agreed that the division was statistically significant (99\% confidence) and not a ``small'' effect ($A12 \ge 0.6$). 
     For a justification of the use of non-parametric
     bootstrapping, see Efron \&
@@ -1010,9 +1011,11 @@ were assigned the same value of ``rank''=1).
 That is, while size estimate increases estimation error, those increases
 {\em were not statistically significant}.
 
-
-This suggests that that factors {\em other than size estimate error}
-are the dominate source of error. These other factors are explored further in {\bf RQ3}. Meanwhile,
+The reason for this result are clear: the variability associated effort estimates is not small.
+\fig{nasa10}, \fig{coc05}, \fig{nasa93} \& \fig{coc81} report that the inter-quartile range in estimation error
+can grow as large as 71\%. While size estimate error contributes somewhat to that error, it is clear
+that  factors {\em other than size estimate error} control the estimate error.
+These other factors are explored further in {\bf RQ3}. Meanwhile,
 the clear result from {\bf RQ2} is:
 \begin{lesson}
   In 265 real-world projects,
@@ -1023,51 +1026,28 @@ the clear result from {\bf RQ2} is:
   Within an effort estimation model,
   what is the maximum effect of making large changes to a size estimate?}
 
+ Recall from the introduction that the exponential nature of the COCOMO equation
+ made it seem as if COCOMO would be most susceptible to errors in lines of code.
+ Yet we saw in the last section that COCOMO is remarkably {\em insensitive} to
+ KLOC errors.  This section checks if that result is just some quirk of the 265
+ projects studied above, or if it is a more fundamental property. 
 
-
-%% \begin{figure}
-%%     \centering
-%%     \includegraphics[scale=0.45]{Figs/sa.png}
-%%     \caption{Standarized Accuracy for effort while varying LOC in different datasets.}
-%%     \label{fig:sa_datasets}
-%% \end{figure}
-
- The simulation study  of this section  examines the coefficients of the terms in the COCOMO equation
- to see what effect changes in KSLOC have on COCOMO's effort prediction.
- This study is motivated as follows:
- \bi
- \item
- Recall
-from the introduction that the exponential nature of the COCOMO equation 
-made it seem as if COCOMO would be most suceptible to errors in lines of code.
-\item
-Yet we saw in the last section that COCOMO is remarkably {\em insensitive} to
-KLOC errors.  \ei One explanation for the strange results of the last section is
-that the coeffecients on the exponential term in COCOMO are so small that COCOMO
-does not react poorly to KLOC errors.  This section shows that this is indeed
-the case. In turns out that for most projects, the COCOMO effort estimate is
-effectively linear, and not exponential on KLOC.  The proof of this is somewhat
-somewhat technical but the main result is \eq{sf3} that shows the range of the
-exponential coefficients for COCOMO projects. Note that rarely are those
-coefficients very very large-- so much so that when we graph the changes in
-effort due to increased SLOC, the scale-up is much less than exponential (see
-\fig{lowerupper}).
-
-
-
-The coeffecients learned by Boehm in 2000 for the
+ \eq{one} said  \mbox{$\mathit{effort} = \mathit{X*KLOC}^Y$}
+ where \mbox{$Y={b + 0.01 \sum_i SF_i}$}.
+ One explanation for the strange results of the last section is
+ that the $Y$ coefficient on the exponential term are much smaller than the
+ linear $X$ factors; i.e. the
+ \begin{quote}
+   {\em COCOMO effort estimate is
+     effectively linear on $X$, and not exponential on $\mathit{KLOC^Y}$.}
+ \end{quote}
+ To prove this claim, we examine the coefficients of the terms in the COCOMO equation to
+ see what effect changes in KLOC have on COCOMO's effort prediction
+The coefficients learned by Boehm in 2000 for the
 COCOMO were based on an analysis of 
 161 projects from commercial, aerospace, government, and non-profit organizations~\cite{boehm00b}. At the time of that analysis,
-those  projects   were of size 20 to 2000 KSLOC (thousands of lines of code) and took between 100 to 10000 person months to build.
-Recall from \eq{one} that that work concluded that, in COCOMO
-\begin{equation}\label{eq:zero}
-\mathit{effort} \propto \mathit{KSLOC}^{\;x}
-\end{equation}
-where 
-\begin{equation}\label{eq:sum1}
-x={b + 0.01 \sum_i SF_i}
-\end{equation}
-Boehm's   $SF_i$ coeffecients
+those  projects   were of size 20 to 2000 KLOC (thousands of lines of code) and took between 100 to 10000 person months to build.
+Boehm's   $SF_i$ coefficients
 are presented in a table inside the front cover of the COCOMO-II text~\cite{boehm00a}(see \fig{coc2}).
 When
   projects have ``very low'', ``low'', ``nominal'', ``high'', ``very high'' values in the COCOMO , then from that table it can be see that:
@@ -1083,8 +1063,7 @@ When
 \end{equation}
 In 2000, Boehm proposed default values for $a,b$= $2.94,0.91$.
 Those ranges of   where checked    by Baker~\cite{baker07} 
-using 92 projects from NASA's Jet Propulsion Laboratory\footnote{As mentioned
-above, these 92 projects do not overlap with Boehm's 161 projects}.  Recall from \eq{cocII}
+using 92 projects from NASA's Jet Propulsion Laboratory.  Recall from \eq{cocII}
 that the $a,b$ local calibration parameters can be adjusted using local data. 
 Baker checked those ranges by,  30 times, running the COCOMO
 calibration procedure using 90\% of the JPL data (selected
@@ -1110,26 +1089,29 @@ there is evidence for $b$ ranging
 \begin{equation}\label{eq:sf2}
 0.91 \le b \le 1.394
 \end{equation}
-Combining \eq{sum1}, \eq{sf1}, \eq{sf2} we see that the coeffiecent on the 
-KSLOC term in \eq{zero} is 
+Combining the above with \eq{sf1}, we see that the $Y$ coefficient on the 
+KLOC term in \eq{one} is 
 \begin{equation}\label{eq:sf3} 
 \begin{array}{r|l}
-                  &  x= b + 0.01 \sum_i SF_i \\\hline
-\mathit{very\; low} &  1.22 \le x \le 1.71\\
-\mathit{  low} &  1.16 \le x \le 1.65 \\
-\mathit{nominal}& 1.10 \le x \le 1.58    \\
-\mathit{high} &  1.04 \le x \le 1.52  \\
-\mathit{very\; high} & 0.97 \le x \le 1.46   
+                  &  Y= b + 0.01 \sum_i SF_i \\\hline
+\mathit{very\; low} &  1.22 \le Y \le 1.71\\
+\mathit{  low} &  1.16 \le Y \le 1.65 \\
+\mathit{nominal}& 1.10 \le Y \le 1.58    \\
+\mathit{high} &  1.04 \le Y \le 1.52  \\
+\mathit{very\; high} & 0.97 \le Y \le 1.46   
 \end{array}
 \end{equation} 
-\fig{lowerupper} shows   $\mathit{effort} = \mathit{KLOC}^x$ results using the coeffecients
+\fig{lowerupper} shows   $\mathit{effort} = \mathit{KLOC}^{\;Y}$ results using the coefficients
 of \eq{sf3}. Note that the vertical axis of that chart a logarithmic scale.
 On such a scale, an function that is exponential on the horizontal access will
 appear as a straight line. All these plots bent over to the right; i.e. even
-under the most pessimist  assumptions (see ``very low'' for ``upper bound''), the
-effect of LOC on effort in COCOMO is far less than exponential-- an observation
-that explains why in \tion{rq1} COCOMO's estimates were not dramatically altered
-by errors in LOC.
+under the most pessimist  assumptions (see ``very low'' for ``upper bound''). That is:
+
+\begin{lesson}
+  In simulations over thousands of software projects,
+  as KLOC increases, the resulting effort estimates increased {\em much less} than exponentially.
+\end{lesson}
+
 
 \begin{figure}[!t] 
 \includegraphics[width=3.5in]{Figs/lower.png}
@@ -1137,122 +1119,178 @@ by errors in LOC.
 
 \includegraphics[width=3.5in]{Figs/upper.png} 
 \caption{Growth in effort estimates as source code grows. Growth rate determined by \eq{sf3}. 
-``Lower bound'' is the most optimistic projection (effort grows slowest as LOC increases)
+``Lower bound'' is the most optimistic projection (effort grows slowest as KLOC increases)
 while ``Upper bound is most pessimistic.
-For example, in `upper bound'' for ``very low'', $\mathit{effort} = \mathit{KLOC}^{1.71}$ (where 1.71 is the top-right figure of \eq{sf3}. }\label{fig:lowerupper}
+For example, in `upper bound'' for ``very low'', $\mathit{effort} = \mathit{KLOC}^{1.71}$ (where 1.71 is the top-right figure of \eq{sf3}). }\label{fig:lowerupper}
 \end{figure}
  
 
+We show via the following analytical study 
+that {\bf Result 3} can be explained with respect to internal structure
+of the COCOMO parametric model. Using some algebraic manipulations of
+our effort estimation model,
+we can derive expressions from
+ the (a)~the minimum and (b)~the
+maximum possible effort estimate from this model.
+By dividing these two expression, it is possible to create an fraction showing
+the relative effect of changing size estimates, or any other estimates, within this model.
 
-\subsection{RQ4: What is the net effect of errors with KSLOC on estimation
-versus error in other attributes?}\label{sect:rq4}
 
-
-Note that, from \eq{cocII},
+From \eq{cocII},
 the minimum  
 effort  is bounded by the  {\em sum} of the minimum scale factors
 and the {\em product} of the minimum effort multipliers.
 Similar expressions hold for the  maximum effort estimate. Hence,
 for a given KLOC, the range of values is given by:
 \[
-0.057*\mathit{KSLOC}^{0.97}  \le \mathit{effort} \le 115.6*\mathit{KSLOC}^{1.71}\]
-(The exponents in the this expression come from \eq{sf3}. The linear terms come
+0.057*\mathit{KLOC}^{\;0.97}  \le \mathit{effort} \le 115.6*\mathit{KLOC}^{\;1.71}\]
+The exponents in the this expression come from \eq{sf3}. The linear terms come
 from the product of the min/max effort multipliers from the 
-the COCOMO-II text~\cite{boehm00b}).
+ COCOMO-II text~\cite{boehm00b}.
 
-Dividing the minimum and maximum values results in an  expression showing
+Dividing the minimum and maximum values shows 
 how    effort can vary for any given KLOC due to variations in the effort multipliers
 and scale factors: 
 \begin{equation}\label{eq:ration}
-115.6/0.057 *\mathit{KSLOC}^{1.71 - 0.97} = 2028*\mathit{KSLOC}^{0.74}
+115.6/0.057 *\mathit{KLOC}^{\;1.71 - 0.97} = 2028*\mathit{KLOC}^{\;0.74}
 \end{equation}
-Note the very large linear term (2028) coming from the effort multipliers and the
-small exponential term (0.74) coming from the scale factors that acts on the KSCOC estimate. The lesson of \eq{ration}
-is that errors in KSLOC can have less of an impact on effort predictions than
-errors in COCOMO's effort multipliers. Hence, as seen in \tion{rq1}, it is possible
-that errors in KSLOC will not be a major cause of estimatione errors.
+Note the large linear term (2028) coming from the effort multipliers and the
+small exponential term (0.74) coming from the scale factors.
+\eq{ration} shows that errors in the effort multipliers can change effort more than
+errors in the size estimate.
+Hence:
+
+\begin{lesson}
+  The net additional impact of ESP error is relatively small compared to the other sources of error associated within estimation models.
+\end{lesson}
+
+Note that {\bf Result~3} and {\bf Result~4}
+explain why the {\bf RQ2} results were not dramatically altered
+by errors in KLOC.
  
   
 
 \section{Validity}
 
-XXXtimm. move to just after the intro.
 
 \subsection{Sampling Bias}
-The analysis process described above was designed specifically to
-address issues of sampling bias.   The simulation study of \tion{rq1} perturbed KLOC values according to the ranges found
-in 64 projects. Hence, the conclusions of \tion{rq1} are heavily biases by that sample.
 
-The other studies shown in \tion{rq2} and \tion{rq3} were based on more data (253 projects) than the simulations study.  That study
-found that even if the KLOC errors were larger than those documented in \tion{rq1}, then the net effect of 
-those errors would not be disastrous since, given domain tunings,   KSLOC  errors are  not especially exponentially associated with effort errors. 
- 
+The perturbation study used in {\bf RQ3} perturbed KLOC values according to the
+ranges found in 64 projects discussed in {\bf RQ1}. Hence, the conclusions of
+\tion{rq1} are biases by that sample.
+
+The other studies shown above were based on more data (265 projects).  While
+that 265 does not cover the space of all projects, we note that it is a much
+larger sample than what is seen in numerous other research papers in this arena.
+
+While our sampling bias is clear, it also shows clearly how to refute our conclusions:
+\bi
+\item This study would need to be repeated in the ESP error in real world projects
+  is observed to grow beyond $\pm$\;100\%.
+  \ei
 
 
 \subsection{External Validity}
 
 One clear bias in this study is the use of the COCOMO model for studying the effects
-of KLOC errors on estimates. Our case for using COCOMO was made above in {\S}2: 
+of KLOC errors on estimates. Our case for using COCOMO was made above:
 (a)~COCOMO s widely used in industry and government circles in the United States and China;
 (b)~COCOMO's assumption that effort is exponentially proportional to KLOC seems to make it
-exponentially sensitive to errors in KLOC estimates. 
+exponentially sensitive to errors in KLOC estimates;
+(c)~many aspects of COCOMO
+ are shared by other models in widespread commercial
+ use such as  SEER-SEM and Price-S (now called True S).
 
-As to external validity of our conclusions for  other effort estimation methods, we leave that for future work.
-  That said, the methods of this paper could used be used to  certify that some effort
-  estimator  is not prone to bad ESP
-  errors.  The simulation study described above
-   could be applied to any other
-   effort estimation method. Also, for parametric estimation methods, it would also be possible to apply
-   the theoretical study and the analytical study  (caveat: but
-   note that the analytical study requires access to project data in order to understand the space of
-  usual model values).
+ As to external validity of our conclusions for  other effort estimation methods, Section 2.2
+ offered arguments that ESP would have minimal impact on
+ non-parametric models.
   
   
+\section{Discussion}
+If we accept the external validity of these conclusions, then the
+next questions are:
+\bi
 
+\item
+  What can be done to reduce the effort errors caused by all the non-size factors?
+\item
+  Why is
+  software project development so insensitive to ESP errors?
+  \ei
+   As to the first question, we recommend feature selection. Elsewhere we have shown
+  that as the number of training examples shrink, then it becomes more
+  important to build models using just the few most important factors in the
+  data. Automatic algorithms can find those most important factors~\cite{Chen:05}.
   
-  
+  As to the second question, it can be addressed via graph theory. While he
+  never said it, we believe Boehm's core COCOMO assumption (that effort is
+  exponentially proportional to size) comes for the mathematics of communication
+  across networks. In an arbitrarily connected graph, a node has to
+  co-ordinate with up to $2^{(N-1)}$ neighbors. If these nodes are software
+  systems, then each such connection is one more team to co-ordinate with, or
+  one more interaction to check in the test suite. Hence, a linear increase in a
+  system size can lead to exponentially more complex co-ordination and testing.
+
+  To avoid this extra exponential effort, it is necessary to reduce the number
+  of other systems that interact with a particular node. This is the task of
+  software architectures~\cite{Garlan:1994}.  A well-defined software
+  architecture offers clear and succinct interfaces between different parts of a
+  system~\cite{Parnas:1972}.  Either side of an interface, software may be very
+  complex and inter-connected. However, given an interface that allows limited
+  communication, the number of interactions between different parts of the
+  systems are reduced. We conjecture that these reduced interactions are the core reasons
+  why our models are not reporting effort being overly reactive to bad size predictions.
+
+ 
 \section{Conclusion}
-Prior work raised alarms about problems with generating early life cycle estimates of software
-development size. Boehm~\cite{boehm81} cautioned that those errors can lead to early life cycle
-estimates that are  wrong by a factor of up to  400\%.
-% \todo{References}
 
-While that may have been true in 1981, in 2016 we have found much evidence that we can be far more optimistic about
-our ability to generate reasonably accurate early lifecycle estimates:
+We have offered  evidence that we can be optimistic about
+our ability to generate reasonably accurate early life cycle estimates, despite bad ESP:
 \bi
 \item
-ESP errors seen in practice are much smaller than previously feared. Nowhere in
-this study did we find errors of order of ``plus or minus 400\%'', as feared
-by Boehm in 1981. In fact, look at \fig{allerr}, the median ESP error we found in
-this study are around -9\% (i.e. we typically under-estimate the size of our software, by a small amount).
+  From {\bf RQ1},
+  we know that ESP errors seen in practice have limited
+  ranges. Looking at \fig{ea} and \fig{allerr} we can see many projects where the estimated
+  size was close to the actual final system.
+  
 \item
-When we perturb KLOC values within effort predictors, we find that within the ranges
-of \fig{allerr}, the net effect of those perturbations is very small. We documented that result above via simulation studies (in \tion{rq1}) and an analytical study of the KLOC coeffecients with an effort estimator (in \tion{rq2}).
+  In {\bf RQ2},
+  we perturbed KLOC values within effort predictors
+  (within the 
+  maximum ranges found by {\bf RQ1}),
+  The net effect of those perturbations was observed to
+  be very small-- in fact statistically insignificant.
 \item
-Effort estimators
-use size measures, and many other values, to produce their predictions.  When we
-pare the effects of KLOC error relative to errors in the other project
-descriptors (in \tion{rq3}), we find that KLOC errors can be relatively less 
-influential than the errors in the dozens of attributes in a model.
+  In {\bf RQ3} we checked the generality of the {\bf RQ2} conclusions.
+  When we
+compared the effects of KLOC error relative to errors in the other project
+factors, we found that KLOC errors were  relatively less 
+influential.
 \ei
-The last point is particularly significant. While there are many reasons why ESP can fail (see the
-list of 5 points in the introduction),
-as shown above, the net impact of those errors is relatively small. The results of \tion{rq3}
-show that it is important to consider all the attributes used by  effort model, not just KLOC.  
+The last point is particularly significant. While there are many reasons why ESP
+can fail (see the list of 5 points in the introduction), as shown above, the net
+impact of those errors is relatively small. 
+
+
+In summary,
+modern effort estimation models use much more than just size predictions.
+While errors in size predictions increase estimate error, by a little,
+it is important to consider all the attributes used by  effort model.
 Future work should focus on how to better collect more accurate information about (e.g.)
-the attributes are shown in \fig{cparems}.  
+the factors  shown in \fig{cparems}.  
 
 \section*{Acknowledgments}
 The work has partially funded by a National Science Foundation CISE CCF award \#1506586.
  
-\vspace*{0.5mm}
- 
+
  
 % \bibliographystyle{plain}
+\section*{References}
+\footnotesize
 \bibliographystyle{elsarticle-num}
 % \balance
 \bibliography{refs_min}  
-
+\balance
    
 
 
@@ -1402,7 +1440,7 @@ specifically:
 
 XXXtim: later i use $k^x$. better unify x and n
 
-XXXtim: change all the LOC, SLOC, KLOC to KSLOC
+XXXtim: change all the KLOC, KLOC, KLOC to KLOC
 
 
 
@@ -1449,7 +1487,7 @@ This experiment was conducted by perturbing size on a total of 265 projects from
 {\bf RQ3 (the analytical study):   What is the range of possible effect of bad ESP ?}
 For this question, we studied the coeffecients within a parametric effort
 estimation model (COCOMO~\cite{boehm81,boehm00b})  to derive minimum and maximum
-effects of changes to the KSLOC coeffecient in \eq{one}.
+effects of changes to the KLOC coeffecient in \eq{one}.
 \ei
 \begin{lesson}
 Given tuning data  from 265 projects, we show that the
@@ -1462,15 +1500,15 @@ Given tuning data  from 265 projects, we show that the
   \bi
   \item
   {\bf RQ4 (the theoretical study): Ignoring all tunings, what is the net
-    effect of errors with KSLOC estimation versus errors in other attributes?}
+    effect of errors with KLOC estimation versus errors in other attributes?}
  This theoretical study applies some algebraic manipulations to the COCOMO model
- to derive an expression that comments on the relative effects of KSLOC errors
+ to derive an expression that comments on the relative effects of KLOC errors
  to all the other 22 attributes in the COCOMO model.
  \ei
  \begin{lesson}
   Within the COCOMO model,
-  KSLOC errors are {\em not} the most influential attribute on effort estimates
- since errors in KSLOC are easily
+  KLOC errors are {\em not} the most influential attribute on effort estimates
+ since errors in KLOC are easily
  dwarfed  by the effects from the other 22 COCOMO attributes.
  \end{lesson}
  Our conclusion from the above is that,
