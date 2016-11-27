@@ -5,6 +5,24 @@
   note =
                   "\url{http://www.spaceref.com/news/viewnews.html?id=475}"
 }
+@article{boehm2000software,
+  title={Software development cost estimation approaches—A survey},
+  author={Boehm, Barry and Abts, Chris and Chulani, Sunita},
+  journal={Annals of software engineering},
+  volume={10},
+  number={1-4},
+  pages={177--205},
+  year={2000},
+  publisher={Springer}
+}
+
+@techreport{madachy2008comparative,
+  title={Comparative Analysis of COCOMO II, SEER-SEM and True-S Software Cost Models},
+  author={Madachy, Raymond and Boehm, Barry},
+  year=2008,
+  number=" USC-CSSE-2008-816",
+  institution="University of Southern California"
+}
 
 @article{shepperd1997estimating,
   title={Estimating software project effort using analogies},
@@ -16,6 +34,21 @@
   year={1997},
   publisher={IEEE}
 }
+@misc{goll04,
+author=" K. Gollapudi",
+title="Function points or lines of code? - an
+insight",
+journal=" Global Microsoft Business Unit, Wipro
+Technologies",
+year=2004
+}
+@misc{dij88,
+year=1988,
+ author="E. W. Dijkstra",
+ title="On the cruelty of really teaching computing science",
+  howpublished = {\url{http://www.cs.utexas.edu/users/EWD/ewd10xx/EWD1036.PDF}},
+  note = {Accessed: 2016-11-30}
+  }
 
 @Book{boehm81,
   Author =	 "B. Boehm",
@@ -60,6 +93,26 @@
                   \url{http://menzies.us/pdf/11teak.pdf}",
   class =	 "hJ"
 }
+@article{Kocaguneli2012z,
+ author = {Kocaguneli, Ekrem and Menzies, Tim and Keung, Jacky},
+ title = {On the Value of Ensemble Effort Estimation},
+ journal = {IEEE Trans. Softw. Eng.},
+ issue_date = {November 2012},
+ volume = {38},
+ number = {6},
+ month = nov,
+ year = {2012},
+ issn = {0098-5589},
+ pages = {1403--1416},
+ numpages = {14},
+ url = {http://dx.doi.org/10.1109/TSE.2011.111},
+ doi = {10.1109/TSE.2011.111},
+ acmid = {2420784},
+ publisher = {IEEE Press},
+ address = {Piscataway, NJ, USA},
+ keywords = {Costs,Software performance,Measurement uncertainty,Taxonomy,Machine learning,Regression tree analysis,Support vector machines,Neural networks,k-NN,Software cost estimation,ensemble,machine learning,regression trees,support vector machines,neural nets,analogy},
+}
+
 
 @inproceedings{Minku2013,
 abstract = {Context: Ensembles of learning machines and locality are considered two important topics for the next research frontier on Software Effort Estimation (SEE). Objectives We aim at (1) evaluating whether existing automated ensembles of learning machines generally improve SEEs given by single learning machines and which of them would be more useful; (2) analysing the adequacy of different locality approaches; and getting insight on (3) how to improve SEE and (4) how to evaluate/choose machine learning (ML) models for SEE. Method A principled experimental framework is used for the analysis and to provide insights that are not based simply on intuition or speculation. A comprehensive experimental study of several automated ensembles, single learning machines and locality approaches, which present features potentially beneficial for SEE, is performed. Additionally, an analysis of feature selection and regression trees (RTs), and an investigation of two tailored forms of combining ensembles and locality are performed to provide further insight on improving SEE. Results Bagging ensembles of RTs show to perform well, being highly ranked in terms of performance across different data sets, being frequently among the best approaches for each data set and rarely performing considerably worse than the best approach for any data set. They are recommended over other learning machines should an organisation have no resources to perform experiments to chose a model. Even though RTs have been shown to be more reliable locality approaches, other approaches such as k-Means and k-Nearest Neighbours can also perform well, in particular for more heterogeneous data sets. Conclusion Combining the power of automated ensembles and locality can lead to competitive results in SEE. By analysing such approaches, we provide several insights that can be used by future research in the area. ?? 2012 Elsevier B.V. All rights reserved.},
@@ -115,13 +168,80 @@ month={March},}
  address = {New York, NY, USA},
  keywords = {confidence interval, estimates uncertainty, multi-objective evolutionary algorithm, software effort estimation},
 }
+@techreport{Garlan:1994,
+ author = {Garlan, David and Shaw, Mary},
+ title = {An Introduction to Software Architecture},
+ year = {1994},
+ source = {http://www.ncstrl.org:8900/ncstrl/servlet/search?formname=detail\&id=oai%3Ancstrlh%3Acmucs%3ACMU%2F%2FCS-94-166},
+ publisher = {Carnegie Mellon University},
+ address = {Pittsburgh, PA, USA},
+} 
 
-@article{menzies16,
-    author = {Menzies, Tim and Yang, Ye and Mathew, George and Boehm, Barry and Hihn, Jairus},
-    title = {Negative Results For Software Effort Estimation},
-    journal = {Empirical Software Engineering},
-    year = {2016}
+@ARTICLE{Chen:05, 
+author={Z. Chen and T. Menzies and D. Port and D. Boehm}, 
+journal={IEEE Software}, 
+title={Finding the right data for software cost modeling}, 
+year={2005}, 
+volume={22}, 
+number={6}, 
+pages={38-46}, 
+keywords={project management;software cost estimation;software management;data collection;data-pruning method;real-world data set;resource management;software cost model;software engineering;software project management;Costs;Databases;Financial management;Predictive models;Project management;Radio access networks;Remote monitoring;Resource management;Scheduling;State estimation;COCOMO;cost modeling;feature subset selection;software engineering;time estimation;wrapper}, 
+doi={10.1109/MS.2005.151}, 
+ISSN={0740-7459}, 
+month={Nov},}
+
+@article{Parnas:1972,
+ author = {Parnas, D. L.},
+ title = {On the Criteria to Be Used in Decomposing Systems into Modules},
+ journal = {Commun. ACM},
+ issue_date = {Dec. 1972},
+ volume = {15},
+ number = {12},
+ month = dec,
+ year = {1972},
+ issn = {0001-0782},
+ pages = {1053--1058},
+ numpages = {6},
+ url = {http://doi.acm.org/10.1145/361598.361623},
+ doi = {10.1145/361598.361623},
+ acmid = {361623},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {KWIC index, modularity, modules, software, software design, software engineering},
+} 
+
+
+@Article{Menzies2016,
+author="Menzies, Tim
+and Yang, Ye
+and Mathew, George
+and Boehm, Barry
+and Hihn, Jairus",
+title="Negative results for software effort estimation",
+journal="Empirical Software Engineering",
+year="2016",
+pages="1--26",
+abstract="More than half the literature on software effort estimation (SEE) focuses on comparisons of new estimation methods. Surprisingly, there are no studies comparing state of the art latest methods with decades-old approaches. Accordingly, this paper takes five steps to check if new SEE methods generated better estimates than older methods. Firstly, collect effort estimation methods ranging from ``classical'' COCOMO (parametric estimation over a pre-determined set of attributes) to ``modern'' (reasoning via analogy using spectral-based clustering plus instance and feature selection, and a recent ``baseline method'' proposed in ACM Transactions on Software Engineering). Secondly, catalog the list of objections that lead to the development of post-COCOMO estimation methods. Thirdly, characterize each of those objections as a comparison between newer and older estimation methods. Fourthly, using four COCOMO-style data sets (from 1991, 2000, 2005, 2010) and run those comparisons experiments. Fifthly, compare the performance of the different estimators using a Scott-Knott procedure using (i) the A12 effect size to rule out ``small'' differences and (ii) a 99 {\%} confident bootstrap procedure to check for statistically different groupings of treatments. The major negative result of this paper is that for the COCOMO data sets, nothing we studied did any better than Boehms original procedure. Hence, we conclude that when COCOMO-style attributes are available, we strongly recommend (i) using that data and (ii) use COCOMO to generate predictions. We say this since the experiments of this paper show that, at least for effort estimation, how data is collected is more important than what learner is applied to that data.",
+issn="1573-7616",
+doi="10.1007/s10664-016-9472-2",
+url="http://dx.doi.org/10.1007/s10664-016-9472-2"
 }
+
+@Article{Menzies2016b,
+author="Menzies, Tim
+and Nichols, William
+and Shull, Forrest
+and Layman, Lucas",
+title="Are delayed issues harder to resolve? Revisiting cost-to-fix of defects throughout the lifecycle",
+journal="Empirical Software Engineering",
+year="2016",
+pages="1--33",
+abstract="Many practitioners and academics believe in a delayed issue effect (DIE); i.e. the longer an issue lingers in the system, the more effort it requires to resolve. This belief is often used to justify major investments in new development processes that promise to retire more issues sooner. This paper tests for the delayed issue effect in 171 software projects conducted around the world in the period from 2006--2014. To the best of our knowledge, this is the largest study yet published on this effect. We found no evidence for the delayed issue effect; i.e. the effort to resolve issues in a later phase was not consistently or substantially greater than when issues were resolved soon after their introduction. This paper documents the above study and explores reasons for this mismatch between this common rule of thumb and empirical data. In summary, DIE is not some constant across all projects. Rather, DIE might be an historical relic that occurs intermittently only in certain kinds of projects. This is a significant result since it predicts that new development processes that promise to faster retire more issues will not have a guaranteed return on investment (depending on the context where applied), and that a long-held truth in software engineering should not be considered a global truism.",
+issn="1573-7616",
+doi="10.1007/s10664-016-9469-x",
+url="http://dx.doi.org/10.1007/s10664-016-9469-x"
+}
+
 
 @Book{boehm00b,
   Author =	 "Barry Boehm and Ellis Horowitz and Ray Madachy and
@@ -150,6 +270,16 @@ month={March},}
   pages={108--119},
   year={2016},
   organization={ACM}
+}
+@article{aha1991instance,
+  title={Instance-based learning algorithms},
+  author={Aha, David W and Kibler, Dennis and Albert, Marc K},
+  journal={Machine learning},
+  volume={6},
+  number={1},
+  pages={37--66},
+  year={1991},
+  publisher={Springer}
 }
 
 @article{betten14,
@@ -211,13 +341,6 @@ language={English}
    series = {FSE '14}, 
    year={2014}, 
    organization={ACM} 
-}
-
-@book{boehm2000software,
-  title={Software cost estimation with Cocomo II with Cdrom},
-  author={Boehm, Barry W and Madachy, Ray and Steece, Bert and others},
-  year={2000},
-  publisher={Prentice Hall PTR}
 }
 
 @ARTICLE{Walkerden1999,
@@ -333,6 +456,23 @@ author="R. Jones, P. Hardin",
 year=2007,
 booktitle="DNI Cost Analysis Improvement Group",
 notes="Available from http://goo.gl/cxqkvI"
+}
+
+@book{breiman1984classification,
+  title={Classification and regression trees},
+  author={Breiman, Leo and Friedman, Jerome and Stone, Charles J and Olshen, Richard A},
+  year={1984},
+  publisher={CRC press}
+}
+@article{breiman2001random,
+  title={Random forests},
+  author={Breiman, Leo},
+  journal={Machine learning},
+  volume={45},
+  number={1},
+  pages={5--32},
+  year={2001},
+  publisher={Springer}
 }
 
 @INPROCEEDINGS{arcuri11,

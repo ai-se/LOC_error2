@@ -58,6 +58,9 @@ set terminal postscript eps "Helvetica" 12
 set output "${Dat}.eps"
 set xrange [0:325]
 set yrange [0:440]
+set arrow 2 from 0,0 to 325,165 nohead linetype 0
+
+set arrow 3 from 0,0 to 212,425 nohead linetype 0
 plot "${Dat}.dat
 EOF
 epstopdf  ${Dat}.eps

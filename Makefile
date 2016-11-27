@@ -1,6 +1,6 @@
 Src=locerrors
 Name=16loc
-Bib=References.bib 
+Bib=$(shell ls *.bib) 
 
 all : dirs tex bib  tex tex embedfonts done
 
@@ -21,6 +21,9 @@ gitting:
 
 view :
 	evince $(HOME)/tmp/$(Src).pdf &
+
+open :
+	open $(HOME)/tmp/$(Src).pdf &
 
 one : dirs tex done 
 
