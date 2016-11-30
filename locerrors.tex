@@ -138,15 +138,15 @@
 \begin{document}
 \begin{frontmatter}
 \title{ Impacts of Bad ESP (Early Size Predictions) on Software Effort Estimation}
-\author{George Mathew\corref{cor1}}
+\author[add1]{George Mathew\corref{cor1}}
 \ead{george.meg91@gmail.com}
-\author{Tim Menzies}
+\author[add1]{Tim Menzies}
 \ead{tim.menzies@gmail.com}
-\author{Jairus Hihn}
+\author[add2]{Jairus Hihn}
 \ead{ jairus.m.hihn@jpl.nasa.gov}
 \cortext[cor1]{Corresponding author: Tel:1-614-535-8678(George)}
-\address{Department of Computer Science, North Carolina State University, Raleigh, NC, USA,\\
-Jet Propulsion Laboratory, Pasadena, CA}
+\address[add1]{Department of Computer Science, North Carolina State University, Raleigh, NC, USA}
+\address[add2]{Jet Propulsion Laboratory, Pasadena, CA, USA}
 
 
 \small
@@ -211,7 +211,7 @@ then ESP errors  are not crippling to the process of estimation.
 
 \section{Introduction}
 
-Poor software effort estimation can crippled a project.
+Poor software effort estimation can cripple a project.
 In
 the worst case, over-running projects are canceled and
 the entire development effort is wasted.
@@ -220,10 +220,9 @@ is  {\em Early Size Prediction}. ESP is the process of generating a size
 estimate, early in the project life cycle. For large projects, or projects
 with extensive government or regulatory oversight, such estimates are needed for:
 \bi
-\item When cost-justifying different design decisions; 
+\item When justifying cost for different design decisions; 
 \item When debating which projects get funded or not;
-\item After the project is delivered late, or not at all), and the management's
-  initial decisions are being audited.
+\item After the project is delivered late(or not at all) and the management's initial decisions are being audited.
 \ei
 Effort estimation models use a variety of project factors, including the early size prediction
 to predict development effort.
@@ -236,7 +235,7 @@ Boehm~\cite{boehm81} proposes a parametric model of effort estimation that
   \begin{equation}\label{eq:one}
     \mathit{effort} = \mathit{X*KLOC}^Y
     \end{equation}
-  where $X,Y$ contain numerous ``context variables'' such as analyst experience.
+  where $X,Y$ represent numerous ``context variables'' such as analyst experience.
   \eq{one} is the basis for the COCOMO model~\cite{boehm81,boehm00b}  (described in detail later in this paper).
   In this equation, ESP errors in KLOC can lead to exponentially large errors
   in the  effort estimate.
@@ -248,7 +247,7 @@ Boehm~\cite{boehm81} proposes a parametric model of effort estimation that
 \item How was reused code counted in the size estimate?
 \item  Was size measured from end-statement or end--line?
 \item How were lines of comments handled?
-\item How to estimated the size of systems written in multiple languages?
+\item How to estimate the size of systems written in multiple languages?
 \item
   How to guess early in the life cycle
   how much subsequent  feedback will change
@@ -302,7 +301,7 @@ used in this paper.}
   ESP errors of up to $\pm$~100\% lead to estimate errors of only $\pm$~25\%.
 \end{lesson0}
 
-This surprising: in many real-world projects, large ESP errors
+This is surprising: in many real-world projects, large ESP errors
 lead to  small estimation errors.
 To explain this effect, we turned to our next research question.
 
@@ -313,12 +312,12 @@ While {\bf RQ2} explored 265 real-world data sets, {\bf RQ3} explored thousands
 of synthetic projects.  Within a parametric effort estimation model, we moved
 all the project description attributes
 across a range the minimum to maximum value. At random
-points in those ranges, effort estimates where generated using the model.  In this
+points in those ranges, effort estimates were generated using the model.  In this
 study, it was observed:
 
 \begin{lesson0}
   In simulations over thousands of software projects,
-  as KLOC increases, the resulting effort estimates increased {\em much less} than exponentially.
+  as KLOC increases, the resulting effort estimates increases {\em much less} than an exponential rate.
 \end{lesson0}
 
 We show via an analytical study 
@@ -326,9 +325,8 @@ that this result can be explained with respect to internal structure
 of the parametric model used in {\bf RQ3}. Using some algebraic manipulations of
 our effort estimation model,
 we can derive expressions from
- the (a)~the minimum and (b)~the
-maximum possible effort estimate from this model.
-By dividing these two expression, it is possible to create an fraction showing
+ the (a)~minimum and (b)~maximum possible effort estimate of this model.
+By dividing these two expressions, it is possible to create a fraction showing
 the relative effect of changing size estimates, or any other estimates, within this model.
 In that fraction:
 
@@ -418,7 +416,7 @@ that the predictions of human estimators are also Thus, an error in estimating t
 of the project can lead to drastic change in predicting the effort of the
 project.
 \ei
-This paper offers a  middle ground between those how claim size estimates are irrelevant and those
+This paper offers a  middle ground between those who claim size estimates are irrelevant and those
 who say they are fundamental to the estimation process.
  Like Walkerden, Jeffery, Kirsopp, and J{\o}rgensen  et al., we say that size estimates matter somewhat (see the {\bf RQ2} results).
  However, as suggested by Gates and Dijkstra, size estimates are   not vitally important to effort estimation
@@ -455,7 +453,7 @@ who say they are fundamental to the estimation process.
  
 As to the effect of bad ESP on human-generated estimates, we repeat the comments of
 J{\o}rgensen and Gruschke~\cite{jorgensen09}: the best way to reduce error
-in human-generated estimates is to not to fix bad ESP but to
+in human-generated estimates is to not fix bad ESP but to
 conduct lessons-learned sessions after each project. 
  
 As to the effects of bad ESP on  non-parametric models, it is
@@ -1250,7 +1248,7 @@ our ability to generate reasonably accurate early life cycle estimates, despite 
 \item
   From {\bf RQ1},
   we know that ESP errors seen in practice have limited
-  ranges. Looking at \fig{ea} and \fig{allerr} we can see many projects where the estimated
+  ranges. Looking at \fig{ea} and \fig{nasaloc} we can see many projects where the estimated
   size was close to the actual final system.
   
 \item
