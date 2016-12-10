@@ -1,4 +1,5 @@
 \documentclass[final,twocolumn]{elsarticle}
+\pdfoutput=1
 %\documentclass[final,twocolumn]{elsarticle}
 % \documentclass{sig-alternative}
 % \documentclass[conference]{IEEEtran}
@@ -449,8 +450,115 @@ who say they are fundamental to the estimation process.
  see~\cite{koc11b,Minku2013,garg15,me13a}.
 
  
-\input{Tables/cocomoParams}
  
+ \begin{figure*}[!t]
+{\scriptsize
+\begin{center}
+\begin{tabular}{|p{0.2in}|p{1.46in}|p{1.5in}|p{1.5in}|p{1.5in}|}\hline
+
+ & Definition & Low-end = \{1,2\}
+ &Medium =\{3,4\} &High-end= \{5,6\} \\\hline
+
+\multicolumn{1}{c}{~}\\
+
+\multicolumn{5}{l}{Scale factors:}\\\hline
+Flex   &  development flexibility   & development process
+rigorously defined & some guidelines, which can be relaxed & only
+general goals defined\\\hline
+
+Pmat    & process maturity  &  CMM level 1 &   CMM level 3  &  CMM level 5 \\\hline
+
+Prec & precedentedness  &  we have never built this kind
+of software before &    somewhat new &
+thoroughly familiar \\\hline
+
+Resl &  architecture or risk resolution  &  few interfaces
+defined or few risks eliminated  &  most interfaces defined or most
+risks eliminated   & all interfaces defined or all risks
+eliminated\\\hline
+
+Team  &   team cohesion  &  very difficult interactions &
+basically co-operative  &  seamless interactions\\\hline
+
+\multicolumn{1}{c}{~}\\
+
+\multicolumn{5}{l}{Effort multipliers}\\\hline
+acap  &  analyst capability  &  worst 35\% &   35\% - 90\% &  best 10\% \\\hline
+
+aexp   &  applications experience  &  2 months &   1 year  &  6 years\\\hline
+
+cplx   &  product complexity   & e.g. simple read/write
+statements & e.g. use of simple interface widgets  &  e.g.
+performance-critical embedded systems\\\hline
+
+data   &  database size 
+(DB bytes/SLOC) &
+10 & 100 &    1000 \\\hline
+
+docu   &  documentation   & many life-cycle phases not
+documented      & &  extensive reporting for each life-cycle phase\\\hline
+
+ltex   &  language and tool-set experience   & 2 months  &  1
+year & 6 years \\\hline
+
+pcap   &  programmer capability  &  worst 15\%   & 55\%  &  best 10\% \\\hline
+
+
+pcon   &  personnel continuity \newline
+(\% turnover per year) &
+    48\% &    12\%  & 3\% \\\hline
+
+plex   &  platform experience  &  2 months  &  1 year  &  6 years\\\hline
+
+
+pvol   &  platform volatility ($\frac{frequency~of~major~changes}{frequency~of~minor~changes}$) &
+$\frac{12~months}{1~month}$   & $\frac{6~months}{2~weeks}$ &
+$\frac{2~weeks}{2~days}$\\\hline
+
+
+
+rely   &  required
+reliability &   errors are slight inconvenience  &  errors are easily
+recoverable   & errors can risk human life\\\hline
+
+
+
+
+ruse   &  required
+reuse &   none &    multiple program  & multiple product lines\\\hline
+
+sced  &   dictated development\newline schedule &    deadlines moved to
+75\% of the original estimate &  no change
+&  deadlines moved back to  160\% of original estimate\\\hline
+
+site   &  multi-site development   & some contact: phone, mail&
+some email  &  interactive multi-media\\\hline
+
+stor  &   required \% of available
+RAM & N/A
+ &   50\% &  95\% \\\hline
+
+
+time  &   required \% of available CPU &
+N/A&     50\%
+   &  95\% \\\hline
+
+
+tool   &  use of software tools  &  edit,code,debug &&
+integrated with life cycle\\\hline
+
+\multicolumn{1}{c}{~}\\
+
+\multicolumn{5}{l}{Effort}\\\hline
+
+months & construction effort  in months& \multicolumn{3}{l|}{1 month =  152 hours (includes development \& management
+hours).  
+}\\\hline
+\end{tabular}
+\end{center}
+} \caption{COCOMO-II attributes.}
+\label{fig:cparems}
+\end{figure*}
 As to the effect of bad ESP on human-generated estimates, we repeat the comments of
 J{\o}rgensen and Gruschke~\cite{jorgensen09}: the best way to reduce error
 in human-generated estimates is to not fix bad ESP but to
@@ -888,8 +996,73 @@ studied by varying $\mathit{KLOC}$ as follows:
 where $n \in [0.2, 0.4, 0.6, 0.8, 1.0]$ is noise level we are exploring and $r$ is a random number
 $0 \le r \le 1$. 
 
-\input{Tables/sk}
 
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{figure}[!t]
+\begin{center}
+\caption{NASA10}
+\scriptsize
+\label{fig:nasa10}
+\begin{tabular}{|r|c|c|c|c|}
+\hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Name}}} & \multicolumn{2}{c|}{\textbf{Med}}     & \multicolumn{2}{c|}{\textbf{IQR}} \\ \cline{2-5} 
+\multicolumn{1}{|c|}{}                               & \textbf{Rank} & \textbf{Med} & \textbf{Rank} & \textbf{Med} \\ \hline
+    COCOMO2  & 1 & 43  & 1    & 1     \\ \cline{4-5}
+20\%:COCOMO2 & 1 & 41   & 2    & 13   \\ \cline{4-5}
+40\%:COCOMO2 & 1 & 41   & 3    & 28   \\ \cline{2-3}
+60\%:COCOMO2 & 2 & 46   & 3    & 34   \\ 
+80\%:COCOMO2 & 2 & 50  & 3    & 44  \\
+100\%:COCOMO2 & 2 & 68  & 3    & 49    \\ \hline         
+\end{tabular}
+
+
+\caption{COC05}
+\scriptsize
+\label{fig:coc05}
+\begin{tabular}{|r|c|c|c|c|}
+\hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Name}}} & \multicolumn{2}{c|}{\textbf{Med}}     & \multicolumn{2}{c|}{\textbf{IQR}} \\ \cline{2-5} 
+\multicolumn{1}{|c|}{}                               & \textbf{Rank} & \textbf{Med} & \textbf{Rank} & \textbf{Med} \\ \hline
+    COCOMO2  & 1 & 13   & 1    & 1     \\ \cline{4-5}
+20\%:COCOMO2 & 1 & 14   & 2    & 8    \\ 
+40\%:COCOMO2 & 1 & 19   & 2    & 14    \\ \cline{2-5}
+60\%:COCOMO2 & 2 & 24   & 3    & 25   \\ 
+80\%:COCOMO2 & 2 & 25   & 3    & 25   \\
+100\%:COCOMO2 & 2 & 26  & 3    & 30     \\ \hline    
+\end{tabular}
+
+\caption{NASA93}
+\scriptsize
+\label{fig:nasa93}
+\begin{tabular}{|r|c|c|c|c|}
+\hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Name}}} & \multicolumn{2}{c|}{\textbf{Med}}     & \multicolumn{2}{c|}{\textbf{IQR}} \\ \cline{2-5} 
+\multicolumn{1}{|c|}{}                               & \textbf{Rank} & \textbf{Med} & \textbf{Rank} & \textbf{Med} \\ \hline
+    COCOMO2  & 1 & 14   & 1    & 1     \\ \cline{4-5}
+20\%:COCOMO2 & 1 & 14   & 2    & 5  \\ \cline{4-5}
+40\%:COCOMO2 & 1 & 15   & 3    & 8   \\ \cline{4-5}
+60\%:COCOMO2 & 1 & 16   & 4    & 12   \\ \cline{2-3}
+80\%:COCOMO2 & 2 & 20   & 4    & 13   \\\cline{4-5}
+100\%:COCOMO2 & 2 & 27  & 5    & 19    \\ \hline  
+\end{tabular}
+
+\caption{COC81}
+\scriptsize
+\label{fig:coc81}
+\begin{tabular}{|r|c|c|c|c|}
+\hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Name}}} & \multicolumn{2}{c|}{\textbf{Med}}     & \multicolumn{2}{c|}{\textbf{IQR}} \\ \cline{2-5} 
+\multicolumn{1}{|c|}{}                               & \textbf{Rank} & \textbf{Med} & \textbf{Rank} & \textbf{Med} \\ \hline
+    COCOMO2  & 1 & 3   & 1    & 0     \\ \cline{4-5}
+20\%:COCOMO2 & 1 & 4   & 2    & 2   \\ \cline{4-5}
+40\%:COCOMO2 & 1 & 4   & 3    & 4   \\ \cline{2-5}
+60\%:COCOMO2 & 2 & 6   & 4    & 6   \\ \cline{4-5}
+80\%:COCOMO2 & 2 & 6   & 5    & 7   \\
+100\%:COCOMO2 & 2 & 8  & 5    & 8    \\ \hline        
+\end{tabular}
+\end{center}
+\end{figure}
 
 % \begin{equation}\label{eq:mre}
 % \mbox{$ \mathit{MRE}=\frac{abs(\mathit{actual} - \mathit{predicted})}{\mathit{actual}}$}

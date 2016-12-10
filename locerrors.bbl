@@ -1,0 +1,241 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{Albrecht83}
+A.~J. Albrecht, J.~E. Gaffney,
+  \href{http://dx.doi.org/10.1109/TSE.1983.235271}{Software function, source
+  lines of code, and development effort prediction: A software science
+  validation}, IEEE Trans. Softw. Eng. 9~(6) (1983) 639--648.
+\newblock \href {http://dx.doi.org/10.1109/TSE.1983.235271}
+  {\path{doi:10.1109/TSE.1983.235271}}.
+\newline\urlprefix\url{http://dx.doi.org/10.1109/TSE.1983.235271}
+
+\bibitem{boehm81}
+B.~Boehm, Software Engineering Economics, Prentice Hall, 1981.
+
+\bibitem{boehm00b}
+B.~Boehm, E.~Horowitz, R.~Madachy, D.~Reifer, B.~K. Clark, B.~Steece, A.~W.
+  Brown, S.~Chulani, C.~Abts, Software Cost Estimation with Cocomo II, Prentice
+  Hall, 2000.
+
+\bibitem{jorgensen09}
+M.~J{\o}rgensen, T.~M. Gruschke, The impact of lessons-learned sessions on
+  effort estimation and uncertainty assessments, Software Engineering, IEEE
+  Transactions on 35~(3) (2009) 368 --383.
+
+\bibitem{Menzies2016}
+T.~Menzies, Y.~Yang, G.~Mathew, B.~Boehm, J.~Hihn,
+  \href{http://dx.doi.org/10.1007/s10664-016-9472-2}{Negative results for
+  software effort estimation}, Empirical Software Engineering (2016) 1--26\href
+  {http://dx.doi.org/10.1007/s10664-016-9472-2}
+  {\path{doi:10.1007/s10664-016-9472-2}}.
+\newline\urlprefix\url{http://dx.doi.org/10.1007/s10664-016-9472-2}
+
+\bibitem{Menzies2016b}
+T.~Menzies, W.~Nichols, F.~Shull, L.~Layman,
+  \href{http://dx.doi.org/10.1007/s10664-016-9469-x}{Are delayed issues harder
+  to resolve? revisiting cost-to-fix of defects throughout the lifecycle},
+  Empirical Software Engineering (2016) 1--33\href
+  {http://dx.doi.org/10.1007/s10664-016-9469-x}
+  {\path{doi:10.1007/s10664-016-9469-x}}.
+\newline\urlprefix\url{http://dx.doi.org/10.1007/s10664-016-9469-x}
+
+\bibitem{passos11}
+C.~Passos, A.~P. Braun, D.~S. Cruzes, M.~Mendonca, Analyzing the impact of
+  beliefs in software project practices, in: ESEM'11, 2011, pp. 444--452.
+
+\bibitem{prem16}
+P.~Devanbu, T.~Zimmermann, C.~Bird, Belief \& evidence in empirical software
+  engineering, in: Proceedings of the 38th International Conference on Software
+  Engineering, ACM, 2016, pp. 108--119.
+
+\bibitem{betten14}
+N.~Bettenburg, M.~Nagappan, A.~E. Hassan,
+  \href{http://dx.doi.org/10.1007/s10664-013-9292-6}{Towards improving
+  statistical modeling of software engineering data: think locally, act
+  globally!}, Empirical Software Engineering (2014) 1--42\href
+  {http://dx.doi.org/10.1007/s10664-013-9292-6}
+  {\path{doi:10.1007/s10664-013-9292-6}}.
+\newline\urlprefix\url{http://dx.doi.org/10.1007/s10664-013-9292-6}
+
+\bibitem{yang13}
+Y.~Yang, Z.~He, K.~Mao, Q.~Li, V.~Nguyen, B.~W. Boehm, R.~Valerdi, Analyzing
+  and handling local bias for calibrating parametric cost estimation models,
+  Information {\&} Software Technology 55~(8) (2013) 1496--1511.
+
+\bibitem{me12d}
+T.~Menzies, A.~Butcher, D.~R. Cok, A.~Marcus, L.~Layman, F.~Shull, B.~Turhan,
+  T.~Zimmermann, Local versus global lessons for defect prediction and effort
+  estimation, IEEE Trans. Software Eng. 39~(6) (2013) 822--834, available from
+  \url{http://menzies.us/pdf/12localb.pdf}.
+
+\bibitem{ray2014lang}
+B.~Ray, D.~Posnett, V.~Filkov, P.~Devanbu, A large scale study of programming
+  languages and code quality in github, in: Proceedings of the ACM SIGSOFT 22nd
+  International Symposium on the Foundations of Software Engineering, FSE '14,
+  ACM, 2014, pp. 155--165.
+
+\bibitem{goll04}
+K.~Gollapudi, Function points or lines of code? - an insight (2004).
+
+\bibitem{dij88}
+E.~W. Dijkstra, On the cruelty of really teaching computing science,
+  \url{http://www.cs.utexas.edu/users/EWD/ewd10xx/EWD1036.PDF}, accessed:
+  2016-11-30 (1988).
+
+\bibitem{Walkerden1999}
+F.~Walkerden, R.~Jeffery, An empirical study of analogy-based software effort
+  estimation, Empirical Softw. Engg. 4~(2) (1999) 135--158.
+\newblock \href {http://dx.doi.org/http://dx.doi.org/10.1023/A:1009872202035}
+  {\path{doi:http://dx.doi.org/10.1023/A:1009872202035}}.
+
+\bibitem{kirsopp2003empirical}
+C.~Kirsopp, E.~Mendes, R.~Premraj, M.~Shepperd, An empirical analysis of linear
+  adaptation techniques for case-based prediction, in: International Conference
+  on Case-Based Reasoning, Springer, 2003, pp. 231--245.
+
+\bibitem{jorgensen2003software}
+M.~J{\o}rgensen, U.~Indahl, D.~Sj{\o}berg, Software effort estimation by
+  analogy and “regression toward the mean”, Journal of Systems and Software
+  68~(3) (2003) 253--262.
+
+\bibitem{shepperd1997estimating}
+M.~Shepperd, C.~Schofield, Estimating software project effort using analogies,
+  IEEE Transactions on software engineering 23~(11) (1997) 736--743.
+
+\bibitem{lum02}
+K.~Lum, J.~Powell, J.~Hihn, Validation of spacecraft software cost estimation
+  models for flight and ground systems.
+
+\bibitem{koc11b}
+E.~Kocaguneli, T.~Menzies, A.~Bener, J.~Keung, Exploiting the essential
+  assumptions of analogy-based effort estimation, IEEE Transactions on Software
+  Engineering 28 (2012) 425--438, available from
+  \url{http://menzies.us/pdf/11teak.pdf}.
+
+\bibitem{Minku2013}
+L.~L. Minku, X.~Yao, Ensembles and locality: Insight on improving software
+  effort estimation, Information and Software Technology 55~(8) (2013)
+  1512--1528.
+
+\bibitem{garg15}
+S.~Garg, D.~Gupta, Pca based cost estimation model for agile software
+  development projects, in: Industrial Engineering and Operations Management
+  (IEOM), 2015 International Conference on, 2015, pp. 1--7.
+\newblock \href {http://dx.doi.org/10.1109/IEOM.2015.7228109}
+  {\path{doi:10.1109/IEOM.2015.7228109}}.
+
+\bibitem{me13a}
+E.~Kocaguneli, T.~Menzies, J.~Keung, D.~Cok, R.~Madachy, Active learning and
+  effort estimation: Finding the essential content of software effort
+  estimation data, IEEE Transactions on Software Engineering 39~(8) (2013)
+  1040--1053.
+
+\bibitem{aha1991instance}
+D.~W. Aha, D.~Kibler, M.~K. Albert, Instance-based learning algorithms, Machine
+  learning 6~(1) (1991) 37--66.
+
+\bibitem{Kocaguneli2012z}
+E.~Kocaguneli, T.~Menzies, J.~Keung,
+  \href{http://dx.doi.org/10.1109/TSE.2011.111}{On the value of ensemble effort
+  estimation}, IEEE Trans. Softw. Eng. 38~(6) (2012) 1403--1416.
+\newblock \href {http://dx.doi.org/10.1109/TSE.2011.111}
+  {\path{doi:10.1109/TSE.2011.111}}.
+\newline\urlprefix\url{http://dx.doi.org/10.1109/TSE.2011.111}
+
+\bibitem{breiman2001random}
+L.~Breiman, Random forests, Machine learning 45~(1) (2001) 5--32.
+
+\bibitem{breiman1984classification}
+L.~Breiman, J.~Friedman, C.~J. Stone, R.~A. Olshen, Classification and
+  regression trees, CRC press, 1984.
+
+\bibitem{madachy2008comparative}
+R.~Madachy, B.~Boehm, Comparative analysis of cocomo ii, seer-sem and true-s
+  software cost models, Tech. Rep. USC-CSSE-2008-816, University of Southern
+  California (2008).
+
+\bibitem{valerdi11}
+R.~Valerdi, Convergence of expert opinion via the wideband delphi method, in:
+  21st Annual International Symposium of the International Council on Systems
+  Engineering, INCOSE 2011, 2011.
+
+\bibitem{Jorgensen2004}
+M.~Jorgensen, {A review of studies on expert estimation of software development
+  effort}, Journal of Systems and Software 70~(1-2) (2004) 37--60.
+\newblock \href {http://dx.doi.org/10.1016/S0164-1212(02)00156-5}
+  {\path{doi:10.1016/S0164-1212(02)00156-5}}.
+
+\bibitem{jorg15}
+M.~Jorgensen, The world is skewed: Ignorance, use, misuse, misunderstandings,
+  and how to improve uncertainty analyses in software development projects,
+  cREST workshop, 2015, http://goo.gl/0wFHLZ (2015).
+
+\bibitem{molokk08}
+K.~Molokken-Pstvold, N.~C. Haugen, H.~C. Benestad, Using planning poker for
+  combining expert estimates in software projects, Journal of Systems and
+  Software 81 (2008) 2106–2117.
+
+\bibitem{jones07a}
+P.~H. R.~Jones, Software code growth: A new approach based on an analysis of
+  historical actuals, in: DNI Cost Analysis Improvement Group, 2007.
+
+\bibitem{shepperd12a}
+M.~J. Shepperd, S.~G. MacDonell, Evaluating prediction systems in software
+  project estimation, Information {\&} Software Technology 54~(8) (2012)
+  820--827.
+
+\bibitem{mittas13}
+N.~Mittas, L.~Angelis, Ranking and clustering software cost estimation models
+  through a multiple comparisons algorithm, IEEE Trans. Software Eng. 39~(4)
+  (2013) 537--551.
+
+\bibitem{arcuri11}
+A.~Arcuri, L.~Briand, A practical guide for using statistical tests to assess
+  randomized algorithms in software engineering, in: ICSE'11, 2011, pp. 1--10.
+
+\bibitem{efron93}
+B.~Efron, R.~J. Tibshirani, An introduction to the bootstrap, Mono. Stat. Appl.
+  Probab., Chapman and Hall, London, 1993.
+
+\bibitem{kampenes07}
+V.~B. Kampenes, T.~Dyb{\aa}, J.~E. Hannay, D.~I.~K. Sj{\o}berg, A systematic
+  review of effect size in software engineering experiments, Information {\&}
+  Software Technology 49~(11-12) (2007) 1073--1086.
+
+\bibitem{kocharm13}
+E.~Kocaguneli, T.~Zimmermann, C.~Bird, N.~Nagappan, T.~Menzies, Distributed
+  development considered harmful?, in: ICSE, 2013, pp. 882--890.
+
+\bibitem{boehm00a}
+B.~Boehm, Safe and simple software cost analysis, IEEE Software (2000) 14--17.
+
+\bibitem{baker07}
+D.~Baker, A hybrid approach to expert and model-based effort estimation,
+  Master's thesis, Lane Department of Computer Science and Electrical
+  Engineering, West Virginia University, available from
+  \url{https://eidr.wvu.edu/etd/documentdata.eTD?documentid=5443} (2007).
+
+\bibitem{Chen:05}
+Z.~Chen, T.~Menzies, D.~Port, D.~Boehm, Finding the right data for software
+  cost modeling, IEEE Software 22~(6) (2005) 38--46.
+\newblock \href {http://dx.doi.org/10.1109/MS.2005.151}
+  {\path{doi:10.1109/MS.2005.151}}.
+
+\bibitem{Garlan:1994}
+D.~Garlan, M.~Shaw, An introduction to software architecture, Advances in
+  software engineering and knowledge engineering 1~(3.4).
+
+\bibitem{Parnas:1972}
+D.~L. Parnas, \href{http://doi.acm.org/10.1145/361598.361623}{On the criteria
+  to be used in decomposing systems into modules}, Commun. ACM 15~(12) (1972)
+  1053--1058.
+\newblock \href {http://dx.doi.org/10.1145/361598.361623}
+  {\path{doi:10.1145/361598.361623}}.
+\newline\urlprefix\url{http://doi.acm.org/10.1145/361598.361623}
+
+\end{thebibliography}
